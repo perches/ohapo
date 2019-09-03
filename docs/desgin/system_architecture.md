@@ -56,6 +56,18 @@
 - db:3033
 - swagger: 3039
 
+## ブランチ運用
+
+1. develop から feature ブランチを切る
+2. feature ブランチから develop にマージする
+3. リリースのタイミングで master にマージする
+
+- master
+- develop
+  - feature/your_feature_name1
+  - feature/your_feature_name2
+  - feature/your_feature_name3
+
 ## ライセンス
 
 - MIT
