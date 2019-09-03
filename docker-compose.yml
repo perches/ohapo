@@ -1,10 +1,11 @@
 version: "3.5"
 services:
   swagger:
+    container_name: shubun_swagger
     image: swaggerapi/swagger-ui
     volumes:
-      - ./swagger.yaml:/usr/share/nginx/html/swagger.yaml
+      - ./docs/api/swagger.yaml:/usr/share/nginx/html/swagger.yaml
     environment:
       API_URL: swagger.yaml
     ports:
-      - "3031:8080"
+      - "3039:8080"
