@@ -1,22 +1,20 @@
-# shubun_doc
+# shubun
 
-shunbun(仮)のドキュメント, 設計リポジトリ
+## Directory structure
 
-## システム構成図
-
-## Database 設計
-
-## API 定義
-
-コンテナを起動します。
+## Setup
 
 ```
-$ cd api
+$ docker-compose build # swaggerのみの間は不要
 $ docker-compose up
 ```
 
-以下より API 仕様を確認できます。
+- Swagger -> http://localhost:3039
 
-http://localhost:3031/
+## Test
 
-## 画面設計
+## Deployment
+
+## License
+
+MIT
