@@ -63,10 +63,12 @@
 
 1. develop から feature ブランチを切る
 2. feature ブランチから develop にマージする
-3. リリースのタイミングで master にマージする
+3. developの変更を検出して、CIでstaging環境にデプロイする
+4. リリースのタイミングで master にマージする
+5. masterの変更を検出して、CIでproduction環境にデプロイする
 
 - master
-- develop
+- develop(デフォルトブランチ)
   - feature/your_feature_name1
   - feature/your_feature_name2
   - feature/your_feature_name3
