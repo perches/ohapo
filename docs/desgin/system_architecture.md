@@ -29,12 +29,15 @@
   - React
     - Redux(状態管理)
     - Styled-Components(CSS in JS)
+    - Material-UI(UI コンポーネント)
   - Webpack(Build, devServer)
   - Nginx
+  - ESLint(静的解析)
 - Backend
   - Ruby on Rails 6.0
   - Unicorn
   - RSpec
+  - Rubocop(静的解析)
 - CI
   - CircleCI
   - Github
