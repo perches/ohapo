@@ -1,4 +1,3 @@
-# shubun_doc
+# shubun
 
-shunbun(仮)のドキュメント, 設計リポジトリ
 
