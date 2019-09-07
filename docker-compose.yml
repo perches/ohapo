@@ -1,5 +1,20 @@
 version: "3.5"
 services:
+  #  db:
+  #    image: postgres
+  #   volumes:
+  #      - ./tmp/db:/var/lib/postgresql/data
+  api:
+    build:
+      context: ./
+      dockerfile: ./etc/docker/api/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3031 -b '0.0.0.0'"
+    volumes:
+      - ./api/src:/app
+    ports:
+      - 3031:3031
+  #    depends_on:
+  #      - db
   swagger:
     container_name: shubun_swagger
     image: swaggerapi/swagger-ui
