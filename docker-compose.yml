@@ -7,7 +7,7 @@ services:
       dockerfile: ./etc/docker/frontend/Dockerfile
       target: build-stage
     volumes:
-      - ./frontend:/app:cached
+      - ./frontend/src:/app/src:cached
       - ./frontend/dist:/app/dist:z
   nginx:
     container_name: shubun_frontend_nginx
