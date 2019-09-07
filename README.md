@@ -2,11 +2,9 @@
 
 ## Directory structure
 
-
 ## Setup
 
 ```
-$ docker-compose run api rails new --api .
 $ docker-compose build # swaggerのみの間は不要
 $ docker-compose up
 ```
@@ -20,4 +18,3 @@ $ docker-compose up
 ## License
 
 MIT
-
