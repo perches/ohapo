@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-react": "^7.14.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --host=0.0.0.0 --hot --inline --watch-content-base --content-base public/ --open-page . --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint ."
+  }
+}
