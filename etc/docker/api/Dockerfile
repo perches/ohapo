@@ -1,6 +1,6 @@
 # Railsコンテナ用Dockerfile
 
-# イメジのベースラインにRuby2.5.1を指定
+# イメジのベースラインにRuby2.5を指定
 FROM ruby:2.5
 # Railsに必要なパッケージをインストール
 RUN apt-get update -qq && apt-get install -y nodejs
