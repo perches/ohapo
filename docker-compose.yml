@@ -9,8 +9,7 @@ services:
     volumes:
       - ./frontend:/app:cached
       - ./frontend/dist:/app/dist:z
-    command: yarn build -d --watch
-  client:
+  nginx:
     container_name: shubun_frontend_nginx
     build:
       context: .
