@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "dotenv-webpack": "^1.7.0",
     "react": "^16.9.0"
   },
   "devDependencies": {
