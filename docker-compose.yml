@@ -3,7 +3,8 @@ services:
   builder:
     container_name: shubun_frontend_builder
     build:
-      context: ./etc/docker/frontend
+      context: .
+      dockerfile: ./etc/docker/frontend/Dockerfile
       target: build-stage
     volumes:
       - ./frontend:/app:cached
@@ -12,7 +13,8 @@ services:
   client:
     container_name: shubun_frontend_nginx
     build:
-      context: ./etc/docker/frontend
+      context: .
+      dockerfile: ./etc/docker/frontend/Dockerfile
       target: production-stage
     volumes:
       - ./frontend/dist:/var/www/html/
