@@ -14,6 +14,7 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
+  TODO: SQLのパスワードを環境変数として持つように修正する
   password: password
   host: db
 
@@ -49,6 +50,7 @@ test:
 #
 production:
   <<: *default
+  TODO: サービス名が決まったらDB名を変更する
   database: app_production
   username: app
   password: <%= ENV['APP_DATABASE_PASSWORD'] %>

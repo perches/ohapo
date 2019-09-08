@@ -13,6 +13,16 @@ $ docker-compose up
 
 ## Test
 
+### API
+
+```
+全テストを実行
+$ doker-compose run --rm api rspec
+
+指定したテストを実行
+$ $ doker-compose run --rm api rspec -e [describe]
+```
+
 ## Deployment
 
 ## License

@@ -12,8 +12,8 @@ RUN mkdir /app
 WORKDIR /app
 
 # ローカルのGemfileとGemfile.lockをコピー
-COPY ./api/src/Gemfile /app/Gemfile
-COPY ./api/src/Gemfile.lock /app/Gemfile.lock
+COPY ./api/src/Gemfile ./Gemfile
+COPY ./api/src/Gemfile.lock ./Gemfile.lock
 # Gemのインストール実行
 RUN bundle install && \
     rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
