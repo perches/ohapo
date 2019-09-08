@@ -17,10 +17,10 @@ $ docker-compose up
 
 ```
 全テストを実行
-$ doker-compose run --rm api rspec
+$ docker-compose run --rm api rspec
 
 指定したテストを実行
-$ $ doker-compose run --rm api rspec -e [describe]
+$ docker-compose run --rm api rspec -e [describe]
 ```
 
 ## Deployment
