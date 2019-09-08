@@ -1,71 +1,70 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 
 info:
-  title: 'sample APIs'
-  version: '0.0.1'
+  title: "sample APIs"
+  version: "0.0.1"
 
 servers:
-  - url: 'http://localhost:3031/'
-    description: 'ローカル開発用 API'
+  - url: "http://localhost:3031/"
+    description: "ローカル開発用 API"
 
 # API仕様一覧
 paths:
-  '/healthcheck':
+  "/healthcheck":
     get:
       tags:
         - healthcheck
-      summary: '正常ならOKを返す'
+      summary: "正常ならOKを返す"
       responses:
-        '200':
-          description: '正常'
+        "200":
+          description: "正常"
           content:
-            'application/json':
+            "application/json":
               schema:
-                $ref: '#/components/schemas/HealthCheck'
-        '400':
-          $ref: '#/components/responses/UnexpectedError'
+                $ref: "#/components/schemas/HealthCheck"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
 
 # 扱うコンポーネント一覧
 components:
   schemas:
     Error:
-      description: 'エラー'
+      description: "エラー"
       type: object
       required:
         - message
         - code
       properties:
         message:
-          title: 'Err Msg'
+          title: "Err Msg"
           type: string
-          example: '予期しないエラーです'
+          example: "予期しないエラーです"
         code:
-          title: 'Status Code'
+          title: "Status Code"
           type: integer
           minimum: 100
           maximum: 600
           example: 400
     HealthCheck:
-      description: 'HealthCheck'
+      description: "HealthCheck"
       type: object
       required:
         - result
       properties:
         result:
-          title: 'result'
+          title: "result"
           type: string
-          example: 'ok'
+          example: "ok"
 
-
-# 汎用的に使うものはまとめておく
+  # 汎用的に使うものはまとめておく
   responses:
     UnexpectedError:
-      description: '予期しないエラー'
+      description: "予期しないエラー"
       content:
-        'application/json':
+        "application/json":
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
 
 tags:
   - name: healthcheck
-    description: 'HealthCheck機能'
+    description: "HealthCheck機能"
