@@ -7,13 +7,17 @@ RSpec.describe SamplesController, type: :request do
       get '/healthcheck'
     end
 
-    it "should return response status 200" do
-      expect(response).to have_http_status(200)
+    context "should return response" do
+      it "that status is 200" do
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'should return "ok"' do
-      json = JSON.parse(response.body)
-      expect(json['result']).to eq('ok')
+    context "should return string" do
+      it 'that return is "ok"' do
+        json = JSON.parse(response.body)
+        expect(json['result']).to eq('ok')
+      end
     end
   end
 end
