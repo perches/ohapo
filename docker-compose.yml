@@ -1,5 +1,29 @@
 version: "3.5"
 services:
+  api:
+    container_name: shubun_api
+    build:
+      context: ./
+      dockerfile: ./etc/docker/api/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./api/src:/app
+    ports:
+      - 3031:3000
+    depends_on:
+      - db
+  db:
+    container_name: shubun_db
+    build:
+      context: ./
+      dockerfile: ./etc/docker/db/Dockerfile
+    volumes:
+      - "./etc/docker/db/init:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "3303:3303"
   builder:
     container_name: shubun_frontend_builder
     build:

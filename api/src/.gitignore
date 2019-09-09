@@ -1,0 +1,12 @@
+/.bundle
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+/storage/*
+!/storage/.keep
+.byebug_history
+
+/config/master.key
