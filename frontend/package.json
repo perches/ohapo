@@ -1,0 +1,34 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv-webpack": "^1.7.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.3.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-react": "^7.14.3",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --host=0.0.0.0 --hot --inline --watch-content-base --content-base public/ --open-page . --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint ."
+  }
+}
