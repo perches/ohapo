@@ -14,7 +14,11 @@ services:
       - db
   db:
     container_name: shubun_db
-    image: mysql:5.7
+    build:
+      context: ./
+      dockerfile: ./etc/docker/db/Dockerfile
+    volumes:
+      - "./etc/docker/db/init:/docker-entrypoint-initdb.d"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
