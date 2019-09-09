@@ -24,6 +24,27 @@ services:
       MYSQL_DATABASE: root
     ports:
       - "3303:3303"
+  builder:
+    container_name: shubun_frontend_builder
+    build:
+      context: .
+      dockerfile: ./etc/docker/frontend/Dockerfile
+      target: build-stage
+    volumes:
+      - ./frontend/src:/app/src:cached
+      - ./frontend/dist:/app/dist:z
+  nginx:
+    container_name: shubun_frontend_nginx
+    build:
+      context: .
+      dockerfile: ./etc/docker/frontend/Dockerfile
+      target: production-stage
+    volumes:
+      - ./frontend/dist:/var/www/html/
+      - ./etc/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 3032:80
   swagger:
     container_name: shubun_swagger
     image: swaggerapi/swagger-ui
