@@ -27,13 +27,13 @@ class Home extends React.Component {
         >
           Health Check
         </Button>
-          {isLoading ? (
-              <p style={{ fontWeight: 900 }}>Loading...</p>
-          ) : error ? (
-            <p style={{ color: "#D42F30", fontWeight: 900 }}>ERROR</p>
-          ) : (
-            <p style={{ color: "#44A047", fontWeight: 900 }}>{healthCheckResult}</p>
-          )}
+        {isLoading ? (
+          <p style={{ fontWeight: 900 }}>Loading...</p>
+        ) : error ? (
+          <p style={{ color: "#D42F30", fontWeight: 900 }}>ERROR</p>
+        ) : (
+          <p style={{ color: "#44A047", fontWeight: 900 }}>{healthCheckResult}</p>
+        )}
       </>
     );
   }
