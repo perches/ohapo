@@ -23,7 +23,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
     ports:
-      - "3303:3303"
+      - "3033:3306"
   builder:
     container_name: ohapo_frontend_builder
     build:
