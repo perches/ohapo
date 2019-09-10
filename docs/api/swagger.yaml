@@ -1,12 +1,12 @@
 openapi: "3.0.2"
 
 info:
-  title: "sample APIs"
+  title: "ohapo API"
   version: "0.0.1"
 
 servers:
   - url: "http://localhost:3031/"
-    description: "ローカル開発用 API"
+    description: "ローカル環境 API"
 
 # API仕様一覧
 paths:
