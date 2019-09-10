@@ -37,5 +37,5 @@ export function put(path, params) {
 
 // TODO: 不要になったら削除する
 export const getForHealthCheck = path => {
-  return axios.get(`http://localhost${path}`);
+  return axios.get(`http://localhost:3031${path}`);
 };
