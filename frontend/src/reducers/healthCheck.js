@@ -5,31 +5,29 @@ import {
 } from "../actions/fetchHealthCheck";
 
 const initialState = {
-  healthCheck: null,
+  result: null,
   isLoading: false,
-  error: false,
-  initialDisplayFlag: true
+  error: false
 };
 
 export default function healthCheckReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_HEALTH_CHECK:
-      return Object.assign({}, state, {
-        isLoading: true,
-        initialDisplayFlag: false
-      });
-    case FETCH_HEALTH_CHECK_SUCCESS:
-      return Object.assign({}, state, {
-        healthCheck: action.payload,
-        isLoading: false,
-        error: false
-      });
-    case FETCH_HEALTH_CHECK_ERROR:
-      return Object.assign({}, state, {
-        isLoading: false,
-        error: true
-      });
-    default:
-      return state;
+  case FETCH_HEALTH_CHECK:
+    return Object.assign({}, state, {
+      isLoading: true,
+    });
+  case FETCH_HEALTH_CHECK_SUCCESS:
+    return Object.assign({}, state, {
+      result: action.payload.healthCheck.result,
+      isLoading: false,
+      error: false
+    });
+  case FETCH_HEALTH_CHECK_ERROR:
+    return Object.assign({}, state, {
+      isLoading: false,
+      error: true
+    });
+  default:
+    return state;
   }
 }
