@@ -20,14 +20,14 @@ default: &default
 
 development:
   <<: *default
-  database: app_development
+  database: ohapo_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: app_test
+  database: ohapo_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,7 +50,6 @@ test:
 #
 production:
   <<: *default
-  # TODO: サービス名が決まったらDB名を変更する
-  database: app_production
-  username: app
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  database: ohapo_production
+  username: root
+  password: <%= ENV['OHAPO_DATABASE_PASSWORD'] %>
