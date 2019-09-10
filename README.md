@@ -25,6 +25,15 @@ $ docker-compose up
 $ docker-compose exec builder yarn lint
 ```
 
+## api
+
+### Lint
+
+以下のコマンドで静的解析を実行します。
+```
+$ docker-compose run api rubocop
+```
+
 ## Test
 
 ### API
