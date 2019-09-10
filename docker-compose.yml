@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   api:
-    container_name: shubun_api
+    container_name: ohapo_api
     build:
       context: ./
       dockerfile: ./etc/docker/api/Dockerfile
@@ -13,7 +13,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: shubun_db
+    container_name: ohapo_db
     build:
       context: ./
       dockerfile: ./etc/docker/db/Dockerfile
@@ -25,7 +25,7 @@ services:
     ports:
       - "3303:3303"
   builder:
-    container_name: shubun_frontend_builder
+    container_name: ohapo_frontend_builder
     build:
       context: .
       dockerfile: ./etc/docker/frontend/Dockerfile
@@ -34,7 +34,7 @@ services:
       - ./frontend/src:/app/src:cached
       - ./frontend/dist:/app/dist:z
   nginx:
-    container_name: shubun_frontend_nginx
+    container_name: ohapo_frontend_nginx
     build:
       context: .
       dockerfile: ./etc/docker/frontend/Dockerfile
@@ -46,7 +46,7 @@ services:
     ports:
       - 3032:80
   swagger:
-    container_name: shubun_swagger
+    container_name: ohapo_swagger
     image: swaggerapi/swagger-ui
     volumes:
       - ./docs/api/swagger.yaml:/usr/share/nginx/html/swagger.yaml
