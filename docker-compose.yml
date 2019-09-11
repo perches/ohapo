@@ -20,8 +20,9 @@ services:
     volumes:
       - "./etc/docker/db/init:/docker-entrypoint-initdb.d"
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
+      # MYSQL_USER: ${MYSQL_USER}
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3033:3306"
   builder:
