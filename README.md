@@ -12,22 +12,14 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-- frontend -> http://localhost:3032
+- API -> http://localhost:3031
+- Frontend -> http://localhost:3032
+- Database -> http://localhost:3033
 - Swagger -> http://localhost:3039
 
-## frontend
+## API
 
-### Lint
-
-以下のコマンドで静的解析を実行します。
-
-```
-$ docker-compose exec builder yarn lint
-```
-
-## Test
-
-### API
+### Test
 
 ```
 全テストを実行
@@ -35,6 +27,16 @@ $ docker-compose run --rm api rspec
 
 指定したテストを実行
 $ docker-compose run --rm api rspec -e [describe]
+```
+
+## Frontend
+
+### Lint
+
+以下のコマンドで静的解析を実行します。
+
+```
+$ docker-compose exec builder yarn lint
 ```
 
 ## Deployment
