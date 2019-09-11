@@ -5,6 +5,7 @@ services:
     build:
       context: ./
       dockerfile: ./etc/docker/api/Dockerfile
+    restart: on-failure[1]
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./api/src:/app
@@ -20,8 +21,6 @@ services:
     volumes:
       - "./etc/docker/db/init:/docker-entrypoint-initdb.d"
     environment:
-      # MYSQL_USER: ${MYSQL_USER}
-      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3033:3306"

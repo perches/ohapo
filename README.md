@@ -12,6 +12,18 @@ $ docker-compose build
 $ docker-compose up
 ```
 
+### 環境変数
+
+DB 接続に関するパスワード等を自由に設定して、下記のディレクトリに配置します
+
+```/.env
+MYSQL_ROOT_PASSWORD=password
+```
+
+```/api/src/.env
+MYSQL_ROOT_PASSWORD=password
+```
+
 - frontend -> http://localhost:3032
 - Swagger -> http://localhost:3039
 
