@@ -32,6 +32,9 @@ $ docker-compose exec builder yarn lint
 以下のコマンドで静的解析を実行します。
 ```
 $ docker-compose run api rubocop
+自動で修正
+$ docker-compose run api rubocop --auto-correct 
+
 ```
 
 ## Test
