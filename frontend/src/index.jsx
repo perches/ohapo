@@ -1,14 +1,20 @@
 import React from "react";
 import { render } from "react-dom";
 import { createGlobalStyle } from "styled-components";
+import { Provider } from "react-redux";
+import configureStore from "./configureStore";
 import Home from "./App/Home";
+
+const store = configureStore();
 
 class App extends React.Component {
   render() {
     return (
       <>
         <GlobalStyle />
-        <Home />
+        <Provider store={store}>
+          <Home />
+        </Provider>
       </>
     );
   }
