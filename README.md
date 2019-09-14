@@ -8,6 +8,7 @@ TODO: 環境構築が全部できたら書く
 
 ```
 $ cp frontend/.env.default frontend/.env
+$ cp api/src/.env.default api/src/.env 
 $ docker-compose build
 $ docker-compose up
 ```
