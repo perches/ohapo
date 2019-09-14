@@ -1,9 +1,5 @@
 # ohapo
 
-## Directory structure
-
-TODO: 環境構築が全部できたら書く
-
 ## Setup
 
 ```
@@ -40,6 +36,14 @@ $ docker-compose exec builder yarn lint
 ```
 
 ## Deployment
+
+## System Architecture
+
+![](https://i.imgur.com/4Cn3A4k.png)
+
+## Directory Structure
+
+TODO: 環境構築が全部できたら書く
 
 ## License
 
