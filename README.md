@@ -39,7 +39,7 @@ $ docker-compose exec builder yarn lint
 
 ## System Architecture
 
-![](https://i.imgur.com/4Cn3A4k.png)
+![Architecture](https://i.imgur.com/U5jX0XJ.png)
 
 ## Directory Structure
 
