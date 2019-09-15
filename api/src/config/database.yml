@@ -14,7 +14,6 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  # TODO: SQLのパスワードを環境変数として持つように修正する
   password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
   host: db
 
