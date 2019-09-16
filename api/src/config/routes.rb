@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get 'healthcheck', to: 'samples#healthcheck'
+  get "healthcheck", to: "samples#healthcheck"
 end
