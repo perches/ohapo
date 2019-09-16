@@ -15,9 +15,13 @@ WORKDIR /app
 COPY ./api/src/Gemfile ./Gemfile
 COPY ./api/src/Gemfile.lock ./Gemfile.lock
 # Gemのインストール実行
+# RUN bundle install
 RUN bundle install && \
-    rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
-    apk del libxml2-dev curl-dev make gcc libc-dev g++
+    rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/*
+# apk del libxml2-dev curl-dev make gcc libc-dev g++
+
+# docker-compose run rails bundle install
+# docker-compose run api bundle install --path /app/vendor/bundle
 
 # ローカルのsrcをコピー
 COPY ./api/src /app
