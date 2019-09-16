@@ -55,3 +55,7 @@ services:
       API_URL: swagger.yaml
     ports:
       - "3039:8080"
+
+volumes:
+  bundle:
+    driver: local
