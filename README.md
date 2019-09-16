@@ -25,6 +25,14 @@ $ docker-compose run --rm api rspec
 $ docker-compose run --rm api rspec -e [describe]
 ```
 
+### Lint
+
+以下のコマンドで静的解析を実行します。
+
+```
+$ docker-compose run --rm api rubocop
+```
+
 ## Frontend
 
 ### Lint
@@ -33,16 +41,6 @@ $ docker-compose run --rm api rspec -e [describe]
 
 ```
 $ docker-compose exec builder yarn lint
-```
-
-## api
-
-### Lint
-
-以下のコマンドで静的解析を実行します。
-
-```
-$ docker-compose run --rm api rubocop
 ```
 
 ## Deployment
