@@ -17,8 +17,8 @@ COPY ./api/src/Gemfile.lock ./Gemfile.lock
 
 # Gemのインストール実行
 RUN gem install bundler --no-document && \
-    bundle install && \
     rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/*
+# bundle install && \
 # apk del libxml2-dev curl-dev make gcc libc-dev g++
 
 # ローカルのsrcをコピー
