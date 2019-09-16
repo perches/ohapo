@@ -32,7 +32,7 @@ $ docker-compose exec builder yarn lint
 以下のコマンドで静的解析を実行します。
 
 ```
-$ docker-compose run api rubocop
+$ docker-compose run --rm api rubocop
 ```
 
 ## Test
