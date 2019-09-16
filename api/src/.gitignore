@@ -10,3 +10,6 @@
 .byebug_history
 
 /config/master.key
+
+.env*
+!.env.default
