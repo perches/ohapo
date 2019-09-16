@@ -9,11 +9,7 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./api/src:/app
-<<<<<<< HEAD
       - bundle:/usr/local/bundle:cached
-=======
-      - ./api/src/vendor/bundle:/app/vendor/bundle:cached
->>>>>>> 0947eb08345e80329cc3f036b571d0fd2d0d0b28
     ports:
       - 3031:3000
     depends_on:
