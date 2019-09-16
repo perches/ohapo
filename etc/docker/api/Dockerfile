@@ -14,7 +14,6 @@ WORKDIR /app
 # ローカルのGemfileとGemfile.lock、bundleをコピー
 COPY ./api/src/Gemfile ./Gemfile
 COPY ./api/src/Gemfile.lock ./Gemfile.lock
-# COPY ./api/src/vendor/bundle /usr/local/bundle
 
 # Gemのインストール実行
 RUN gem install bundler --no-document && \

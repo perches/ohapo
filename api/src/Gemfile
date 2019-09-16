@@ -11,8 +11,6 @@ gem "rails", "~> 6.0.0"
 gem "mysql2", ">= 0.4.4"
 gem "puma", "~> 3.11"
 gem "bootsnap", ">= 1.4.2", require: false
-# gem "omniauth-facebook"
-# gem 'devise'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
