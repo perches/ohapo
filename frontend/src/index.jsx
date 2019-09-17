@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import configureStore from "./configureStore";
 import { theme } from "./consts/theme";
 import Home from "./App/Home";
@@ -15,7 +16,9 @@ class App extends React.Component {
         <GlobalStyle />
         <Provider store={store}>
           <MuiThemeProvider theme={theme}>
-            <Home />
+            <Content>
+              <Home />
+            </Content>
           </MuiThemeProvider>
         </Provider>
       </>
@@ -30,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Noto Sans JP', sans-serif;
   }
+`;
+
+const Content = styled.div`
+  margin: 10px;
 `;
 
 render(<App />, document.getElementById("root"));
