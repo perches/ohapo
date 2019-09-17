@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
+import { theme } from "./consts/theme";
 import Home from "./App/Home";
 
 const store = configureStore();
@@ -13,7 +14,9 @@ class App extends React.Component {
       <>
         <GlobalStyle />
         <Provider store={store}>
-          <Home />
+          <MuiThemeProvider theme={theme}>
+            <Home />
+          </MuiThemeProvider>
         </Provider>
       </>
     );
