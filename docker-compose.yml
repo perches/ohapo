@@ -9,6 +9,7 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./api/src:/app
+      - bundle:/usr/local/bundle:cached
     ports:
       - 3031:3000
     depends_on:
@@ -54,3 +55,7 @@ services:
       API_URL: swagger.yaml
     ports:
       - "3039:8080"
+
+volumes:
+  bundle:
+    driver: local
