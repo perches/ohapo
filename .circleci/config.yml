@@ -38,6 +38,6 @@ jobs:
 
 workflows:
   version: 2
-  workflows:
-    jobs:
-      - test
+  test_and_analyse:
+    jobs:
+      - test
