@@ -1,0 +1,40 @@
+version: 2
+
+jobs:
+  test:
+    machine:
+      image: circleci/classic:edge
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+          name: cp env
+          command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
+      - run:
+          name: docker-compose run --rm api rspec
+          command: |
+            set -x
+            docker-compose run --rm api rspec
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+  # staticAnalysisApi:
+  # test:
+  # staticAnalysisFrontend:
+
+# $ cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
+# $ docker-compose build
+# $ docker-compose run --rm api bundle install
+# $ docker-compose up
+
+workflows:
+  version: 2
+  workflows:
+    jobs:
+      - test
