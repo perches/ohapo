@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     machine:
       image: circleci/classic:edge
     working_directory: ~/repo
@@ -39,5 +39,4 @@ jobs:
 workflows:
   version: 2
   test_and_analyse:
-    jobs:
-      - test
+    jobs: build
