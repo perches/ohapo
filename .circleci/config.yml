@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     machine:
       image: circleci/classic:edge
     working_directory: ~/repo
@@ -35,9 +35,9 @@ jobs:
 # $ docker-compose build
 # $ docker-compose run --rm api bundle install
 # $ docker-compose up
+#
 
 workflows:
   version: 2
   test_and_analyse:
-    jobs:
-      - test
+    jobs: build
