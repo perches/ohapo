@@ -3,95 +3,70 @@ jobs:
   build:
     machine:
       image: &circleci_image circleci/classic:edge
+      # docker_layer_caching: true
     working_directory: &wd ~/repo
     steps:
-      - restore_cache:
-          keys:
-            - source-v1-{{ .Branch }}-{{ .Revision }}
-            - source-v1-{{ .Branch }}-
-            - source-v1-
       - checkout
-      # - run:
-      #     name: Setup dockerize
-      #     command: bash .circleci/setup-dockerize.sh
+      - restore_cache:
+          # keys:
+          #   - source-v1-{{ .Branch }}-{{ .Revision }}
+          #   - source-v1-{{ .Branch }}-
+          #   - source-v1-
+          key: docker-{{ checksum ".circleci/config.yml" }}-{{ checksum "docker-compose.yml" }}-{{ checksum "./etc/docker/api/Dockerfile" }}-{{ checksum "./etc/docker/db/Dockerfile" }}-{{ checksum "./etc/docker/frontend/Dockerfile" }}
+          paths: ~/caches/images.tar
+
       - run:
           name: 環境変数のコピー
           command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
+
       - run:
           name: ビルド開始（docker-compose build）
           command: |
             set -x
             docker-compose -f ./docker-compose-circleci.yml build
+
       - run:
-          name: docker-compose up
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml up -d
-      # - run:
-      #     name: Wait for db
-      #     command: dockerize -wait tcp://localhost:3303 -timeout 1m
+          name: mysql を先に起動
+          command: docker-compose -f ./docker-compose-circleci.yml up -d db & sleep 10
       - run:
           name: bundleインストール(API)
           command: |
             set -x
             docker-compose -f ./docker-compose-circleci.yml run api bundle install
-      - save_cache:
-          key: source-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".git"
 
-  staticAnalysisApi:
-    machine:
-      image: *circleci_image
-    working_directory: *wd
-    steps:
       - run:
-          name: docker-compose -f ./docker-compose-circleci.yml run --rm api rubocop
+          name: docker-compose up
+          command: |
+            set -x
+            docker-compose -f ./docker-compose-circleci.yml up -d
+
+      - run:
+          name: APIのテスト実行
+          command: |
+            set -x
+            docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
+
+      - run:
+          name: APIの静的解析
           command: |
             set -x
             docker-compose -f ./docker-compose-circleci.yml run --rm api rubocop
 
-  testApi:
-    machine:
-      image: *circleci_image
-    working_directory: *wd
-    steps:
       - run:
-          name: docker-compose up -d -f ./docker-compose-circleci.yml
-          command: |
-            set -x
-            docker-compose up -d -f ./docker-compose-circleci.yml
-      - run:
-          name: docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
-      - run:
-          name: docker-compose -f ./docker-compose-circleci.yml down
-          command: docker-compose -f ./docker-compose-circleci.yml down
-
-  staticAnalysisFrontend:
-    machine:
-      image: *circleci_image
-    working_directory: *wd
-    steps:
-      - run:
-          name: docker-compose -f ./docker-compose-circleci.yml exec builder yarn lint
+          name: Frontendの静的解析
           command: |
             set -x
             docker-compose -f ./docker-compose-circleci.yml exec builder yarn lint
+
+      - save_cache:
+          # key: source-v1-{{ .Branch }}-{{ .Revision }}
+          # paths:
+          #   - ".git"
+          key: docker-{{ checksum ".circleci/config.yml" }}-{{ checksum "docker-compose.yml" }}-{{ checksum "./etc/docker/api/Dockerfile" }}-{{ checksum "./etc/docker/db/Dockerfile" }}-{{ checksum "./etc/docker/frontend/Dockerfile" }}
+          paths: ~/caches/images.tar
 
 workflows:
   version: 2
   test_and_analyse:
     jobs:
       - &build build
-      - testApi:
-          requires:
-            - *build
-      - staticAnalysisApi:
-          requires:
-            - *build
-      - staticAnalysisFrontend:
-          requires:
-            - *build
