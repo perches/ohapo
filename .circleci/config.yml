@@ -10,15 +10,15 @@ jobs:
           name: cp env
           command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
       - run:
-          name: docker-compose build
+          name: docker-compose -f ./docker-compose-circleci.yml build
           command: |
             set -x
-            docker-compose build
+            docker-compose -f ./docker-compose-circleci.yml build
       - run:
-          name: docker-compose run --rm api bundle install
+          name: docker-compose -f ./docker-compose-circleci.yml run --rm api bundle install
           command: |
             set -x
-            docker-compose run --rm api bundle install
+            docker-compose -f ./docker-compose-circleci.yml run --rm api bundle install
       # - run:
       #     name: docker-compose up
       #     command: |
@@ -31,10 +31,10 @@ jobs:
     working_directory: *wd
     steps:
       - run:
-          name: docker-compose run --rm api rubocop
+          name: docker-compose -f ./docker-compose-circleci.yml run --rm api rubocop
           command: |
             set -x
-            docker-compose run --rm api rubocop
+            docker-compose -f ./docker-compose-circleci.yml run --rm api rubocop
 
   testApi:
     machine:
@@ -42,18 +42,18 @@ jobs:
     working_directory: *wd
     steps:
       - run:
-          name: docker-compose up
+          name: docker-compose up -f ./docker-compose-circleci.yml
           command: |
             set -x
-            docker-compose up
+            docker-compose up -f ./docker-compose-circleci.yml
       - run:
-          name: docker-compose run --rm api rspec
+          name: docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
           command: |
             set -x
-            docker-compose run --rm api rspec
+            docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
       - run:
-          name: docker-compose down
-          command: docker-compose down
+          name: docker-compose -f ./docker-compose-circleci.yml down
+          command: docker-compose -f ./docker-compose-circleci.yml down
 
   staticAnalysisFrontend:
     machine:
@@ -61,10 +61,10 @@ jobs:
     working_directory: *wd
     steps:
       - run:
-          name: docker-compose exec builder yarn lint
+          name: docker-compose -f ./docker-compose-circleci.yml exec builder yarn lint
           command: |
             set -x
-            docker-compose exec builder yarn lint
+            docker-compose -f ./docker-compose-circleci.yml exec builder yarn lint
 
 workflows:
   version: 2

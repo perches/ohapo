@@ -30,7 +30,6 @@ services:
     build:
       context: .
       dockerfile: ./etc/docker/frontend/Dockerfile
-      target: build-stage
     volumes:
       - ./frontend/src:/app/src:cached
       - ./frontend/dist:/app/dist:z
@@ -39,7 +38,6 @@ services:
     build:
       context: .
       dockerfile: ./etc/docker/frontend/Dockerfile
-      target: production-stage
     volumes:
       - ./frontend/dist:/var/www/html/
       - ./etc/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
