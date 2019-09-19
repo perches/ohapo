@@ -5,6 +5,11 @@ jobs:
       image: &circleci_image circleci/classic:edge
     working_directory: &wd ~/repo
     steps:
+      - restore_cache:
+          keys:
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
       - checkout
       - run:
           name: 環境変数のコピー
@@ -13,17 +18,21 @@ jobs:
           name: ビルド開始（docker-compose build）
           command: |
             set -x
-            docker-compose -f ./docker-compose-circleci.yml build --no-cache
+            docker-compose -f ./docker-compose-circleci.yml build
       - run:
           name: bundleインストール(API)
           command: |
             set -x
-            docker-compose -f ./docker-compose-circleci.yml run --rm api bundle install
+            docker-compose -f ./docker-compose-circleci.yml exec api bundle install
       # - run:
       #     name: docker-compose up
       #     command: |
       #       set -x
       #       docker-compose up
+      - save_cache:
+          key: source-v1-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
 
   staticAnalysisApi:
     machine:
