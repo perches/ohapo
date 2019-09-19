@@ -10,10 +10,10 @@ jobs:
           name: cp env
           command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
       - run:
-          name: docker-compose -f ./docker-compose-circleci.yml build
+          name: docker-compose -f ./docker-compose-circleci.yml build --no-cache
           command: |
             set -x
-            docker-compose -f ./docker-compose-circleci.yml build
+            docker-compose -f ./docker-compose-circleci.yml build --no-cache
       - run:
           name: dbコンテナ起動時のラグ対策
           command: |
