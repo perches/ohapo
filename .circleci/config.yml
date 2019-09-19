@@ -11,9 +11,9 @@ jobs:
             - source-v1-{{ .Branch }}-
             - source-v1-
       - checkout
-      - run:
-          name: Setup dockerize
-          command: bash .circleci/setup-dockerize.sh
+      # - run:
+      #     name: Setup dockerize
+      #     command: bash .circleci/setup-dockerize.sh
       - run:
           name: 環境変数のコピー
           command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
@@ -27,9 +27,9 @@ jobs:
           command: |
             set -x
             docker-compose -f ./docker-compose-circleci.yml up -d
-      - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:3303 -timeout 1m
+      # - run:
+      #     name: Wait for db
+      #     command: dockerize -wait tcp://localhost:3303 -timeout 1m
       - run:
           name: bundleインストール(API)
           command: |
