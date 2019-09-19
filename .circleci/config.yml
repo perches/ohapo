@@ -2,42 +2,81 @@ version: 2
 jobs:
   build:
     machine:
-      image: circleci/classic:edge
-    working_directory: ~/repo
+      image: &circleci_image circleci/classic:edge
+    working_directory: &wd ~/repo
     steps:
       - checkout
+      - run:
+          name: cp env
+          command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
+      - run:
+          name: docker-compose build
+          command: |
+            set -x
+            docker-compose build
+      - run:
+          name: docker-compose run --rm api bundle install
+          command: |
+            set -x
+            docker-compose run --rm api bundle install
       # - run:
-      #     name: Install Docker Compose
-      #     command: |
-      #       curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-      #       chmod +x ~/docker-compose
-      #       sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      # - run:
-      #     name: cp env
-      #     command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
-      # - run:
-      #     name: docker-compose build
+      #     name: docker-compose up
       #     command: |
       #       set -x
-      #       docker-compose build
-      # - run:
-      #     name: docker-compose run --rm api rspec
-      #     command: |
-      #       set -x
-      #       docker-compose run --rm api rspec
-      # - run:
-      #     name: docker-compose down
-      #     command: docker-compose down
-  # staticAnalysisApi:
-  # test:
-  # staticAnalysisFrontend:
-# $ cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
-# $ docker-compose build
-# $ docker-compose run --rm api bundle install
-# $ docker-compose up
-#
+      #       docker-compose up
+
+  staticAnalysisApi:
+    machine:
+      image: *circleci_image
+    working_directory: *wd
+    steps:
+      - run:
+          name: docker-compose run --rm api rubocop
+          command: |
+            set -x
+            docker-compose run --rm api rubocop
+
+  testApi:
+    machine:
+      image: *circleci_image
+    working_directory: *wd
+    steps:
+      - run:
+          name: docker-compose up
+          command: |
+            set -x
+            docker-compose up
+      - run:
+          name: docker-compose run --rm api rspec
+          command: |
+            set -x
+            docker-compose run --rm api rspec
+      - run:
+          name: docker-compose down
+          command: docker-compose down
+
+  staticAnalysisFrontend:
+    machine:
+      image: *circleci_image
+    working_directory: *wd
+    steps:
+      - run:
+          name: docker-compose exec builder yarn lint
+          command: |
+            set -x
+            docker-compose exec builder yarn lint
 
 workflows:
   version: 2
-  test_and_analyse:
-    jobs: build
+  test_and_analyse:
+    jobs:
+      - &build build
+      - testApi:
+          requires:
+            - *build
+      - staticAnalysisApi:
+          requires:
+            - *build
+      - staticAnalysisFrontend:
+          requires:
+            - *build
