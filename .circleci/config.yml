@@ -20,15 +20,18 @@ jobs:
             set -x
             docker-compose -f ./docker-compose-circleci.yml build
       - run:
+          name: docker-compose up
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3303 -timeout 1m
+      - run:
           name: bundleインストール(API)
           command: |
             set -x
-            docker-compose -f ./docker-compose-circleci.yml exec api bundle install
-      # - run:
-      #     name: docker-compose up
-      #     command: |
-      #       set -x
-      #       docker-compose up
+            docker-compose -f ./docker-compose-circleci.yml run api bundle install
       - save_cache:
           key: source-v1-{{ .Branch }}-{{ .Revision }}
           paths:
