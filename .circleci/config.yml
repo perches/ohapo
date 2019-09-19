@@ -15,6 +15,11 @@ jobs:
             set -x
             docker-compose -f ./docker-compose-circleci.yml build
       - run:
+          name: dbコンテナ起動時のラグ対策
+          command: |
+            set -x
+            docker-compose -f ./docker-compose-circleci.yml up db
+      - run:
           name: docker-compose -f ./docker-compose-circleci.yml run --rm api bundle install
           command: |
             set -x
