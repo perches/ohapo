@@ -14,8 +14,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - 3031:3000
-    depends_on:
-      - db
   db:
     container_name: ohapo_db
     build:
