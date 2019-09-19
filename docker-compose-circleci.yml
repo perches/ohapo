@@ -10,6 +10,8 @@ services:
     volumes:
       - ./api/src:/app
       - bundle:/usr/local/bundle:cached
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - 3031:3000
     depends_on:

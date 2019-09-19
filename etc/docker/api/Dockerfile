@@ -5,7 +5,7 @@ FROM ruby:2.6.4-alpine
 # Railsに必要なパッケージをインストール
 RUN apk update && \
     apk add --update nodejs nodejs-npm && \
-    apk add --no-cache bash tzdata libxml2-dev curl-dev make gcc libc-dev g++ mariadb-dev
+    apk add --no-cache bash tzdata libxml2-dev curl-dev make gcc libc-dev g++ mariadb-dev mysql-client
 # ルートディレクトリを作成
 RUN mkdir /app
 # 作業ディレクトリを指定
