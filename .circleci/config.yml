@@ -59,15 +59,14 @@ jobs:
           command: bundle -v
       # Restore bundle cache
       - restore_cache:
-          keys:
-            - api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          keys: api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           name: Bundle Install
           command: bundle check || bundle install
           working_directory: api
       # Store bundle cache
       - save_cache:
-          - api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
       - run:
