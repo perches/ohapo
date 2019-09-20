@@ -43,7 +43,7 @@ jobs:
           name: Build
           command: yarn build
           working_directory: frontend
-  api_build:
+  api_bundle_dependencies:
     docker:
     - image: circleci/ruby:2.6.4-stretch
       environment:
@@ -70,20 +70,6 @@ jobs:
           key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
           paths:
             - api/src/vendor/bundle
-      - run:
-          name: Setup dockerize
-          command: bash .circleci/setup-dockerize.sh
-      - run:
-          name: wait mysql
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
-      - run:
-          name: create databse
-          command: bundle exec rails db:create
-          working_directory: api/src
-      - run:
-          name: migrate databse
-          command: bundle exec rails db:migrate
-          working_directory: api/src
       - persist_to_workspace:
           root: api/src
           paths:
@@ -129,6 +115,20 @@ jobs:
           command: bundle --path vendor/bundle
           working_directory: api/src
       - run:
+          name: Setup dockerize
+          command: bash .circleci/setup-dockerize.sh
+      - run:
+          name: wait mysql
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      - run:
+          name: create databse
+          command: bundle exec rails db:create
+          working_directory: api/src
+      - run:
+          name: migrate databse
+          command: bundle exec rails db:migrate
+          working_directory: api/src
+      - run:
           name: rspec test
           command: bundle exec rspec
           working_directory: api/src
@@ -145,10 +145,10 @@ workflows:
             - frontend_lint
   api:
     jobs:
-      - api_build
+      - bundle_dependencies
       - api_rubocop:
           requires:
-            - api_build
+            - bundle_dependencies
       - api_test:
           requires:
             - api_rubocop
