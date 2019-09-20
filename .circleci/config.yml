@@ -44,7 +44,7 @@ jobs:
           command: yarn build
           working_directory: frontend
   api_build:
-    working_directory: ~/pring-api
+    working_directory: ~/workspacei
     docker:
       - image: circleci/ruby:2.6.4-stretch
         environment:
