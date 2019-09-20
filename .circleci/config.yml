@@ -103,8 +103,8 @@ jobs:
       - attach_workspace:
           at: api/src
       - run:
-          name: for debug
-          command: ls -la api/src && echo ========== && ls -la api/src/vendor && echo ========== && ls -la api/src/vendor/bundle
+          name: Repath bundle
+          command: bundle --path vendor/bundle
       - run:
           name: Rubocop
           command: bundle exec rubocop
@@ -123,6 +123,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: api/src
+      - run:
+          name: Repath bundle
+          command: bundle --path vendor/bundle
       - run:
           name: rspec test
           command: bundle exec rspec
