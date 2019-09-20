@@ -1,11 +1,15 @@
-defaults: &defaults
+frontend_defaults: &defaults
   docker:
     - image: circleci/node:12.4.0
+
+# api_defaults: &defaults
+#   docker:
+#     - image: circleci/ruby:2.5.5-stretch
 
 version: 2
 jobs:
   prepare:
-    <<: *defaults
+    <<: *frontend_defaults
     working_directory: ~/workspace
     steps:
       - checkout
@@ -23,7 +27,7 @@ jobs:
           paths:
             - node_modules
   lint:
-    <<: *defaults
+    <<: *frontend_defaults
     working_directory: ~/workspace
     steps:
       - checkout
@@ -34,7 +38,7 @@ jobs:
           command: yarn lint
           working_directory: frontend
   build:
-    <<: *defaults
+    <<: *frontend_defaults
     working_directory: ~/workspace
     steps:
       - checkout
