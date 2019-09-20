@@ -7,13 +7,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
+          key: ohapo-frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
       - run:
           name: Install dependencies
           command: yarn install
           working_directory: frontend
       - save_cache:
-          key: frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
+          key: ohapo-frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
           paths: frontend/node_modules
       - persist_to_workspace:
           root: frontend
@@ -59,14 +59,16 @@ jobs:
           command: bundle -v
       # Restore bundle cache
       - restore_cache:
-          keys: api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          keys:
+          - ohapo-api-bundle-v1-{{ checksum "api/Gemfile.lock" }}
+          - ohapo-api-bundle-v1-
       - run:
           name: Bundle Install
           command: bundle check || bundle install
           working_directory: api
       # Store bundle cache
       - save_cache:
-          key: api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: ohapo-api-bundle-v1-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
       - run:
