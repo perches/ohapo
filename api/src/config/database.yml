@@ -15,7 +15,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
-  host: db
+  host: <%= ENV.fetch('MYSQL_HOST') { "" } %>
+
 
 development:
   <<: *default
