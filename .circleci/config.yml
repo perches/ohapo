@@ -85,9 +85,9 @@ jobs:
           command: bundle exec rails db:migrate
           working_directory: api/src
       - persist_to_workspace:
-          root: api/src
+          root: .
           paths:
-            - vendor/bundle
+            - api/src/vendor/bundle
   api_rubocop:
     docker:
     - image: circleci/ruby:2.6.4-stretch
