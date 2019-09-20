@@ -3,7 +3,7 @@ jobs:
   frontend_prepare:
     docker:
     - image: circleci/node:12.4.0
-    working_directory: ~/workspace
+    working_directory: ~/workspace_frontend
     steps:
       - checkout
       - restore_cache:
@@ -22,7 +22,7 @@ jobs:
   frontend_lint:
     docker:
     - image: circleci/node:12.4.0
-    working_directory: ~/workspace
+    working_directory: ~/workspace_frontend
     steps:
       - checkout
       - attach_workspace:
@@ -34,7 +34,7 @@ jobs:
   frontend_build:
     docker:
     - image: circleci/node:12.4.0
-    working_directory: ~/workspace
+    working_directory: ~/workspace_frontend
     steps:
       - checkout
       - attach_workspace:
@@ -44,7 +44,7 @@ jobs:
           command: yarn build
           working_directory: frontend
   api_build:
-    working_directory: ~/workspacei
+    working_directory: ~/workspace_api
     docker:
       - image: circleci/ruby:2.6.4-stretch
         environment:
