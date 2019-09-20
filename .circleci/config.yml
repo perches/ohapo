@@ -86,6 +86,30 @@ jobs:
           name: migrate databse
           command: bundle exec rails db:migrate
           working_directory: api/src
+  api_rubocop:
+    working_directory: ~/workspace_api
+    docker:
+      - image: circleci/ruby:2.6.4-stretch
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_HOST: 127.0.0.1
+      - image: mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+  api_test:
+    working_directory: ~/workspace_api
+    docker:
+      - image: circleci/ruby:2.6.4-stretch
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_HOST: 127.0.0.1
+      - image: mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+    steps:
       - run:
           name: rspec test
           command: bundle exec rspec
@@ -102,3 +126,9 @@ workflows:
           requires:
             - frontend_lint
       - api_build
+      - api_rubocop:
+        requires:
+          - api_build
+      - api_test:
+        requires:
+          - api_rubocop
