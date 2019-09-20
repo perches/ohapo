@@ -145,10 +145,10 @@ workflows:
             - frontend_lint
   api:
     jobs:
-      - bundle_dependencies
+      - api_bundle_dependencies
       - api_rubocop:
           requires:
-            - bundle_dependencies
+            - api_bundle_dependencies
       - api_test:
           requires:
             - api_rubocop
