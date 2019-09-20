@@ -84,6 +84,10 @@ jobs:
           name: migrate databse
           command: bundle exec rails db:migrate
           working_directory: api/src
+      - persist_to_workspace:
+          root: /
+          paths:
+            - /usr/local/bundle
   api_rubocop:
     docker:
     - image: circleci/ruby:2.6.4-stretch
