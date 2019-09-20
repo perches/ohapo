@@ -116,7 +116,7 @@ jobs:
           working_directory: api/src
 workflows:
   version: 2
-  lint_and_build:
+  frontend:
     jobs:
       - frontend_prepare
       - frontend_lint:
@@ -125,6 +125,8 @@ workflows:
       - frontend_build:
           requires:
             - frontend_lint
+  api:
+    jobs:
       - api_build
       - api_rubocop:
         requires:
