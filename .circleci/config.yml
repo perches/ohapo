@@ -65,24 +65,24 @@ jobs:
       - run:
           name: Bundle Install
           command: bundle check || bundle install
-          working_directory: api
+          working_directory: api/src
       # Store bundle cache
       - save_cache:
           key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
           paths:
-            - api/vendor/bundle
+            - api/src/vendor/bundle
       - run:
           name: create databse
           command: bundle exec rails db:create
-          working_directory: api
+          working_directory: api/src
       - run:
           name: migrate databse
           command: bundle exec rails db:migrate
-          working_directory: api
+          working_directory: api/src
       - run:
           name: rspec test
           command: bundle exec rspec
-          working_directory: api
+          working_directory: api/src
 workflows:
   version: 2
   lint_and_build:
