@@ -1,33 +1,25 @@
-# frontend_defaults: &defaults
-#   docker:
-#     - image: circleci/node:12.4.0
-
-# api_defaults: &defaults
-#   docker:
-#     - image: circleci/ruby:2.5.5-stretch
-
 version: 2
 jobs:
-  prepare:
+  frontend_prepare:
     docker:
     - image: circleci/node:12.4.0
     working_directory: ~/workspace
     steps:
       - checkout
       - restore_cache:
-          key: v1-dependencies-{{ checksum "frontend/yarn.lock" }}
+          key: frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
       - run:
           name: Install dependencies
           command: yarn install
           working_directory: frontend
       - save_cache:
-          key: v1-dependencies-{{ checksum "frontend/yarn.lock" }}
+          key: frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
           paths: frontend/node_modules
       - persist_to_workspace:
           root: frontend
           paths:
             - node_modules
-  lint:
+  frontend_lint:
     docker:
     - image: circleci/node:12.4.0
     working_directory: ~/workspace
@@ -39,7 +31,7 @@ jobs:
           name: Run ESLint
           command: yarn lint
           working_directory: frontend
-  build:
+  frontend_build:
     docker:
     - image: circleci/node:12.4.0
     working_directory: ~/workspace
@@ -51,14 +43,54 @@ jobs:
           name: Build
           command: yarn build
           working_directory: frontend
+  api_build:
+    working_directory: ~/pring-api
+    docker:
+      - image: circleci/ruby:2.6.4-stretch
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+      - image: mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+          working_directory: api
+      # Store bundle cache
+      - save_cache:
+          - api-v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          paths:
+            - api/vendor/bundle
+      - run:
+          name: create databse
+          command: bundle exec rails db:create
+          working_directory: api
+      - run:
+          name: migrate databse
+          command: bundle exec rails db:migrate
+          working_directory: api
+      - run:
+          name: rspec test
+          command: bundle exec rspec
+          working_directory: api
 workflows:
   version: 2
   lint_and_build:
     jobs:
-      - prepare
-      - lint:
+      - frontend_prepare
+      - frontend_lint:
           requires:
-            - prepare
-      - build:
+            - frontend_prepare
+      - frontend_build:
           requires:
-            - lint
+            - frontend_lint
+      - api_build
