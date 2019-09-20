@@ -1,6 +1,6 @@
-frontend_defaults: &defaults
-  docker:
-    - image: circleci/node:12.4.0
+# frontend_defaults: &defaults
+#   docker:
+#     - image: circleci/node:12.4.0
 
 # api_defaults: &defaults
 #   docker:
@@ -9,7 +9,8 @@ frontend_defaults: &defaults
 version: 2
 jobs:
   prepare:
-    <<: *frontend_defaults
+    docker:
+    - image: circleci/node:12.4.0
     working_directory: ~/workspace
     steps:
       - checkout
@@ -27,7 +28,8 @@ jobs:
           paths:
             - node_modules
   lint:
-    <<: *frontend_defaults
+    docker:
+    - image: circleci/node:12.4.0
     working_directory: ~/workspace
     steps:
       - checkout
@@ -38,7 +40,8 @@ jobs:
           command: yarn lint
           working_directory: frontend
   build:
-    <<: *frontend_defaults
+    docker:
+    - image: circleci/node:12.4.0
     working_directory: ~/workspace
     steps:
       - checkout
