@@ -1,72 +1,154 @@
 version: 2
 jobs:
-  build:
-    machine:
-      image: &circleci_image circleci/classic:edge
-      # docker_layer_caching: true
-    working_directory: &wd ~/repo
+  frontend_prepare:
+    docker:
+    - image: circleci/node:12.4.0
+    working_directory: ~/workspace_frontend
     steps:
       - checkout
       - restore_cache:
-          # keys:
-          #   - source-v1-{{ .Branch }}-{{ .Revision }}
-          #   - source-v1-{{ .Branch }}-
-          #   - source-v1-
-          key: docker-{{ checksum ".circleci/config.yml" }}-{{ checksum "docker-compose.yml" }}-{{ checksum "./etc/docker/api/Dockerfile" }}-{{ checksum "./etc/docker/db/Dockerfile" }}-{{ checksum "./etc/docker/frontend/Dockerfile" }}
-          paths: ~/caches/images.tar
-
+          key: ohapo-frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
       - run:
-          name: 環境変数のコピー
-          command: cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
-
-      - run:
-          name: ビルド開始（docker-compose build）
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml build
-
-      - run:
-          name: mysql を先に起動
-          command: docker-compose -f ./docker-compose-circleci.yml up -d db & sleep 10
-      - run:
-          name: bundleインストール(API)
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml run api bundle install
-
-      - run:
-          name: docker-compose up
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml up -d
-
-      - run:
-          name: APIのテスト実行
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml run --rm api rspec
-
-      - run:
-          name: APIの静的解析
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml run --rm api rubocop
-
-      - run:
-          name: Frontendの静的解析
-          command: |
-            set -x
-            docker-compose -f ./docker-compose-circleci.yml exec builder yarn lint
-
+          name: Install dependencies
+          command: yarn install
+          working_directory: frontend
       - save_cache:
-          # key: source-v1-{{ .Branch }}-{{ .Revision }}
-          # paths:
-          #   - ".git"
-          key: docker-{{ checksum ".circleci/config.yml" }}-{{ checksum "docker-compose.yml" }}-{{ checksum "./etc/docker/api/Dockerfile" }}-{{ checksum "./etc/docker/db/Dockerfile" }}-{{ checksum "./etc/docker/frontend/Dockerfile" }}
-          paths: ~/caches/images.tar
-
+          key: ohapo-frontend-v1-dependencies-{{ checksum "frontend/yarn.lock" }}
+          paths: frontend/node_modules
+      - persist_to_workspace:
+          root: frontend
+          paths:
+            - node_modules
+  frontend_lint:
+    docker:
+    - image: circleci/node:12.4.0
+    working_directory: ~/workspace_frontend
+    steps:
+      - checkout
+      - attach_workspace:
+          at: frontend
+      - run:
+          name: Run ESLint
+          command: yarn lint
+          working_directory: frontend
+  frontend_build:
+    docker:
+    - image: circleci/node:12.4.0
+    working_directory: ~/workspace_frontend
+    steps:
+      - checkout
+      - attach_workspace:
+          at: frontend
+      - run:
+          name: Build
+          command: yarn build
+          working_directory: frontend
+  api_bundle_dependencies:
+    docker:
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - restore_cache:
+          keys:
+          - ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
+          - ohapo-api-bundle-v1-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+          working_directory: api/src
+      - save_cache:
+          key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
+          paths:
+            - api/src/vendor/bundle
+      - persist_to_workspace:
+          root: api/src
+          paths:
+            - vendor
+  api_rubocop:
+    docker:
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
+    steps:
+      - checkout
+      - attach_workspace:
+          at: api/src
+      - run:
+          name: Repath bundle
+          command: bundle --path vendor/bundle
+          working_directory: api/src
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+          working_directory: api/src
+  api_test:
+    docker:
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
+    steps:
+      - checkout
+      - attach_workspace:
+          at: api/src
+      - run:
+          name: Repath bundle
+          command: bundle --path vendor/bundle
+          working_directory: api/src
+      - run:
+          name: Setup dockerize
+          command: bash .circleci/setup-dockerize.sh
+      - run:
+          name: wait mysql
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      - run:
+          name: create databse
+          command: bundle exec rails db:create
+          working_directory: api/src
+      - run:
+          name: migrate databse
+          command: bundle exec rails db:migrate
+          working_directory: api/src
+      - run:
+          name: rspec test
+          command: bundle exec rspec
+          working_directory: api/src
 workflows:
   version: 2
-  test_and_analyse:
+  frontend:
     jobs:
-      - &build build
+      - frontend_prepare
+      - frontend_lint:
+          requires:
+            - frontend_prepare
+      - frontend_build:
+          requires:
+            - frontend_lint
+  api:
+    jobs:
+      - api_bundle_dependencies
+      - api_rubocop:
+          requires:
+            - api_bundle_dependencies
+      - api_test:
+          requires:
+            - api_rubocop
