@@ -60,7 +60,7 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-          - ohapo-api-bundle-v1-{{ checksum "api/Gemfile.lock" }}
+          - ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
           - ohapo-api-bundle-v1-
       - run:
           name: Bundle Install
@@ -68,7 +68,7 @@ jobs:
           working_directory: api
       # Store bundle cache
       - save_cache:
-          key: ohapo-api-bundle-v1-{{ checksum "api/Gemfile.lock" }}
+          key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
       - run:
