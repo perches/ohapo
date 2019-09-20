@@ -44,21 +44,20 @@ jobs:
           command: yarn build
           working_directory: frontend
   api_build:
-    working_directory: ~/workspace_api
     docker:
-      - image: circleci/ruby:2.6.4-stretch
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
-      - image: mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: password
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
     steps:
       - checkout
       - run:
           name: Which bundler?
           command: bundle -v
-      # Restore bundle cache
       - restore_cache:
           keys:
           - ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
@@ -67,7 +66,6 @@ jobs:
           name: Bundle Install
           command: bundle check || bundle install
           working_directory: api/src
-      # Store bundle cache
       - save_cache:
           key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
           paths:
@@ -87,29 +85,33 @@ jobs:
           command: bundle exec rails db:migrate
           working_directory: api/src
   api_rubocop:
-    working_directory: ~/workspace_api
     docker:
-      - image: circleci/ruby:2.6.4-stretch
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
-      - image: mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: password
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
+    steps:
+      - checkout
       - run:
           name: Rubocop
           command: bundle exec rubocop
+          working_directory: api/src
   api_test:
-    working_directory: ~/workspace_api
     docker:
-      - image: circleci/ruby:2.6.4-stretch
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_HOST: 127.0.0.1
-      - image: mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: password
+    - image: circleci/ruby:2.6.4-stretch
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_HOST: 127.0.0.1
+    - image: mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+    working_directory: ~/workspace_api
     steps:
+      - checkout
       - run:
           name: rspec test
           command: bundle exec rspec
@@ -129,8 +131,8 @@ workflows:
     jobs:
       - api_build
       - api_rubocop:
-        requires:
-          - api_build
+          requires:
+            - api_build
       - api_test:
-        requires:
-          - api_rubocop
+          requires:
+            - api_rubocop
