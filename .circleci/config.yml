@@ -105,6 +105,7 @@ jobs:
       - run:
           name: Repath bundle
           command: bundle --path vendor/bundle
+          working_directory: api/src
       - run:
           name: Rubocop
           command: bundle exec rubocop
@@ -126,6 +127,7 @@ jobs:
       - run:
           name: Repath bundle
           command: bundle --path vendor/bundle
+          working_directory: api/src
       - run:
           name: rspec test
           command: bundle exec rspec
