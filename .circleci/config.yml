@@ -103,9 +103,8 @@ jobs:
       - attach_workspace:
           at: api/src
       - run:
-        name: for debug
-        command: ls -la api/src && ls -la api/src/vendor && ls -la api/src/vendor/bundle
-        working_directory: api/src
+          name: for debug
+          command: ls -la api/src && echo ========== && ls -la api/src/vendor && echo ========== && ls -la api/src/vendor/bundle
       - run:
           name: Rubocop
           command: bundle exec rubocop
