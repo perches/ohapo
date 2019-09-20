@@ -72,6 +72,12 @@ jobs:
           paths:
             - api/src/vendor/bundle
       - run:
+          name: Setup dockerize
+          command: bash .circleci/setup-dockerize.sh
+      - run:
+          name: wait mysql
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+      - run:
           name: create databse
           command: bundle exec rails db:create
           working_directory: api/src
