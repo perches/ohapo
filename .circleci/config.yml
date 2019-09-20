@@ -64,7 +64,7 @@ jobs:
           - ohapo-api-bundle-v1-
       - run:
           name: Bundle Install
-          command: bundle check || bundle install
+          command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
           working_directory: api/src
       - save_cache:
           key: ohapo-api-bundle-v1-{{ checksum "api/src/Gemfile.lock" }}
@@ -85,9 +85,9 @@ jobs:
           command: bundle exec rails db:migrate
           working_directory: api/src
       - persist_to_workspace:
-          root: /
+          root: api/src
           paths:
-            - '*'
+            - vendor/bundle
   api_rubocop:
     docker:
     - image: circleci/ruby:2.6.4-stretch
