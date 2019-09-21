@@ -5,7 +5,7 @@ class CreateUserProfiles < ActiveRecord::Migration[6.0]
     create_table :user_profiles do |t|
       t.references :user, foreign_key: true, null: false
       t.integer :age
-      t.string :gender
+      t.integer :gender, comment: "1:Male, 2:Female, 3:Others"
       t.string :location
       t.string :zip_code
       t.timestamps

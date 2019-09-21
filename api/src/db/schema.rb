@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_180043) do
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "age"
-    t.string "gender"
+    t.integer "gender", comment: "1:Male, 2:Female, 3:Others"
     t.string "location"
     t.string "zip_code"
     t.datetime "created_at", precision: 6, null: false
