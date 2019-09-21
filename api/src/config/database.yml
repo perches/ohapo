@@ -51,4 +51,6 @@ production:
   <<: *default
   database: ohapo_production
   username: root
-  password: <%= ENV['OHAPO_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
+  host: db
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
