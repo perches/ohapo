@@ -16,39 +16,39 @@ class Footer extends React.Component {
     return (
       <>
         <footer>
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              alignContent="center"
-            >
-              <Grid item xs={12}>
-                <TextWrapper>
-                  <Copyright>
-                    {"Copyright "}
-                    <CopyrightIcon icon="copyright" />
-                    {" perches"} {new Date().getFullYear()}
-                  </Copyright>
-                </TextWrapper>
-              </Grid>
-              <Grid item>
-                <a
-                  href={PERCHES_LP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FooterLogo />
-                </a>
-              </Grid>
-              <Grid item xs={12}>
-                <TextWrapper>
-                  <WarningText>
-                    本ページでは、利用状況を把握するためにGoogle
-                    Analyticsを利用しています。
-                  </WarningText>
-                </TextWrapper>
-              </Grid>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            alignContent="center"
+          >
+            <Grid item xs={12}>
+              <TextWrapper>
+                <Copyright>
+                  {"Copyright "}
+                  <CopyrightIcon icon="copyright" />
+                  {" perches"} {new Date().getFullYear()}
+                </Copyright>
+              </TextWrapper>
             </Grid>
+            <Grid item>
+              <a
+                href={PERCHES_LP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterLogo />
+              </a>
+            </Grid>
+            <Grid item xs={12}>
+              <TextWrapper>
+                <WarningText>
+                  本ページでは、利用状況を把握するためにGoogle
+                  Analyticsを利用しています。
+                </WarningText>
+              </TextWrapper>
+            </Grid>
+          </Grid>
         </footer>
       </>
     );
