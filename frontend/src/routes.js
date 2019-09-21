@@ -1,10 +1,10 @@
 import Home from "./App/Home";
-import Login from "./App/Loginn";
+import Login from "./App/Login";
 import User from "./App/User";
 import UserEdit from "./App/User/Edit";
-import UserEditConfirm from "./App/User/confirm";
+import UserEditConfirm from "./App/User/Confirm";
 
-export default const routes = [
+const routes = [
   {
     path: "/home",
     component: Home,
@@ -16,18 +16,20 @@ export default const routes = [
     name: "ログイン"
   },
   {
-    path: "user",
+    path: "/user",
     component: User,
     name: "プロフィール"
   },
   {
-    path: "user/edit",
+    path: "/user/edit",
     component: UserEdit,
     name: "プロフィール編集"
   },
   {
-    path: "user/edit/confirm",
+    path: "/user/edit/confirm",
     component: UserEditConfirm,
     name: "プロフィール編集"
   }
 ];
+
+export default routes;
