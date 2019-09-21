@@ -13,6 +13,11 @@ export const theme = createMuiTheme({
       main: "#eba286",
       dark: "#eb865e ",
       contrastText: "#000000"
+    },
+    muted: {
+      light: "#808080",
+      main: "#595959",
+      dark: "#333333",
     }
   }
 });
