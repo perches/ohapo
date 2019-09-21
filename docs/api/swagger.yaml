@@ -10,6 +10,29 @@ servers:
 
 # API仕様一覧
 paths:
+  "/categories":
+    get:
+      tags:
+        - categories
+      summary: "ユーザが選択できるカテゴリの一覧を返す"
+      parameters: []
+      responses:
+        "200":
+          description: "Categoryモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+                example:
+                  - id: 1
+                    category_name: カテゴリ1
+                  - id: 2
+                    category_name: カテゴリ2
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
   "/healthcheck":
     get:
       tags:
@@ -28,6 +51,17 @@ paths:
 # 扱うコンポーネント一覧
 components:
   schemas:
+    Category:
+      description: "カテゴリ"
+      type: object
+      required: #必須フィールド
+        - id
+        - category_name
+      properties:
+        id:
+          type: integer
+        category_name:
+          type: string
     Error:
       description: "エラー"
       type: object
@@ -56,6 +90,7 @@ components:
           type: string
           example: "ok"
 
+
   # 汎用的に使うものはまとめておく
   responses:
     UnexpectedError:
@@ -66,5 +101,7 @@ components:
             $ref: "#/components/schemas/Error"
 
 tags:
+  - name: categories
+    description: "カテゴリ一覧機能"
   - name: healthcheck
     description: "HealthCheck機能"
