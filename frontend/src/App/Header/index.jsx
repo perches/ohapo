@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Grid, Button, Menu } from "@material-ui/core";
 import { theme } from "../../consts/theme";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../../public/assets/ohapo_logo_lg.svg";
 import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -15,14 +16,18 @@ class Header extends React.Component {
       <AppBar position="static" color="primary">
         <Toolbar>
           <Grid container justify="space-between">
-            <Grid item>LOGO</Grid>
+            <Grid item>
+              <BrandWrapper>
+                <BrandLogo />
+              </BrandWrapper>
+            </Grid>
 
             <Grid item>
               <Button aria-haspopup="true" color="default">
                 <HeaderIcon icon="user-circle" type="primary" />
                 <HeaderText>たちばなゆうと</HeaderText>
               </Button>
-              <Menu></Menu>
+              <Menu open={false}></Menu>
             </Grid>
           </Grid>
         </Toolbar>
@@ -30,6 +35,16 @@ class Header extends React.Component {
     );
   }
 }
+
+const BrandWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BrandLogo = styled(Logo)`
+  fill: #d9663b;
+`;
 
 const HeaderText = styled.span`
   color: ${theme.palette.muted.main};
