@@ -95,7 +95,7 @@ Resources:
       ContainerDefinitions:
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
-          # Image: 999280884541.dkr.ecr.ap-northeast-1.amazonaws.com/ohapo-repos-1mnoztz6yf9oh
+          # Image: 999280884541.dkr.ecr.ap-northeast-1.amazonaws.com/ohapo-repos-1mnoztz6yf9oh:5a62f247
           # EntryPoint:
           #   - /usr/sbin/apache2
           #   - -D
