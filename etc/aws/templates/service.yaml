@@ -93,14 +93,17 @@ Resources:
       NetworkMode: !If [Fargate, "awsvpc", "bridge"]
       ExecutionRoleArn: !Ref TaskExecutionRole
       ContainerDefinitions:
-        - Name: frontend
+        - Name: simple-app
           Image: amazon/amazon-ecs-sample
-          EntryPoint:
-            - /usr/sbin/apache2
-            - -D
-            - FOREGROUND
+          # EntryPoint:
+          #   - /usr/sbin/apache2
+          #   - -D
+          #   - FOREGROUND
           Essential: true
           Memory: 256
+          MountPoints:
+            - SourceVolume: app
+              ContainerPath: /app
           PortMappings:
             - ContainerPort: 80
           LogConfiguration:
@@ -139,8 +142,8 @@ Resources:
       #       - SourceContainer: simple-app
       #     Command:
       #       - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
-      # Volumes:
-      #   - Name: my-vol
+      Volumes:
+        - Name: app
 Outputs:
   Service:
     Value: !If [Fargate, !Ref FargateService, !Ref EC2Service]
