@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import configureStore from "./configureStore";
 import { theme } from "./consts/theme";
+import Header from "./App/Header";
 import Home from "./App/Home";
 
 const store = configureStore();
@@ -17,6 +18,7 @@ class App extends React.Component {
         <Provider store={store}>
           <MuiThemeProvider theme={theme}>
             <Content>
+              <Header />
               <Home />
             </Content>
           </MuiThemeProvider>
