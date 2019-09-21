@@ -1,33 +1,78 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { AppBar, Toolbar, Grid, Button, Menu } from "@material-ui/core";
+// import { NavLink } from "react-router-dom";
+import { AppBar, Toolbar, Grid, Fab, Menu } from "@material-ui/core";
 import { theme } from "../../consts/theme";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../public/assets/ohapo_logo_lg.svg";
 import {
   faUserCircle,
+  faSignOutAlt,
+  faAddressCard
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faUserCircle);
+library.add(faUserCircle, faSignOutAlt, faAddressCard);
 
 class Header extends React.Component {
   render() {
+    const {
+      accountAnchorEl,
+      changeAccountAnchorEl,
+      changeHeaderButtonToClose
+    } = this.props;
     return (
       <AppBar position="static" color="primary">
         <Toolbar>
           <Grid container justify="space-between">
             <Grid item>
-              <BrandWrapper>
-                <BrandLogo />
-              </BrandWrapper>
+              {/* <BrandNavLink exact to="/"> */}
+              <LogoWrapper>
+                <Logo />
+              </LogoWrapper>
+              {/* </BrandNavLink> */}
             </Grid>
 
             <Grid item>
-              <Button aria-haspopup="true" color="default">
+              <Fab
+                variant="extended"
+                aria-haspopup="true"
+                color="primary"
+                onClick={e => {
+                  changeAccountAnchorEl(e.currentTarget);
+                }}
+              >
+                {/* TODO: Twitterアイコンかランダムなアイコンを表示 */}
                 <HeaderIcon icon="user-circle" type="primary" />
+                {/* TODO: Twitterのユーザーネーム */}
                 <HeaderText>たちばなゆうと</HeaderText>
-              </Button>
-              <Menu open={false}></Menu>
+              </Fab>
+              <Menu
+                anchorEl={accountAnchorEl}
+                open={Boolean(accountAnchorEl)}
+                onClose={changeHeaderButtonToClose}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center"
+                }}
+              >
+                <MenuItem>
+                  <ListItemIcon>
+                    <HeaderIcon type="secondary" icon="address-card" />
+                  </ListItemIcon>
+                  <ListItemText secondary="プロフィールを確認" />
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <HeaderIcon type="secondary" icon="sign-out-alt" />
+                  </ListItemIcon>
+                  <ListItemText secondary="サインアウト" />
+                </MenuItem>
+              </Menu>
             </Grid>
           </Grid>
         </Toolbar>
@@ -36,14 +81,14 @@ class Header extends React.Component {
   }
 }
 
-const BrandWrapper = styled.div`
+// const BrandNavLink = styled(NavLink)`
+//   text-decoration: none;
+// `;
+
+const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const BrandLogo = styled(Logo)`
-  fill: #d9663b;
 `;
 
 const HeaderText = styled.span`
@@ -67,4 +112,24 @@ const HeaderIcon = styled(FontAwesomeIcon)`
     `}
 `;
 
-export default Header;
+Header.propTypes = {
+  location: PropTypes.string,
+  routes: PropTypes.array.isRequired,
+  accountAnchorEl: PropTypes.object,
+  changeAccountAnchorEl: PropTypes.func.isRequired,
+  changeHeaderButtonToClose: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  location: state.header.location,
+  accountAnchorEl: state.header.accountAnchorEl
+});
+const mapDispatchToProps = dispatch => ({
+  changeAccountAnchorEl: value => dispatch(changeAccountAnchorEl(value)),
+  changeHeaderButtonToClose: () => dispatch(changeHeaderButtonToClose())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
