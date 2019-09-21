@@ -1,0 +1,2 @@
+class UserNewsCategory < ApplicationRecord
+end
