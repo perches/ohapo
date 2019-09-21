@@ -33,6 +33,31 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
+  "/whatdays":
+    get:
+      tags:
+        - whatdays
+      summary: "昨日、今日、明日の記念日を返す"
+      parameters: []
+      responses:
+        "200":
+          description: "Whatdayモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Whatday"
+                example:
+                  - date: "2019-09-20"
+                    description: "バスの日"
+                  - date: "2019-09-21"
+                    description: "ファッションショーの日"
+                  - date: "2019-09-22"
+                    description: "ワンウェブデー"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
   "/healthcheck":
     get:
       tags:
@@ -62,6 +87,20 @@ components:
           type: integer
         category_name:
           type: string
+    
+    Whatday:
+      description: "記念日"
+      type: object
+      required:
+        - date
+        - description
+      properties:
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+
     Error:
       description: "エラー"
       type: object
@@ -103,5 +142,7 @@ components:
 tags:
   - name: categories
     description: "カテゴリ一覧機能"
+  - name: whatdays
+    description: "記念日機能"
   - name: healthcheck
     description: "HealthCheck機能"
