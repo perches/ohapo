@@ -1,7 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
+import { connect } from "react-redux";
 // import { NavLink } from "react-router-dom";
-import { AppBar, Toolbar, Grid, Fab, Menu } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Grid,
+  Fab,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText
+} from "@material-ui/core";
+import changeAccountAnchorEl from "../../actions/changeAccountAnchorEl";
+import changeHeaderButtonToClose from "../../actions/changeHeaderButtonToClose";
 import { theme } from "../../consts/theme";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -113,8 +126,6 @@ const HeaderIcon = styled(FontAwesomeIcon)`
 `;
 
 Header.propTypes = {
-  location: PropTypes.string,
-  routes: PropTypes.array.isRequired,
   accountAnchorEl: PropTypes.object,
   changeAccountAnchorEl: PropTypes.func.isRequired,
   changeHeaderButtonToClose: PropTypes.func.isRequired
