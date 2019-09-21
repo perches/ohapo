@@ -2,7 +2,11 @@ import React from "react";
 
 class User extends React.Component {
   render() {
-    return <>this is User.</>;
+    return (
+      <>
+        <p>this is User.</p>
+      </>
+    );
   }
 }
 

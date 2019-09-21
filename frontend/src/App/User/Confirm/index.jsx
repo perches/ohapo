@@ -2,7 +2,11 @@ import React from "react";
 
 class UserEditConfirm extends React.Component {
   render() {
-    return <>this is UserEditConfirm.</>;
+    return (
+      <>
+        <p>this is UserEditConfirm.</p>
+      </>
+    );
   }
 }
 
