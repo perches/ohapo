@@ -93,7 +93,7 @@ Resources:
       NetworkMode: !If [Fargate, "awsvpc", "bridge"]
       ExecutionRoleArn: !Ref TaskExecutionRole
       ContainerDefinitions:
-        - Name: simple-app
+        - Name: frontend
           Image: amazon/amazon-ecs-sample
           EntryPoint:
             - /usr/sbin/apache2
@@ -101,9 +101,6 @@ Resources:
             - FOREGROUND
           Essential: true
           Memory: 256
-          MountPoints:
-            - SourceVolume: my-vol
-              ContainerPath: /var/www/my-vol
           PortMappings:
             - ContainerPort: 80
           LogConfiguration:
@@ -112,39 +109,38 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-group: !Ref LogGroup
               awslogs-stream-prefix: !Ref AWS::StackName
-        - Name: simple-app
-          Image: amazon/amazon-ecs-sample
-          EntryPoint:
-            - /usr/sbin/apache2
-            - -D
-            - FOREGROUND
-          Essential: true
-          Memory: 256
-          MountPoints:
-            - SourceVolume: my-vol
-              ContainerPath: /var/www/my-vol
-          PortMappings:
-            - ContainerPort: 80
-          LogConfiguration:
-            LogDriver: awslogs
-            Options:
-              awslogs-region: !Ref AWS::Region
-              awslogs-group: !Ref LogGroup
-              awslogs-stream-prefix: !Ref AWS::StackName
-        - Name: busybox
-          Image: busybox
-          EntryPoint:
-            - sh
-            - -c
-          Essential: true
-          Memory: 256
-          VolumesFrom:
-            - SourceContainer: simple-app
-          Command:
-            - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
-      Volumes:
-        - Name: my-vol
-
+        # - Name: simple-app
+        #   Image: amazon/amazon-ecs-sample
+        #   EntryPoint:
+        #     - /usr/sbin/apache2
+        #     - -D
+        #     - FOREGROUND
+        #   Essential: true
+        #   Memory: 256
+        #   MountPoints:
+        #     - SourceVolume: my-vol
+        #       ContainerPath: /var/www/my-vol
+        #   PortMappings:
+        #     - ContainerPort: 80
+        #   LogConfiguration:
+        #     LogDriver: awslogs
+        #     Options:
+        #       awslogs-region: !Ref AWS::Region
+        #       awslogs-group: !Ref LogGroup
+        #       awslogs-stream-prefix: !Ref AWS::StackName
+      #   - Name: busybox
+      #     Image: busybox
+      #     EntryPoint:
+      #       - sh
+      #       - -c
+      #     Essential: true
+      #     Memory: 256
+      #     VolumesFrom:
+      #       - SourceContainer: simple-app
+      #     Command:
+      #       - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
+      # Volumes:
+      #   - Name: my-vol
 Outputs:
   Service:
     Value: !If [Fargate, !Ref FargateService, !Ref EC2Service]
