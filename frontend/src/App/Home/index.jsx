@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import { theme } from "../../consts/theme";
 import fetchHealthCheck from "../../actions/fetchHealthCheck";
 import {
   Button,
@@ -22,7 +20,7 @@ class Home extends React.Component {
     return (
       <>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card>
               <CardContent style={{ height: 180 }}>
                 <h3>This is frontend.</h3>
@@ -48,12 +46,12 @@ class Home extends React.Component {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Card>
               <CardContent style={{ height: 180 }}></CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Card>
               <CardContent style={{ height: 180 }}></CardContent>
             </Card>
