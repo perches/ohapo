@@ -7,6 +7,7 @@ import fetchHealthCheck from "../../actions/fetchHealthCheck";
 import {
   Button,
   Grid,
+  CardContent,
   Card
 } from "@material-ui/core";
 
@@ -22,8 +23,8 @@ class Home extends React.Component {
       <>
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color1>
+            <Card>
+              <CardContent style={{ height: 180 }}>
                 <h3>This is frontend.</h3>
                 <Button
                   size="small"
@@ -44,72 +45,39 @@ class Home extends React.Component {
                     {healthCheckResult}
                   </p>
                 )}
-              </Color1>
-            </HomeCard>
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color2></Color2>
-            </HomeCard>
+            <Card>
+              <CardContent style={{ height: 180 }}></CardContent>
+            </Card>
           </Grid>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color3></Color3>
-            </HomeCard>
+            <Card>
+              <CardContent style={{ height: 180 }}></CardContent>
+            </Card>
           </Grid>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color4></Color4>
-            </HomeCard>
+            <Card>
+              <CardContent style={{ height: 180 }}></CardContent>
+            </Card>
           </Grid>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color5></Color5>
-            </HomeCard>
+            <Card>
+              <CardContent style={{ height: 180 }}></CardContent>
+            </Card>
           </Grid>
           <Grid item xs={4}>
-            <HomeCard>
-              <Color6></Color6>
-            </HomeCard>
+            <Card>
+              <CardContent style={{ height: 180 }}></CardContent>
+            </Card>
           </Grid>
         </Grid>
       </>
     );
   }
 }
-
-const HomeCard = styled(Card)``;
-
-const Color1 = styled.div`
-  padding: 20px 10px;
-  background-color: ${theme.palette.primary.light};
-  height: 160px;
-`;
-
-const Color2 = styled.div`
-  background-color: ${theme.palette.primary.main};
-  height: 200px;
-`;
-
-const Color3 = styled.div`
-  background-color: ${theme.palette.primary.dark};
-  height: 200px;
-`;
-
-const Color4 = styled.div`
-  background-color: ${theme.palette.secondary.light};
-  height: 200px;
-`;
-
-const Color5 = styled.div`
-  background-color: ${theme.palette.secondary.main};
-  height: 200px;
-`;
-
-const Color6 = styled.div`
-  background-color: ${theme.palette.secondary.dark};
-  height: 200px;
-`;
 
 Home.propTypes = {
   loadHealthCheck: PropTypes.func.isRequired,
