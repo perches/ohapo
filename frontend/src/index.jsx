@@ -17,8 +17,8 @@ class App extends React.Component {
         <GlobalStyle />
         <Provider store={store}>
           <MuiThemeProvider theme={theme}>
+            <Header />
             <Content>
-              <Header />
               <Home />
             </Content>
           </MuiThemeProvider>
