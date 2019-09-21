@@ -95,6 +95,7 @@ Resources:
       ContainerDefinitions:
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
+          # Image: 999280884541.dkr.ecr.ap-northeast-1.amazonaws.com/ohapo-repos-1mnoztz6yf9oh
           # EntryPoint:
           #   - /usr/sbin/apache2
           #   - -D
@@ -131,17 +132,6 @@ Resources:
         #       awslogs-region: !Ref AWS::Region
         #       awslogs-group: !Ref LogGroup
         #       awslogs-stream-prefix: !Ref AWS::StackName
-      #   - Name: busybox
-      #     Image: busybox
-      #     EntryPoint:
-      #       - sh
-      #       - -c
-      #     Essential: true
-      #     Memory: 256
-      #     VolumesFrom:
-      #       - SourceContainer: simple-app
-      #     Command:
-      #       - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
       Volumes:
         - Name: app
 Outputs:
