@@ -18,6 +18,9 @@ gem "rack-cors"
 # 位置情報を扱うため
 gem "geocoder"
 
+# JSONの返却にSerializerを使う
+gem "active_model_serializers", "~> 0.10.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # pry-byebugを用いるためコメントアウト
