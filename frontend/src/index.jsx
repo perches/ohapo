@@ -11,6 +11,7 @@ import configureStore from "./configureStore";
 import { theme } from "./consts/theme";
 import routes from "./routes";
 import Header from "./App/Header";
+import Footer from "./App/Footer";
 
 const store = configureStore();
 
@@ -57,6 +58,7 @@ class App extends React.Component {
                   </Switch>
                 </Content>
               </Wrapper>
+              <Footer />
             </BrowserRouter>
           </MuiThemeProvider>
         </Provider>
