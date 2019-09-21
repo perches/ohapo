@@ -14,6 +14,17 @@ $ docker-compose up
 - Database -> http://localhost:3033
 - Swagger -> http://localhost:3039
 
+## TroubleShoot
+
+各エラーメッセージが出た時の対処
+
+### Run `bundle install` to install missing gems.
+
+```
+$ docker volume ls 
+$ docker volume rm ohapo_bundle 
+```
+
 ## API
 
 ### Test
