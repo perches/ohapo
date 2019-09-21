@@ -21,12 +21,12 @@ const routes = [
     name: "プロフィール"
   },
   {
-    path: "/user/edit",
+    path: "/user_edit",
     component: UserEdit,
     name: "プロフィール編集"
   },
   {
-    path: "/user/edit/confirm",
+    path: "/user_confirm",
     component: UserEditConfirm,
     name: "プロフィール編集"
   }

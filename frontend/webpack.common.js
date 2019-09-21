@@ -9,6 +9,7 @@ module.exports = {
   entry: ["@babel/polyfill", src + "/index.jsx"],
   output: {
     path: dist,
+    publicPath: "/",
     filename: "[name].js"
   },
   module: {
@@ -53,6 +54,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: src + "/public/index.html",
+      publicPath: "/",
       filename: "index.html"
     }),
     new Dotenv({
