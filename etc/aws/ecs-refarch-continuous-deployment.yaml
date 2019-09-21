@@ -1,13 +1,11 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
-
 Description: >
   This template shows how to use AWS CodePipeline and AWS CodeBuild to build an
   automated continuous deployment pipeline to Amazon Elastic Container Service
   (Amazon ECS) using clusters powered by AWS Fargate or Amazon Elastic Compute
   Cloud (Amazon EC2).
-
 
 Parameters:
   LaunchType:
@@ -28,7 +26,7 @@ Parameters:
 
   GitHubRepo:
     Type: String
-    Default: ecs-demo-php-simple-app
+    Default: ohapo
     Description: The repo name of the sample service.
 
   GitHubBranch:
@@ -44,10 +42,9 @@ Parameters:
 
   TemplateBucket:
     Type: String
-    Default: ecs-refarch-continuous-deployment
+    Default: ecs-ohapo-deployment
     Description: >
       The S3 bucket from which to fetch the templates used by this stack.
-
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -78,13 +75,11 @@ Metadata:
           default: Stack Configuration
         Parameters:
           - TemplateBucket
-
-
 Resources:
   Cluster:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/ecs-cluster.yaml"
+      TemplateURL: !Sub "https://${TemplateBucket}.s3-ap-northeast-1.amazonaws.com/templates/ecs-cluster.yaml"
       Parameters:
         LaunchType: !Ref LaunchType
         SourceSecurityGroup: !GetAtt LoadBalancer.Outputs.SecurityGroup
@@ -94,7 +89,7 @@ Resources:
   DeploymentPipeline:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/deployment-pipeline.yaml"
+      TemplateURL: !Sub "https://${TemplateBucket}.s3-ap-northeast-1.amazonaws.com/templates/deployment-pipeline.yaml"
       Parameters:
         Cluster: !GetAtt Cluster.Outputs.ClusterName
         Service: !GetAtt Service.Outputs.Service
@@ -106,7 +101,7 @@ Resources:
   LoadBalancer:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/load-balancer.yaml"
+      TemplateURL: !Sub "https://${TemplateBucket}.s3-ap-northeast-1.amazonaws.com/templates/load-balancer.yaml"
       Parameters:
         LaunchType: !Ref LaunchType
         Subnets: !GetAtt VPC.Outputs.Subnets
@@ -115,7 +110,7 @@ Resources:
   VPC:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/vpc.yaml"
+      TemplateURL: !Sub "https://${TemplateBucket}.s3-ap-northeast-1.amazonaws.com/templates/vpc.yaml"
       Parameters:
         Name: !Ref AWS::StackName
         VpcCIDR: 10.215.0.0/16
@@ -125,14 +120,13 @@ Resources:
   Service:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/service.yaml"
+      TemplateURL: !Sub "https://${TemplateBucket}.s3-ap-northeast-1.amazonaws.com/templates/service.yaml"
       Parameters:
         Cluster: !GetAtt Cluster.Outputs.ClusterName
         LaunchType: !Ref LaunchType
         TargetGroup: !GetAtt LoadBalancer.Outputs.TargetGroup
         SourceSecurityGroup: !GetAtt LoadBalancer.Outputs.SecurityGroup
         Subnets: !GetAtt VPC.Outputs.Subnets
-
 
 Outputs:
   ServiceUrl:
