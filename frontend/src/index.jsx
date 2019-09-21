@@ -40,21 +40,23 @@ class App extends React.Component {
           <MuiThemeProvider theme={theme}>
             <BrowserRouter>
               <Header />
-              <Content>
-                <Switch>
-                  {routes.map((route, index) => (
-                    <RouteWithTitle
-                      exaxt
-                      key={index}
-                      title={route.name}
-                      path={route.path}
-                      pageName={route.name}
-                      component={route.component}
-                    />
-                  ))}
-                  <Redirect from="/" to="/home" />
-                </Switch>
-              </Content>
+              <Wrapper>
+                <Content>
+                  <Switch>
+                    {routes.map((route, index) => (
+                      <RouteWithTitle
+                        exaxt
+                        key={index}
+                        title={route.name}
+                        path={route.path}
+                        pageName={route.name}
+                        component={route.component}
+                      />
+                    ))}
+                    <Redirect from="/" to="/home" />
+                  </Switch>
+                </Content>
+              </Wrapper>
             </BrowserRouter>
           </MuiThemeProvider>
         </Provider>
@@ -70,6 +72,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Noto Sans JP', sans-serif;
   }
+`;
+
+const Wrapper = styled.div`
+  background-color: ${theme.palette.muted.light};
 `;
 
 const Content = styled.div`
