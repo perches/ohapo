@@ -124,6 +124,8 @@ Resources:
                 - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
             build:
               commands:
+                - ls -a
+                - ls -a ./app
                 - cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
                 - docker build --tag "$IMAGE_URI" -f ./etc/docker/frontend/Dockerfile .
             post_build:
