@@ -95,11 +95,8 @@ Resources:
       ContainerDefinitions:
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
-          # Image: 999280884541.dkr.ecr.ap-northeast-1.amazonaws.com/ohapo-repos-1mnoztz6yf9oh:5a62f247
-          # EntryPoint:
-          #   - /usr/sbin/apache2
-          #   - -D
-          #   - FOREGROUND
+          EntryPoint:
+            - bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
           Essential: true
           Memory: 256
           MountPoints:
@@ -113,25 +110,6 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-group: !Ref LogGroup
               awslogs-stream-prefix: !Ref AWS::StackName
-        # - Name: simple-app
-        #   Image: amazon/amazon-ecs-sample
-        #   EntryPoint:
-        #     - /usr/sbin/apache2
-        #     - -D
-        #     - FOREGROUND
-        #   Essential: true
-        #   Memory: 256
-        #   MountPoints:
-        #     - SourceVolume: my-vol
-        #       ContainerPath: /var/www/my-vol
-        #   PortMappings:
-        #     - ContainerPort: 80
-        #   LogConfiguration:
-        #     LogDriver: awslogs
-        #     Options:
-        #       awslogs-region: !Ref AWS::Region
-        #       awslogs-group: !Ref LogGroup
-        #       awslogs-stream-prefix: !Ref AWS::StackName
       Volumes:
         - Name: app
 Outputs:

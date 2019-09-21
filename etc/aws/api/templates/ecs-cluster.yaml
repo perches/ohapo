@@ -1,7 +1,6 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
-
 Parameters:
   LaunchType:
     Type: String
@@ -27,10 +26,8 @@ Parameters:
   VpcId:
     Type: AWS::EC2::VPC::Id
 
-
 Conditions:
-  EC2: !Equals [ !Ref LaunchType, "EC2" ]
-
+  EC2: !Equals [!Ref LaunchType, "EC2"]
 
 Mappings:
   AWSRegionToAMI:
@@ -64,7 +61,6 @@ Mappings:
       AMI: ami-74262414
     us-west-2:
       AMI: ami-decc7fa6
-
 
 Resources:
   ECSRole:
@@ -113,7 +109,7 @@ Resources:
       MinSize: !Ref ClusterSize
       MaxSize: !Ref ClusterSize
       DesiredCapacity: !Ref ClusterSize
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName} - ECS Host
           PropagateAtLaunch: true
@@ -135,7 +131,7 @@ Resources:
         config:
           commands:
             01_add_instance_to_cluster:
-                command: !Sub echo ECS_CLUSTER=${Cluster} > /etc/ecs/ecs.config
+              command: !Sub echo ECS_CLUSTER=${Cluster} > /etc/ecs/ecs.config
           files:
             "/etc/cfn/cfn-hup.conf":
               mode: 000400
@@ -160,7 +156,7 @@ Resources:
                   - /etc/cfn/cfn-hup.conf
                   - /etc/cfn/hooks.d/cfn-auto-reloader.conf
     Properties:
-      ImageId: !FindInMap [ AWSRegionToAMI, !Ref "AWS::Region", AMI ]
+      ImageId: !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
       InstanceType: !Ref InstanceType
       IamInstanceProfile: !Ref InstanceProfile
       SecurityGroups:
@@ -172,7 +168,6 @@ Resources:
           /opt/aws/bin/cfn-init -v --region ${AWS::Region} --stack ${AWS::StackName} --resource LaunchConfiguration
           /opt/aws/bin/cfn-signal -e $? --region ${AWS::Region} --stack ${AWS::StackName} --resource AutoScalingGroup
 
-
 Outputs:
   ClusterName:
-      Value: !Ref Cluster
+    Value: !Ref Cluster
