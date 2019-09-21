@@ -7,16 +7,16 @@ const initialState = {
 
 const headerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_ACCOUNT_ANCHOR_EL:
-      return Object.assign({}, state, {
-        accountAnchorEl: action.value
-      });
-    case CHANGE_HEADER_BUTTON_TO_CLOSE:
-      return Object.assign({}, state, {
-        accountAnchorEl: null
-      });
-    default:
-      return state;
+  case CHANGE_ACCOUNT_ANCHOR_EL:
+    return Object.assign({}, state, {
+      accountAnchorEl: action.value
+    });
+  case CHANGE_HEADER_BUTTON_TO_CLOSE:
+    return Object.assign({}, state, {
+      accountAnchorEl: null
+    });
+  default:
+    return state;
   }
 };
 
