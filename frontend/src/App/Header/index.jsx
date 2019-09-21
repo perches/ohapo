@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { connect } from "react-redux";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -38,11 +38,11 @@ class Header extends React.Component {
         <Toolbar>
           <Grid container justify="space-between">
             <Grid item>
-              {/* <BrandNavLink exact to="/"> */}
-              <LogoWrapper>
-                <Logo />
-              </LogoWrapper>
-              {/* </BrandNavLink> */}
+              <BrandNavLink exact to="/">
+                <LogoWrapper>
+                  <Logo />
+                </LogoWrapper>
+              </BrandNavLink>
             </Grid>
 
             <Grid item>
@@ -94,9 +94,9 @@ class Header extends React.Component {
   }
 }
 
-// const BrandNavLink = styled(NavLink)`
-//   text-decoration: none;
-// `;
+const BrandNavLink = styled(NavLink)`
+  text-decoration: none;
+`;
 
 const LogoWrapper = styled.div`
   display: flex;
