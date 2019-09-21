@@ -18,6 +18,10 @@ export const theme = createMuiTheme({
       light: "#808080",
       main: "#595959",
       dark: "#333333",
-    }
-  }
+    },
+    success: { main: '#44A047' },
+    warning: { main: '#FF9F00' },
+    error: { main: '#D42F30'},
+    info: { main: '#1976D2' },
+  },
 });
