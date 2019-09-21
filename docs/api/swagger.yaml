@@ -58,6 +58,104 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
+  "/user/{userId}":
+    get:
+      tags:
+        - user
+      summary: "ユーザ情報を返す"
+      parameters:
+        - name: userId
+          in: path # パラメータをパス内に含める
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "ユーザモデル"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/User"
+                example:
+                  - date: "2019-09-20"
+                    description: "バスの日"
+                  - date: "2019-09-21"
+                    description: "ファッションショーの日"
+                  - date: "2019-09-22"
+                    description: "ワンウェブデー"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
+  "user/create":
+    post:
+      tags:
+        - user
+      summary: "ユーザ情報を登録する"
+      parameters: []
+      responses:
+        "200":
+          description: "Whatdayモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Whatday"
+                example:
+                  - date: "2019-09-20"
+                    description: "バスの日"
+                  - date: "2019-09-21"
+                    description: "ファッションショーの日"
+                  - date: "2019-09-22"
+                    description: "ワンウェブデー"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
+  "/user/{userId}/update":
+    patch:
+      tags:
+        - user
+      summary: "ユーザ情報を更新する"
+      parameters: []
+      responses:
+        "200":
+          description: "Whatdayモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Whatday"
+                example:
+                  - date: "2019-09-20"
+                    description: "バスの日"
+                  - date: "2019-09-21"
+                    description: "ファッションショーの日"
+                  - date: "2019-09-22"
+                    description: "ワンウェブデー"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
+  "/user/{userId}/delete":
+    delete:
+      tags:
+        - user
+      summary: "ユーザ情報を消す"
+      parameters: []
+      responses:
+        "200":
+          description: "Whatdayモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Whatday"
+                example:
+                  - date: "2019-09-20"
+                    description: "バスの日"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
   "/healthcheck":
     get:
       tags:
@@ -101,6 +199,36 @@ components:
         description:
           type: string
 
+    User:
+      description: "ユーザ"
+      type: object
+      required:
+        - id
+        - user_name
+        - age
+        - gender
+        - location
+        - zip_code
+      properties:
+        id:
+          type: integer
+          example: 101
+        user_name:
+          type: string
+          example: "ワン　チャン"
+        age:
+          type: integer
+          example: 10
+        gender:
+          type: string
+          example: "男"
+        location:
+          type: string
+          example: "東京都品川区"
+        zip_code:
+          type: string
+          pattern: "¥d{3}-¥d{4}"
+          example: "123-4567"
     Error:
       description: "エラー"
       type: object
@@ -144,5 +272,7 @@ tags:
     description: "カテゴリ一覧機能"
   - name: whatdays
     description: "記念日機能"
+  - name: user
+    description: "ユーザ操作機能"
   - name: healthcheck
     description: "HealthCheck機能"
