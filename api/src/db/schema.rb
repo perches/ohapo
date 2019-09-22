@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_180043) do
 
   create_table "user_news_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "category", null: false
+    t.integer "category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_user_news_categories_on_user_id"
