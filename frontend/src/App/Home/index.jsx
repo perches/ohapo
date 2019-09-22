@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import {
   Grid,
-  CardContent,
   Card
 } from "@material-ui/core";
 import fetchWeatherForecast from "../../actions/fetchWeatherForecast";
@@ -29,7 +28,7 @@ class Home extends React.Component {
               result={weatherForecast.weatherForecast}
             />
             <Card>
-              <CardContent style={{ height: 180 }}></CardContent>
+              {/* <CardContent style={{ height: 180 }}></CardContent> */}
             </Card>
           </Grid>
         </Grid>

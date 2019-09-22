@@ -34,24 +34,29 @@ class Home extends React.Component {
 
     return (
       <Card>
-        <CardContent>
-          <Grid container justify="center">
-            <Grid item>
-              <p>{city}</p>
+        <Wrapper>
+          <CardContent>
+            <Grid container justify="center">
+              <Grid item>
+                <CityWrapperAbsolute>
+                  <CityWrapperRelative>
+                    <CityText>{city}</CityText>
+                  </CityWrapperRelative>
+                </CityWrapperAbsolute>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container justify="space-between">
-            {console.log(this24Hours)}
-            {this24Hours &&
-              this24Hours.map((w, index) => (
-                <EachDetailsContainer item key={index}>
-                  <WeatherText>{w.weather}</WeatherText>
-                  <img src={w.iconUrl} />
-                  <TimeStampText>{String(w.timeStamp)}時</TimeStampText>
-                </EachDetailsContainer>
-              ))}
-          </Grid>
-        </CardContent>
+            <DetailsWrapper container justify="space-between">
+              {this24Hours &&
+                this24Hours.map((w, index) => (
+                  <EachDetailsContainer item key={index}>
+                    <WeatherText>{w.weather}</WeatherText>
+                    <img src={w.iconUrl} />
+                    <TimeStampText>{String(w.timeStamp)}時</TimeStampText>
+                  </EachDetailsContainer>
+                ))}
+            </DetailsWrapper>
+          </CardContent>
+        </Wrapper>
       </Card>
     );
   }
@@ -61,13 +66,50 @@ Home.propTypes = {
   result: PropTypes.object
 };
 
+const Wrapper = styled.div`
+  background-color: ${rgba(theme.palette.muted.main, 0.4)};
+  height: 200px;
+`;
+
+const CityWrapperAbsolute = styled.div`
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+`;
+
+const CityWrapperRelative = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+`;
+
+const CityText = styled.p`
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+  font-size: 100px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 1px 1px 0 #333, -1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px -1px 0 #333, 0px 1px 0 #333, 0-1px 0 #fff, -1px 0 0 #fff, 1px 0 0 #fff;
+`;
+
+const DetailsWrapper = styled(Grid)`
+  position: absolute;
+  z-index: 2;
+`;
+
 const EachDetailsContainer = styled(Grid)`
   border: 1px;
   text-align: center;
-  background-color: ${rgba(theme.palette.primary.main, 0.2)};
+  background-color: ${rgba(theme.palette.primary.main, 0.5)};
   border-radius: 8px;
   width: calc((100% / 8) - 15px);
   padding: 5px;
+  margin: 15px 0;
 `;
 
 const WeatherText = styled.p`
