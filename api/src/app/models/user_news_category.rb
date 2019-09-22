@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserNewsCategory < ApplicationRecord
-  enum category:{
+  enum category: {
     business: 1,
     entertainment: 2,
     health: 3,

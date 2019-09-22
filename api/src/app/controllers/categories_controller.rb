@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   def showall
     json = {
-      categories: 
+      categories:
       [
         {
           id: 1,
