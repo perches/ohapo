@@ -1,9 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { theme } from "../../consts/theme";
-import {
-  Fab,
-} from "@material-ui/core";
+import { Fab } from "@material-ui/core";
 import BackgroundImage from "../../public/assets/morning_coffee.png";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
