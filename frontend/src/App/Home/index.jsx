@@ -8,16 +8,15 @@ import {
   Card
 } from "@material-ui/core";
 import fetchWeatherForecast from "../../actions/fetchWeatherForecast";
+import WeatherCard from "./WeatherCard";
 
 class Home extends React.Component {
-
   componentDidMount() {
     this.props.loadWeatherForecast();
   }
-
   render() {
     const {
-      weatherForecastResult,
+      weatherForecast,
       isLoading,
       error
     } = this.props;
@@ -26,13 +25,13 @@ class Home extends React.Component {
       <Wrapper>
         <Grid container spacing={3}>
           <Grid item xs={12}>
+            <WeatherCard
+              result={weatherForecast.weatherForecast}
+              isLoading={isLoading}
+              error={error}
+            />
             <Card>
-              <CardContent style={{ height: 180 }}>
-                {/* {weatherForecastResult} */}
-                {isLoading}
-                {error}
-                {process.env.OPEN_WEATHER_API_URL}
-              </CardContent>
+              <CardContent style={{ height: 180 }}></CardContent>
             </Card>
           </Grid>
         </Grid>
@@ -47,12 +46,12 @@ const Wrapper = styled.div`
 
 Home.propTypes = {
   loadWeatherForecast: PropTypes.func.isRequired,
-  weatherForecastResult: PropTypes.object,
+  weatherForecast: PropTypes.object,
   error: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired
 };
 const mapStateToProps = state => ({
-  weatherForecastResult: state.weatherForecast,
+  weatherForecast: state.weatherForecast,
   error: state.weatherForecast.error,
   isLoading: state.weatherForecast.isLoading
 });
