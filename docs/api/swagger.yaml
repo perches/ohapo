@@ -26,75 +26,6 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
-  "/categories/{userId}":
-    get:
-      tags:
-        - categories
-      summary: "ユーザが選択しているカテゴリを返す"
-      parameters:
-        - name: userId
-          in: path
-          description: "ユーザID"
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: "カテゴリモデルのリスト"
-          content:
-            "application/json":
-              schema:
-                type: object
-                items:
-                  $ref: "#/components/schemas/Category"
-                example:
-                  
-        "400":
-          $ref: "#/components/responses/UnexpectedError"
-        "403":
-          description: "不正アクセス"
-          content:
-            "application/json":
-              schema:
-                items:
-                  $ref: "#/components/schemas/Error"
-                example:
-                  message: "Not Authenticated"
-                  code: 403
-
-    put:
-      tags:
-        - categories
-      summary: "ユーザが選択したカテゴリを登録する"
-      parameters:
-        - name: userId
-          in: path
-          description: "ユーザID"
-          required: true
-          schema:
-            type: integer
-      requestBody: # リクエストボディ
-        description: "更新するカテゴリモデルのリスト"
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Categories"
-      responses:
-        "200":
-          description: "ユーザのカテゴリ更新完了"
-        "400":
-          $ref: "#/components/responses/UnexpectedError"
-        "403":
-          description: "不正アクセス"
-          content:
-            "application/json":
-              schema:
-                items:
-                  $ref: "#/components/schemas/Error"
-                example:
-                  message: "Not Authenticated"
-                  code: 403
-
   "/whatdays":
     get:
       tags:
@@ -158,7 +89,7 @@ paths:
     get:
       tags:
         - users
-      summary: "ユーザプロファイル情報を返す"
+      summary: "ユーザプロフィール情報を返す"
       parameters:
         - name: userId
           in: path
@@ -168,7 +99,7 @@ paths:
             type: integer
       responses:
         "200":
-          description: "ユーザプロファイルモデル"
+          description: "ユーザプロフィールモデル"
           content:
             "application/json":
               schema:
@@ -188,7 +119,7 @@ paths:
     put:
       tags:
         - users
-      summary: "ユーザプロファイルを更新する"
+      summary: "ユーザプロフィールを更新する"
       parameters: 
         - name: userId
           in: path
@@ -197,14 +128,14 @@ paths:
           schema:
             type: integer
       requestBody: # リクエストボディ
-        description: "更新するユーザプロファイルモデル"
+        description: "更新するユーザプロフィールモデル"
         content:
           application/json:
             schema:
               $ref: "#/components/responses/ExampleUserProfileWithoutUserId"
       responses:
         "200":
-          description: "ユーザプロファイル更新成功"
+          description: "ユーザプロフィール更新成功"
         "400":
           $ref: "#/components/responses/UnexpectedError"
         "403":
@@ -232,6 +163,71 @@ paths:
       responses:
         "200":
           description: "ユーザ情報無効化成功"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+
+  "/user/{userId}/categories":
+    get:
+      tags:
+        - users
+      summary: "ユーザが選択しているカテゴリを返す"
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "カテゴリモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Category"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+
+    put:
+      tags:
+        - users
+      summary: "ユーザが選択したカテゴリを登録する"
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      requestBody: # リクエストボディ
+        description: "更新するカテゴリモデルのリスト"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Categories"
+      responses:
+        "200":
+          description: "ユーザのカテゴリ更新完了"
         "400":
           $ref: "#/components/responses/UnexpectedError"
         "403":
