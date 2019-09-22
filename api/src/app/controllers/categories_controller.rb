@@ -2,6 +2,8 @@
 
 class CategoriesController < ApplicationController
   def showall
+    # TODO
+    # メンテしやすいようにしたい気持ちある
     json = {
       categories:
       [
