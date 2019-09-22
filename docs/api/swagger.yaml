@@ -58,6 +58,41 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
+  "/user":
+    get:
+      tags:
+        - user
+      summary: "全ユーザ情報を返す"
+      parameters: []
+      responses:
+        "200":
+          description: "ユーザモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/responses/ExampleUser"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
+    post:
+      tags:
+        - user
+      summary: "ユーザ情報を作成する"
+      parameters: []
+      requestBody: # リクエストボディ
+        description: "作成するユーザモデル"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/responses/ExampleUserWithoutId"
+      responses:
+        '201':
+          description: "ユーザ情報作成成功"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
   "/user/{userId}":
     get:
       tags:
@@ -65,7 +100,7 @@ paths:
       summary: "ユーザ情報を返す"
       parameters:
         - name: userId
-          in: path # パラメータをパス内に含める
+          in: path
           description: "ユーザID"
           required: true
           schema:
@@ -76,83 +111,47 @@ paths:
           content:
             "application/json":
               schema:
-                $ref: "#/components/schemas/User"
-                example:
-                  - date: "2019-09-20"
-                    description: "バスの日"
-                  - date: "2019-09-21"
-                    description: "ファッションショーの日"
-                  - date: "2019-09-22"
-                    description: "ワンウェブデー"
+                $ref: "#/components/responses/ExampleUser"
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
-  "user/create":
-    post:
-      tags:
-        - user
-      summary: "ユーザ情報を登録する"
-      parameters: []
-      responses:
-        "200":
-          description: "Whatdayモデルのリスト"
-          content:
-            "application/json":
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Whatday"
-                example:
-                  - date: "2019-09-20"
-                    description: "バスの日"
-                  - date: "2019-09-21"
-                    description: "ファッションショーの日"
-                  - date: "2019-09-22"
-                    description: "ワンウェブデー"
-        "400":
-          $ref: "#/components/responses/UnexpectedError"
-
-  "/user/{userId}/update":
-    patch:
+    put:
       tags:
         - user
       summary: "ユーザ情報を更新する"
-      parameters: []
+      parameters: 
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      requestBody: # リクエストボディ
+        description: "作成するユーザモデル"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/responses/ExampleUserWithoutId"
       responses:
         "200":
-          description: "Whatdayモデルのリスト"
-          content:
-            "application/json":
-              schema:
-                $ref: "#/components/schemas/Whatday"
-                example:
-                  - date: "2019-09-20"
-                    description: "バスの日"
-                  - date: "2019-09-21"
-                    description: "ファッションショーの日"
-                  - date: "2019-09-22"
-                    description: "ワンウェブデー"
+          description: "ユーザ情報更新成功"
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
-  "/user/{userId}/delete":
     delete:
       tags:
         - user
       summary: "ユーザ情報を消す"
-      parameters: []
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
-          description: "Whatdayモデルのリスト"
-          content:
-            "application/json":
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Whatday"
-                example:
-                  - date: "2019-09-20"
-                    description: "バスの日"
+          description: "ユーザ情報削除成功"
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
@@ -203,32 +202,27 @@ components:
       description: "ユーザ"
       type: object
       required:
-        - id
-        - user_name
-        - age
-        - gender
-        - location
-        - zip_code
       properties:
         id:
+          title: "User Id"
           type: integer
-          example: 101
         user_name:
+          title: "User Name"
           type: string
-          example: "ワン　チャン"
         age:
+          title: "User age"
           type: integer
-          example: 10
         gender:
+          title: "User Gender"
           type: string
-          example: "男"
         location:
+          title: "User Location"
           type: string
-          example: "東京都品川区"
         zip_code:
+          title: "User ZipCode"
           type: string
           pattern: "¥d{3}-¥d{4}"
-          example: "123-4567"
+
     Error:
       description: "エラー"
       type: object
@@ -239,13 +233,12 @@ components:
         message:
           title: "Err Msg"
           type: string
-          example: "予期しないエラーです"
         code:
           title: "Status Code"
           type: integer
           minimum: 100
           maximum: 600
-          example: 400
+
     HealthCheck:
       description: "HealthCheck"
       type: object
@@ -265,7 +258,33 @@ components:
       content:
         "application/json":
           schema:
-            $ref: "#/components/schemas/Error"
+            tyope: object
+            items:
+              $ref: "#/components/schemas/Error"
+            example:
+              message: "データが見つからないとか"
+              code: 400
+
+    ExampleUser:
+      items:
+        $ref: '#/components/schemas/User'
+      example:
+        id: 101
+        user_name: John Do
+        age: 30
+        gender: "man"
+        location: "Shinagawa, Tokyo"
+        zip_code: "123-4567"
+
+    ExampleUserWithoutId:
+      items:
+        $ref: '#/components/schemas/User'
+      example:
+        user_name: John Do
+        age: 30
+        gender: "man"
+        location: "Shinagawa, Tokyo"
+        zip_code: "123-4567"
 
 tags:
   - name: categories
