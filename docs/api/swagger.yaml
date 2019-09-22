@@ -107,16 +107,7 @@ paths:
           content:
             "application/json":
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Whatday"
-                example:
-                  - date: "2019-09-20"
-                    description: "バスの日"
-                  - date: "2019-09-21"
-                    description: "ファッションショーの日"
-                  - date: "2019-09-22"
-                    description: "ワンウェブデー"
+                $ref: "#/components/schemas/Whatdays"
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
@@ -307,6 +298,17 @@ components:
           format: date
         description:
           type: string
+
+    Whatdays:
+      description: "記念日リスト"
+      type: object
+      required:
+      properties:
+        whatdays:
+          title: "Whatdays"
+          type: array
+          items:
+            $ref: "#/components/schemas/Whatday"
 
     User:
       description: "ユーザ"
