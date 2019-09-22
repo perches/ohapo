@@ -45,16 +45,18 @@ class Home extends React.Component {
                 </CityWrapperAbsolute>
               </Grid>
             </Grid>
-            <DetailsWrapper container justify="space-between">
-              {this24Hours &&
-                this24Hours.map((w, index) => (
-                  <EachDetailsContainer item key={index}>
-                    <WeatherText>{w.weather}</WeatherText>
-                    <img src={w.iconUrl} />
-                    <TimeStampText>{String(w.timeStamp)}時</TimeStampText>
-                  </EachDetailsContainer>
-                ))}
-            </DetailsWrapper>
+            <DetailsWrapperRelative>
+              <DetailsWrapperAbsolute container justify="space-between">
+                {this24Hours &&
+                  this24Hours.map((w, index) => (
+                    <EachDetailsContainer item key={index}>
+                      <WeatherText>{w.weather}</WeatherText>
+                      <img src={w.iconUrl} />
+                      <TimeStampText>{String(w.timeStamp)}時</TimeStampText>
+                    </EachDetailsContainer>
+                  ))}
+              </DetailsWrapperAbsolute>
+            </DetailsWrapperRelative>
           </CardContent>
         </Wrapper>
       </Card>
@@ -79,8 +81,6 @@ const CityWrapperAbsolute = styled.div`
 
 const CityWrapperRelative = styled.div`
   position: relative;
-  height: 100%;
-  width: 100%;
 `;
 
 const CityText = styled.p`
@@ -97,8 +97,13 @@ const CityText = styled.p`
     1px -1px 0 #333, 0px 1px 0 #333, 0-1px 0 #fff, -1px 0 0 #fff, 1px 0 0 #fff;
 `;
 
-const DetailsWrapper = styled(Grid)`
+const DetailsWrapperRelative = styled.div`
+  position: relative;
+`;
+
+const DetailsWrapperAbsolute = styled(Grid)`
   position: absolute;
+  width: 80%;
   z-index: 2;
 `;
 
@@ -109,7 +114,7 @@ const EachDetailsContainer = styled(Grid)`
   border-radius: 8px;
   width: calc((100% / 8) - 15px);
   padding: 5px;
-  margin: 15px 0;
+  margin-top: 15px;
 `;
 
 const WeatherText = styled.p`
