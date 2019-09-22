@@ -23,6 +23,10 @@ export const theme = createMuiTheme({
     warning: { main: '#FF9F00' },
     error: { main: '#D42F30'},
     info: { main: '#1976D2' },
-    perches: { main: '#972697'}
+    brand: {
+      perches: '#972697',
+      twitter: '#1DA1F2',
+      facebook: '#3B5998'
+    }
   },
 });
