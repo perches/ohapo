@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const getInstance = (contentType = null, acceptType = "application/json") => {
+const getInstance = (
+  baseURL = `${process.env.LOCALHOST_API_URL}`,
+  contentType = null,
+  acceptType = "application/json",
+  ) => {
   const headers = {
     Accept: `${acceptType}; version=1`
   };
@@ -11,7 +15,7 @@ const getInstance = (contentType = null, acceptType = "application/json") => {
 
   // TODO: 環境ごとにbaseURLを環境変数として持つ
   return axios.create({
-    baseURL: `${process.env.LOCALHOST_API_URL}`,
+    baseURL: baseURL,
     headers: headers,
     responseType: "json"
   });
@@ -19,12 +23,18 @@ const getInstance = (contentType = null, acceptType = "application/json") => {
 
 export const get = (path, params = null) => {
   let options = null;
-
   if (params) {
     options = { params };
   }
-
   return getInstance().get(path, options);
+};
+
+export const getWeatherForecast = (path, params = null) => {
+  let options = null;
+  if (params) {
+    options = { params };
+  }
+  return getInstance(process.env.OPEN_WEATHER_API_URL).get(path, options);
 };
 
 export const post = (path, params = null) => {
