@@ -17,7 +17,9 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        <Wrapper></Wrapper>
+        <Wrapper>
+          <Background></Background>
+        </Wrapper>
         <TextContainer>
           <TextPrimary>
             🌞おはポにログインしてすべての機能を使いましょう🐥
@@ -48,10 +50,15 @@ class Login extends React.Component {
 }
 
 const Wrapper = styled.div`
+  overflow: hidden;
+`;
+
+const Background = styled.div`
   background: url("${BackgroundImage}") no-repeat center center / cover;
   height: 1000px;
     filter: blur(8px);
   -webkit-filter: blur(8px);
+  margin: -9px;
   box-sizing: border-box;
 `;
 
