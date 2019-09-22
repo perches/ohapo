@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { rgba } from "polished";
 import { CardContent, Card, Grid } from "@material-ui/core";
-import "moment-timezone";
 import { theme } from "../../consts/theme";
 
 class Home extends React.Component {
