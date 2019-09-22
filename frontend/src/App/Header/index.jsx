@@ -105,13 +105,13 @@ const LogoWrapper = styled.div`
 `;
 
 const HeaderText = styled.span`
-  color: ${theme.palette.muted.main};
+  color: ${theme.palette.muted.dark};
   font-weight: 400;
   font-size: 14px;
 `;
 
 const HeaderIcon = styled(FontAwesomeIcon)`
-  color: ${theme.palette.muted.main};
+  color: ${theme.palette.muted.dark};
   margin-right: 3px;
   ${props =>
     props.type === "primary" &&
