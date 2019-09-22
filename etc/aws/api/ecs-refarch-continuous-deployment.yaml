@@ -46,6 +46,12 @@ Parameters:
     Description: >
       The S3 bucket from which to fetch the templates used by this stack.
 
+  VpcId:
+    Type: String
+    Default: vpc-082ad8574e34323a7
+    Description: >
+      VPCID
+
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterLabels:

@@ -93,19 +93,39 @@ Resources:
       NetworkMode: !If [Fargate, "awsvpc", "bridge"]
       ExecutionRoleArn: !Ref TaskExecutionRole
       ContainerDefinitions:
+        # - Name: simple-app
+        #   Image: amazon/amazon-ecs-sample
+        #   # EntryPoint:
+        #   #   - bundle
+        #   #   - exec
+        #   #   - rails
+        #   #   - db:setup
+        #   #   - RAILS_ENV=production
+        #   # EntryPoint:
+        #   #   - rails
+        #   #   - server
+        #   #   - --environment
+        #   #   - production
+        #   Essential: true
+        #   Memory: 256
+        #   MountPoints:
+        #     - SourceVolume: app
+        #       ContainerPath: /app
+        #   PortMappings:
+        #     - ContainerPort: 80
+        #   LogConfiguration:
+        #     LogDriver: awslogs
+        #     Options:
+        #       awslogs-region: !Ref AWS::Region
+        #       awslogs-group: !Ref LogGroup
+        #       awslogs-stream-prefix: !Ref AWS::StackName
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
+          # Image: 999280884541.dkr.ecr.ap-northeast-1.amazonaws.com/ohapo-repos-1mnoztz6yf9oh:5a62f247
           # EntryPoint:
-          #   - bundle
-          #   - exec
-          #   - rails
-          #   - db:setup
-          #   - RAILS_ENV=production
-          # EntryPoint:
-          #   - rails
-          #   - server
-          #   - --environment
-          #   - production
+          #   - /usr/sbin/apache2
+          #   - -D
+          #   - FOREGROUND
           Essential: true
           Memory: 256
           MountPoints:
