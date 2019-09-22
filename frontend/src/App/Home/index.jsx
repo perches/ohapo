@@ -17,8 +17,8 @@ class Home extends React.Component {
   render() {
     const {
       weatherForecast,
-      isLoading,
-      error
+      // isLoading,
+      // error
     } = this.props;
 
     return (
@@ -27,8 +27,6 @@ class Home extends React.Component {
           <Grid item xs={12}>
             <WeatherCard
               result={weatherForecast.weatherForecast}
-              isLoading={isLoading}
-              error={error}
             />
             <Card>
               <CardContent style={{ height: 180 }}></CardContent>
@@ -47,8 +45,8 @@ const Wrapper = styled.div`
 Home.propTypes = {
   loadWeatherForecast: PropTypes.func.isRequired,
   weatherForecast: PropTypes.object,
-  error: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  // error: PropTypes.bool.isRequired,
+  // isLoading: PropTypes.bool.isRequired
 };
 const mapStateToProps = state => ({
   weatherForecast: state.weatherForecast,
