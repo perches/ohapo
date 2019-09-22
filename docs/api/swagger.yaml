@@ -58,6 +58,142 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
+  "/user":
+    get:
+      tags:
+        - users
+      summary: "全ユーザ情報を返す"
+      parameters: []
+      responses:
+        "200":
+          description: "ユーザモデルのリスト"
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/responses/ExampleUser"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+
+    post:
+      tags:
+        - users
+      summary: "ユーザ情報を作成する"
+      parameters: []
+      requestBody: # リクエストボディ
+        description: "作成するユーザモデル"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/responses/ExampleUserWithoutId"
+      responses:
+        '201':
+          description: "ユーザ情報作成成功"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+
+  "/user/{userId}":
+    get:
+      tags:
+        - users
+      summary: "ユーザプロファイル情報を返す"
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "ユーザプロファイルモデル"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/responses/ExampleUserProfile"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+    put:
+      tags:
+        - users
+      summary: "ユーザ情報を更新する"
+      parameters: 
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      requestBody: # リクエストボディ
+        description: "作成するユーザモデル"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/responses/ExampleUserProfileWithoutUserId"
+      responses:
+        "200":
+          description: "ユーザ情報更新成功"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+
+    delete:
+      tags:
+        - users
+      summary: "ユーザ情報を無効にする"
+      parameters:
+        - name: userId
+          in: path
+          description: "ユーザID"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "ユーザ情報無効化成功"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
+        "403":
+          description: "不正アクセス"
+          content:
+            "application/json":
+              schema:
+                items:
+                  $ref: "#/components/schemas/Error"
+                example:
+                  message: "Not Authenticated"
+                  code: 403
+
   "/healthcheck":
     get:
       tags:
@@ -101,6 +237,63 @@ components:
         description:
           type: string
 
+    User:
+      description: "ユーザ"
+      type: object
+      required:
+      properties:
+        id:
+          title: "User Id"
+          type: integer
+        user_name:
+          title: "User Name"
+          type: string
+        enable_flag:
+          title: "EnableFlag"
+          type: boolean
+        created_at:
+          title: "Create Date"
+          type: string
+          format: date
+        updeted_at:
+          title: "Last Update Date"
+          format: date
+
+    UserProfile:
+      description: "ユーザプロファイル"
+      type: object
+      required:
+      properties:
+        id:
+          title: "UserProfile Id"
+          type: integer
+        user_id:
+          title: "User Id"
+          type: integer
+        age:
+          title: "User age"
+          type: integer
+        gender:
+          title: "User Gender"
+          type: string
+          minimum: 1
+          maximum: 3
+        location:
+          title: "User Location"
+          type: string
+        zip_code:
+          title: "User ZipCode"
+          type: string
+          pattern: "¥d{3}-¥d{4}"
+        latitude:
+          title: "User Latitude"
+          type: number
+          format: float
+        longitude:
+          title: "User Longitude"
+          type: number
+          format: float
+
     Error:
       description: "エラー"
       type: object
@@ -111,13 +304,12 @@ components:
         message:
           title: "Err Msg"
           type: string
-          example: "予期しないエラーです"
         code:
           title: "Status Code"
           type: integer
           minimum: 100
           maximum: 600
-          example: 400
+
     HealthCheck:
       description: "HealthCheck"
       type: object
@@ -137,12 +329,59 @@ components:
       content:
         "application/json":
           schema:
-            $ref: "#/components/schemas/Error"
+            tyope: object
+            items:
+              $ref: "#/components/schemas/Error"
+            example:
+              message: "データが見つからないとか"
+              code: 400
+
+    ExampleUser:
+      items:
+        $ref: '#/components/schemas/User'
+      example:
+        id: 101
+        user_name: John Do
+        enable_flag: true
+        created_at: "2019-09-21"
+        updated_at: "2019-09-21"
+
+    ExampleUserWithoutId:
+      items:
+        $ref: '#/components/schemas/User'
+      example:
+        user_name: John Do
+
+    ExampleUserProfile:
+      items:
+        $ref: '#/components/schemas/UserProfie'
+      example:
+        id: 201
+        user_id: 101
+        age: 30
+        gender: 1
+        location: "Shinagawa, Tokyo"
+        zip_code: "140-0005"
+        latitude: 35.609197
+        longitude: 139.730336
+
+    ExampleUserProfileWithoutUserId:
+      items:
+        $ref: '#/components/schemas/UserProfie'
+      example:
+        id: 201
+        age: 30
+        gender: 1
+        location: "Shinagawa, Tokyo"
+        zip_code: "140-0005"
+
 
 tags:
   - name: categories
     description: "カテゴリ一覧機能"
   - name: whatdays
     description: "記念日機能"
+  - name: users
+    description: "ユーザ操作機能"
   - name: healthcheck
     description: "HealthCheck機能"
