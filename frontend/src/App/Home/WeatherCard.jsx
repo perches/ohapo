@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { rgba } from "polished";
 import { CardContent, Card, Grid } from "@material-ui/core";
-import Moment from "react-moment";
 import "moment-timezone";
 import { theme } from "../../consts/theme";
 
@@ -23,8 +22,8 @@ class Home extends React.Component {
         this24Hours[i].timeStamp =  (new Date([result.list[i].dt_txt])).getHours();
         // TODO: ハードコード
         this24Hours[i].iconUrl =  `http://openweathermap.org/img/wn/${[
-            result.list[i].weather[0].icon
-          ]}.png`;
+          result.list[i].weather[0].icon
+        ]}.png`;
       }
       return this24Hours;
     }

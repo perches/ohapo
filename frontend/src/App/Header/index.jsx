@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 import changeAccountAnchorEl from "../../actions/changeAccountAnchorEl";
 import changeHeaderButtonToClose from "../../actions/changeHeaderButtonToClose";
-import { theme } from "../../consts/theme";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../public/assets/ohapo_logo_lg.svg";
