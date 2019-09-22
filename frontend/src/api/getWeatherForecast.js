@@ -1,5 +1,5 @@
-import { getWeatherForecast } from "./http";
+import { getForWeatherForecast } from "./http";
 
-const getWeatherForecast = params => getWeatherForecast(``, params);
+const getWeatherForecast = params => getForWeatherForecast(null, params);
 
 export default getWeatherForecast;

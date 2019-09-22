@@ -4,7 +4,7 @@ const getInstance = (
   baseURL = `${process.env.LOCALHOST_API_URL}`,
   contentType = null,
   acceptType = "application/json",
-  ) => {
+) => {
   const headers = {
     Accept: `${acceptType}; version=1`
   };
@@ -29,12 +29,15 @@ export const get = (path, params = null) => {
   return getInstance().get(path, options);
 };
 
-export const getWeatherForecast = (path, params = null) => {
+export const getForWeatherForecast = (path, params = null) => {
   let options = null;
   if (params) {
     options = { params };
   }
-  return getInstance(process.env.OPEN_WEATHER_API_URL).get(path, options);
+  // options.push({ APPID: "c07a54d9299c5862ff46fb0769600e9e" });
+  return getInstance(
+    "http://api.openweathermap.org/data/2.5/forecast?q=Tokyo,jp&APPID=c07a54d9299c5862ff46fb0769600e9e"
+  ).get(path, options);
 };
 
 export const post = (path, params = null) => {
