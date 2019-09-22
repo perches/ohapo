@@ -36,7 +36,7 @@ export const getForWeatherForecast = (path, params = null) => {
   }
   // options.push({ APPID: "6557177b62bdbd54edb4e8ef291e4083" });
   return getInstance(
-    "http://api.openweathermap.org/data/2.5/forecast?q=Tokyo,jp&APPID=6557177b62bdbd54edb4e8ef291e4083"
+    "http://api.openweathermap.org/data/2.5/forecast?q=Tokyo,jp&lang=ja&APPID=6557177b62bdbd54edb4e8ef291e4083"
   ).get(path, options);
 };
 
