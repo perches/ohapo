@@ -81,7 +81,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-  margin: 10px;
+  // margin: 10px;
 `;
 
 render(<App />, document.getElementById("root"));
