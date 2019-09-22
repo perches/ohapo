@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_21_180043) do
-
-  create_table "user_news_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "category", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_news_categories_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 2019_09_21_180017) do
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -38,6 +30,5 @@ ActiveRecord::Schema.define(version: 2019_09_21_180043) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "user_news_categories", "users"
   add_foreign_key "user_profiles", "users"
 end
