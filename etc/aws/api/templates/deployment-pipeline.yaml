@@ -125,7 +125,7 @@ Resources:
             build:
               commands:
                 - cp frontend/.env.default frontend/.env && cp .env.default .env && cp api/src/.env.default api/src/.env
-                - docker build --tag "$IMAGE_URI" -f ./etc/docker/api/Dockerfile .
+                - docker build --tag "$IMAGE_URI" -f ./etc/docker/api/Dockerfile_pro .
             post_build:
               commands:
                 - docker push "$IMAGE_URI"

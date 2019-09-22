@@ -7,7 +7,7 @@ Parameters:
 
   DesiredCount:
     Type: Number
-    Default: 1
+    Default: 2
 
   LaunchType:
     Type: String
@@ -95,10 +95,17 @@ Resources:
       ContainerDefinitions:
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
-          EntryPoint:
-            - bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-            # bundle exec rails db:setup RAILS_ENV=production
-            # rails server --environment production
+          # EntryPoint:
+          #   - bundle
+          #   - exec
+          #   - rails
+          #   - db:setup
+          #   - RAILS_ENV=production
+          # EntryPoint:
+          #   - rails
+          #   - server
+          #   - --environment
+          #   - production
           Essential: true
           Memory: 256
           MountPoints:

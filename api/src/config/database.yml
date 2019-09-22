@@ -52,5 +52,5 @@ production:
   database: ohapo_production
   username: root
   password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
-  host: db
+  host: ohapo-test-db.cueeveppn7iu.ap-northeast-1.rds.amazonaws.com
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
