@@ -11,7 +11,7 @@ const getInstance = (contentType = null, acceptType = "application/json") => {
 
   // TODO: 環境ごとにbaseURLを環境変数として持つ
   return axios.create({
-    baseURL: "http://localhost:3031/",
+    baseURL: `${process.env.LOCALHOST_API_URL}`,
     headers: headers,
     responseType: "json"
   });
