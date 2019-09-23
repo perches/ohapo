@@ -31,12 +31,13 @@ export const get = (path, params = null) => {
 
 export const getForWeatherForecast = (path, params = null) => {
   let options = null;
+
   if (params) {
     options = { params };
   }
-  // options.push({ APPID: "6557177b62bdbd54edb4e8ef291e4083" });
+
   return getInstance(
-    "http://api.openweathermap.org/data/2.5/forecast?q=Tokyo,jp&lang=ja&APPID=6557177b62bdbd54edb4e8ef291e4083"
+    `${process.env.OPEN_WEATHER_API_URL}?appid=${process.env.OPEN_WEATHER_API_KEY}`
   ).get(path, options);
 };
 

@@ -28,7 +28,6 @@ class Home extends React.Component {
               result={weatherForecast.weatherForecast}
             />
             <Card>
-              {/* <CardContent style={{ height: 180 }}></CardContent> */}
             </Card>
           </Grid>
         </Grid>
@@ -53,7 +52,11 @@ const mapStateToProps = state => ({
   isLoading: state.weatherForecast.isLoading
 });
 const mapDispatchToProps = dispatch => ({
-  loadWeatherForecast: () => dispatch(fetchWeatherForecast())
+  loadWeatherForecast: (params = {
+    // TODO: user_profileから都市名を持ってくる
+    q: "Sapporo",
+    lang: "ja"
+  }) => dispatch(fetchWeatherForecast(params))
 });
 export default connect(
   mapStateToProps,
