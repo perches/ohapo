@@ -73,12 +73,12 @@ class Home extends React.Component {
     result && buildChartData();
     function buildWeather() {
       for(let i=0, n=(24/3); i<n; i++ ) {
+        let time = new Date([result.list[i].dt_txt]);
+        let jstTime = time.setHours(time.getHours() + 9); // JSTに変換
         this24Hours[i] = { weather: '', timeStamp: '', iconUrl: '' };
 
         this24Hours[i].weather = result.list[i].weather[0].description;
-        this24Hours[i].timeStamp = `${new Date([
-          result.list[i].dt_txt
-        ]).getHours() + 9}時`;
+        this24Hours[i].timeStamp = `${new Date(jstTime).getHours()}時`;
         // TODO: ハードコード
         this24Hours[i].iconUrl =  `http://openweathermap.org/img/wn/${[
           result.list[i].weather[0].icon
@@ -92,7 +92,7 @@ class Home extends React.Component {
     function buildChartData() {
       for (let i = 0, n = 24 / 3; i < n; i++) {
         let time = new Date([result.list[i].dt_txt]);
-        let jstTime = time.setHours(time.getHours() + 9);
+        let jstTime = time.setHours(time.getHours() + 9); // JSTに変換
 
         chartData[i] = { name: "", temperature: "", rainyPercent: "" };
         chartData[i].name = `${new Date(jstTime).getHours()}時`;
