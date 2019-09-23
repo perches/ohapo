@@ -36,10 +36,6 @@ class WeatherCard extends React.Component {
     result && buildWeather();
     result && buildChartData();
 
-    console.log(isLoading);
-    console.log(error);
-
-
     function buildWeather() {
       for (let i = 0, n = 24 / 3; i < n; i++) {
         let time = new Date([result.list[i].dt_txt]);
@@ -68,8 +64,6 @@ class WeatherCard extends React.Component {
       }
       return chartData;
     }
-
-    console.log(result);
 
     return (
       <Wrapper>
@@ -111,7 +105,7 @@ class WeatherCard extends React.Component {
             </DetailsWrapperRelative>
             <Grid container justify="center">
               {chartData && (
-                <ChartContainer style={{ width: "100%", height: 200 }}>
+                <ChartContainer style={{ width: "90%", height: 200 }}>
                   <ResponsiveContainer>
                     <ComposedChart data={chartData}>
                       <CartesianGrid strokeDasharray="3 3" />
