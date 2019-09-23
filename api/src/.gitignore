@@ -9,6 +9,8 @@
 !/storage/.keep
 .byebug_history
 
+/vendor/bundle
+
 /config/master.key
 
 .env*

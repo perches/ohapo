@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'user', controllers: {
     omniauth_callbacks: "auth/omniauth_callbacks",
-    # registrations: 'user/registrations'
+    registrations: "auth/registrations"
   }
   get "healthcheck", to: "samples#healthcheck"
 

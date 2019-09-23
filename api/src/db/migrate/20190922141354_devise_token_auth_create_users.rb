@@ -25,13 +25,13 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.string   :last_sign_in_ip
 
       ## User Info
-      t.string :name
+      # t.string :name
       t.string :nickname
       t.string :image
       t.string :email
 
-      # t.string :name, null: false
-      # t.boolean :enable_flag, null: false
+      t.string :name, default: "no name", null: false
+      t.boolean :enable_flag, default: true, null: false
       t.timestamps
       
       ## Tokens

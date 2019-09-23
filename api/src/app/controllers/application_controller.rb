@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     before_action :skip_session
 
     protected
-        def skip_session
-          request.session_options[:skip] = true
-        end
+      def skip_session
+        request.session_options[:skip] = true
+      end
 end

@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 2019_09_22_163657) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "name"
     t.string "nickname"
     t.string "image"
     t.string "email"
+    t.string "name", default: "no name", null: false
+    t.boolean "enable_flag", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "tokens"
