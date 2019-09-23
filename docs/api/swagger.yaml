@@ -193,26 +193,10 @@ paths:
                 example:
                   message: "Not Authenticated"
                   code: 403
-
-  "/healthcheck":
+  "/user/{provider}":
     get:
       tags:
-        - healthcheck
-      summary: "正常ならOKを返す"
-      responses:
-        "200":
-          description: "正常"
-          content:
-            "application/json":
-              schema:
-                $ref: "#/components/schemas/HealthCheck"
-        "400":
-          $ref: "#/components/responses/UnexpectedError"
-
-  "/auth/{provider}/callback":
-    get:
-      tags:
-        - auth
+        - users
       summary: "ユーザ認証結果を返す"
       parameters:
         - name: provider
@@ -237,6 +221,21 @@ paths:
               schema:
                 type: string
               description: ユーザのUUID
+
+  "/healthcheck":
+    get:
+      tags:
+        - healthcheck
+      summary: "正常ならOKを返す"
+      responses:
+        "200":
+          description: "正常"
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/HealthCheck"
+        "400":
+          $ref: "#/components/responses/UnexpectedError"
 
 # 扱うコンポーネント一覧
 components:
@@ -410,7 +409,5 @@ tags:
     description: "記念日機能"
   - name: users
     description: "ユーザ操作機能"
-  - name: auth
-    description: "認証機能"
   - name: healthcheck
     description: "HealthCheck機能"
