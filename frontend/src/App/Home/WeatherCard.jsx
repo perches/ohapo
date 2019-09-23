@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -14,11 +15,20 @@ import {
 } from "recharts";
 import { rgba } from "polished";
 import { CardContent, Card, Grid } from "@material-ui/core";
+import fetchWeatherForecast from "../../actions/fetchWeatherForecast";
 import { theme } from "../../consts/theme";
 
 class WeatherCard extends React.Component {
+  componentDidMount() {
+    this.props.loadWeatherForecast();
+  }
   render() {
-    const { result } = this.props;
+    const {
+      weatherForecast
+      // isLoading,
+      // error
+    } = this.props;
+    const result = weatherForecast.weatherForecast;
 
     const this24Hours = [];
     const chartData = [];
@@ -122,7 +132,9 @@ class WeatherCard extends React.Component {
 }
 
 WeatherCard.propTypes = {
-  result: PropTypes.object
+  loadWeatherForecast: PropTypes.func.isRequired,
+  weatherForecast: PropTypes.object,
+
 };
 
 const Wrapper = styled.div`
@@ -186,4 +198,21 @@ const ChartContainer = styled.div`
   transform: translate(0%, 50%);
 `;
 
-export default WeatherCard;
+const mapStateToProps = state => ({
+  weatherForecast: state.weatherForecast,
+  error: state.weatherForecast.error,
+  isLoading: state.weatherForecast.isLoading
+});
+const mapDispatchToProps = dispatch => ({
+  loadWeatherForecast: (
+    params = {
+      // TODO: user_profileから都市名を持ってくる
+      q: "Sapporo",
+      lang: "ja"
+    }
+  ) => dispatch(fetchWeatherForecast(params))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WeatherCard);
