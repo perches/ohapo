@@ -6,7 +6,7 @@ RSpec.describe CategoriesController, type: :controller do
   describe "GET /categories" do
     before do
       # 共通処理を記述
-      get "/categories"
+      get "categories"
     end
 
     context "should return response" do
@@ -16,7 +16,7 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     context "should return string" do
-      it 'that return is "ok"' do
+      it 'that return is Categories' do
         json = JSON.parse(response.body)
         expect(json["categories"][1]["id"]).to eq(1)
         expect(json["categories"][2]["id"]).to eq(2)
