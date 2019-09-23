@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { theme } from "../../consts/theme";
 import WeatherCard from "./WeatherCard";
+import NewsCard from "./NewsCard";
 
 class Home extends React.Component {
   render() {
@@ -16,13 +17,14 @@ class Home extends React.Component {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Card>
-              <CardWrapper>
+              <WeatherCardWrapper>
                 <CardContent>
                   <WeatherCard />
                 </CardContent>
-              </CardWrapper>
+              </WeatherCardWrapper>
             </Card>
           </Grid>
+          <NewsCard />
         </Grid>
       </Wrapper>
     );
@@ -30,10 +32,10 @@ class Home extends React.Component {
 }
 
 const Wrapper = styled.div`
-  margin: 10px;
+  padding: 20px;
 `;
 
-const CardWrapper = styled.div`
+const WeatherCardWrapper = styled.div`
   background-color: ${rgba(theme.palette.muted.main, 0.4)};
 `;
 
