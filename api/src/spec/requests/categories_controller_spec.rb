@@ -16,7 +16,7 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     context "should return string" do
-      it 'that return is Categories' do
+      it "that return is Categories" do
         json = JSON.parse(response.body)
         expect(json["categories"][1]["id"]).to eq(1)
         expect(json["categories"][2]["id"]).to eq(2)
