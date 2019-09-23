@@ -2,5 +2,5 @@
 
 Rails.application.routes.draw do
   get "healthcheck", to: "samples#healthcheck"
-  get "categories", to: "categories#index"
+  resources :categories, only: [:index]
 end
