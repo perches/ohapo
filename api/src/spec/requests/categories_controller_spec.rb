@@ -18,7 +18,6 @@ RSpec.describe CategoriesController, type: :controller do
     context "should return string" do
       it 'that return is "ok"' do
         json = JSON.parse(response.body)
-
         expect(json["categories"][1]["id"]).to eq(1)
         expect(json["categories"][2]["id"]).to eq(2)
         expect(json["categories"][3]["id"]).to eq(3)
@@ -31,7 +30,6 @@ RSpec.describe CategoriesController, type: :controller do
         expect(json["categories"][1]["category_name"]).to eq("science")
         expect(json["categories"][1]["category_name"]).to eq("sports")
         expect(json["categories"][1]["category_name"]).to eq("technology")
-
       end
     end
   end

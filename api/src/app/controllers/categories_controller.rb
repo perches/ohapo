@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
       }
       array_categories << temp
     end
-    
+
     json = {
       categories:
         array_categories
