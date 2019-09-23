@@ -25,7 +25,7 @@ module App
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     # 主にdeviseを使うのに必要
-    config.session_store :cookie_store, key: '_interslice_session'
+    config.session_store :cookie_store, key: "_interslice_session"
     config.middleware.use ActionDispatch::Cookies # Required for all session management
     config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
 
@@ -33,15 +33,14 @@ module App
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
-        resource '*',
-                 :headers => :any,
-                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 :methods => [:get, :post, :options, :delete, :put]
+        origins "*"
+        resource "*",
+                 headers: :any,
+                 expose: ["access-token", "expiry", "token-type", "uid", "client"],
+                 methods: [:get, :post, :options, :delete, :put]
       end
     end
 
     config.api_only = true
-    
   end
 end

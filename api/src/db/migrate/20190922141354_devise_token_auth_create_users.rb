@@ -20,7 +20,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.datetime :remember_created_at
 
       ## Trackable
-      t.integer  :sign_in_count, default: 0, :null => false
+      t.integer  :sign_in_count, default: 0, null: false
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
@@ -35,7 +35,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.string :name, default: "no name", null: false
       t.boolean :enable_flag, default: true, null: false
       t.timestamps
-      
+
       ## Tokens
       t.text :tokens
     end

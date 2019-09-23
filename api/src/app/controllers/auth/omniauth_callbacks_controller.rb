@@ -35,7 +35,7 @@ module Auth
             fallback_render data[:error] || "An error occurred"
           end
         else
-           # わかりやすい様に開発時はjsonとして結果を返す
+          # わかりやすい様に開発時はjsonとして結果を返す
           render json: @resource, status: :ok
         end
       end

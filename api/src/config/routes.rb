@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'user', controllers: {
+  mount_devise_token_auth_for "User", at: "user", controllers: {
     omniauth_callbacks: "auth/omniauth_callbacks",
     registrations: "auth/registrations"
   }
   get "healthcheck", to: "samples#healthcheck"
 
-  root 'home#about'
+  root "home#about"
 end
