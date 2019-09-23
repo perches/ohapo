@@ -35,7 +35,6 @@ const Wrapper = styled.div`
 
 const CardWrapper = styled.div`
   background-color: ${rgba(theme.palette.muted.main, 0.4)};
-  height: 600px;
 `;
 
 export default Home;

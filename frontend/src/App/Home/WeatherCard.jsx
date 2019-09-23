@@ -14,7 +14,7 @@ import {
   Legend
 } from "recharts";
 import { rgba } from "polished";
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 import fetchWeatherForecast from "../../actions/fetchWeatherForecast";
 import { theme } from "../../consts/theme";
 
@@ -73,6 +73,21 @@ class WeatherCard extends React.Component {
     console.log(result);
 
     return (
+      <Wrapper>
+        {isLoading ? (
+          <Grid container justify="center">
+            <CenteringGrid item>
+              <CircularProgress color="secondary" size={100} />
+            </CenteringGrid>
+          </Grid>
+        ) : error ? (
+          <Grid container justify="center">
+            <CenteringGrid item>
+              <ErrorText>エラーが発生しました</ErrorText>
+              <ErrorText>もう一度お試しください🙇</ErrorText>
+            </CenteringGrid>
+          </Grid>
+        ) : (
           <>
             <Grid container justify="center">
               <Grid item>
@@ -97,7 +112,7 @@ class WeatherCard extends React.Component {
             </DetailsWrapperRelative>
             <Grid container justify="center">
               {chartData && (
-                <ChartContainer style={{ width: "100%", height: 300 }}>
+                <ChartContainer style={{ width: "100%", height: 200 }}>
                   <ResponsiveContainer>
                     <ComposedChart data={chartData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -127,7 +142,9 @@ class WeatherCard extends React.Component {
                 </ChartContainer>
               )}
             </Grid>
-            </>
+          </>
+        )}
+      </Wrapper>
     );
   }
 }
@@ -138,6 +155,19 @@ WeatherCard.propTypes = {
   isLoading: PropTypes.bool,
   error: PropTypes.bool,
 };
+
+const Wrapper = styled.div`
+  height: 300px;
+`;
+
+const CenteringGrid = styled(Grid)`
+  padding: 30px;
+  text-align: center;
+`;
+
+const ErrorText = styled.p`
+  color: ${theme.palette.muted.dark};
+`;
 
 const CityWrapperAbsolute = styled.div`
   position: absolute;
@@ -151,8 +181,8 @@ const CityWrapperRelative = styled.div`
 
 const CityText = styled.p`
   text-align: center;
-  -webkit-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);
+  -webkit-transform: translate(-50%, 40%);
+  transform: translate(-50%, 40%);
   font-size: 100px;
   font-weight: 900;
   color: #fff;
@@ -167,7 +197,7 @@ const DetailsWrapperRelative = styled.div`
 
 const DetailsWrapperAbsolute = styled(Grid)`
   position: absolute;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const EachDetailsContainer = styled(Grid)`
@@ -193,6 +223,9 @@ const TimeStampText = styled.p`
 const ChartContainer = styled.div`
   -webkit-transform: translate(0%, 50%);
   transform: translate(0%, 50%);
+  margin-top: 20px;
+  z-index: 2;
+  position: absolute;
 `;
 
 const mapStateToProps = state => ({
