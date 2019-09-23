@@ -98,7 +98,7 @@ paths:
             schema:
               $ref: "#/components/responses/ExampleUserWithoutId"
       responses:
-        '201':
+        "201":
           description: "ユーザ情報作成成功"
         "400":
           $ref: "#/components/responses/UnexpectedError"
@@ -138,7 +138,7 @@ paths:
       tags:
         - users
       summary: "ユーザ情報を更新する"
-      parameters: 
+      parameters:
         - name: userId
           in: path
           description: "ユーザID"
@@ -209,6 +209,35 @@ paths:
         "400":
           $ref: "#/components/responses/UnexpectedError"
 
+  "/auth/{provider}/callback":
+    get:
+      tags:
+        - auth
+      summary: "ユーザ認証結果を返す"
+      parameters:
+        - name: provider
+          in: pahth
+          description: "プロバイダーID"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "認証済"
+          headers:
+            access-token:
+              schema:
+                type: string
+              description: 認証後に発行されるトークン
+            client:
+              schema:
+                type: string
+              description: クライアントID
+            uid:
+              schema:
+                type: string
+              description: ユーザのUUID
+
 # 扱うコンポーネント一覧
 components:
   schemas:
@@ -223,7 +252,7 @@ components:
           type: integer
         category_name:
           type: string
-    
+
     Whatday:
       description: "記念日"
       type: object
@@ -321,7 +350,6 @@ components:
           type: string
           example: "ok"
 
-
   # 汎用的に使うものはまとめておく
   responses:
     UnexpectedError:
@@ -338,7 +366,7 @@ components:
 
     ExampleUser:
       items:
-        $ref: '#/components/schemas/User'
+        $ref: "#/components/schemas/User"
       example:
         id: 101
         user_name: John Do
@@ -348,13 +376,13 @@ components:
 
     ExampleUserWithoutId:
       items:
-        $ref: '#/components/schemas/User'
+        $ref: "#/components/schemas/User"
       example:
         user_name: John Do
 
     ExampleUserProfile:
       items:
-        $ref: '#/components/schemas/UserProfie'
+        $ref: "#/components/schemas/UserProfie"
       example:
         id: 201
         user_id: 101
@@ -367,14 +395,13 @@ components:
 
     ExampleUserProfileWithoutUserId:
       items:
-        $ref: '#/components/schemas/UserProfie'
+        $ref: "#/components/schemas/UserProfie"
       example:
         id: 201
         age: 30
         gender: 1
         location: "Shinagawa, Tokyo"
         zip_code: "140-0005"
-
 
 tags:
   - name: categories
@@ -383,5 +410,7 @@ tags:
     description: "記念日機能"
   - name: users
     description: "ユーザ操作機能"
+  - name: auth
+    description: "認証機能"
   - name: healthcheck
     description: "HealthCheck機能"
