@@ -41,6 +41,18 @@ export const getForWeatherForecast = (path, params = null) => {
   ).get(path, options);
 };
 
+export const getForNews = (path, params = null) => {
+  let options = null;
+
+  if (params) {
+    options = { params };
+  }
+
+  return getInstance(
+    `${process.env.NEWS_API_URL}?apiKey=${process.env.NEWS_API_KEY}`
+  ).get(path, options);
+};
+
 export const post = (path, params = null) => {
   return getInstance().post(path, params);
 };
