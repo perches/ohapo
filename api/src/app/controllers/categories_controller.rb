@@ -1,37 +1,23 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  def showall
-    # TODO
-    # メンテしやすいようにしたい気持ちある
+  def index
+    array_categories = []
+    array_cate_pair = UserNewsCategory.categories.to_a
+
+    array_cate_pair.each do |pair|
+      tempid = pair[1]
+      tempname = pair[0]
+      temp = {
+        id: tempid,
+        category_name: tempname
+      }
+      array_categories << temp
+    end
+    
     json = {
       categories:
-      [
-        {
-          id: 1,
-          category_name: "business"
-        },
-        {
-          id: 2,
-          category_name: "entertainment"
-        },
-        {
-          id: 3,
-          category_name: "health"
-        },
-        {
-          id: 4,
-          category_name: "science"
-        },
-        {
-          id: 5,
-          category_name: "sports"
-        },
-        {
-          id: 6,
-          category_name: "technology"
-        },
-      ]
+        array_categories
     }
     render json: json
   end
