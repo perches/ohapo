@@ -14,7 +14,7 @@ import {
   Legend
 } from "recharts";
 import { rgba } from "polished";
-import { CardContent, Card, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import fetchWeatherForecast from "../../actions/fetchWeatherForecast";
 import { theme } from "../../consts/theme";
 
@@ -24,17 +24,22 @@ class WeatherCard extends React.Component {
   }
   render() {
     const {
-      weatherForecast
-      // isLoading,
-      // error
+      weatherForecast,
+      isLoading,
+      error
     } = this.props;
     const result = weatherForecast.weatherForecast;
-
     const this24Hours = [];
     const chartData = [];
+
     const city = result && result.city.name;
     result && buildWeather();
     result && buildChartData();
+
+    console.log(isLoading);
+    console.log(error);
+
+
     function buildWeather() {
       for (let i = 0, n = 24 / 3; i < n; i++) {
         let time = new Date([result.list[i].dt_txt]);
@@ -68,9 +73,7 @@ class WeatherCard extends React.Component {
     console.log(result);
 
     return (
-      <Card>
-        <Wrapper>
-          <CardContent>
+          <>
             <Grid container justify="center">
               <Grid item>
                 <CityWrapperAbsolute>
@@ -124,9 +127,7 @@ class WeatherCard extends React.Component {
                 </ChartContainer>
               )}
             </Grid>
-          </CardContent>
-        </Wrapper>
-      </Card>
+            </>
     );
   }
 }
@@ -134,13 +135,9 @@ class WeatherCard extends React.Component {
 WeatherCard.propTypes = {
   loadWeatherForecast: PropTypes.func.isRequired,
   weatherForecast: PropTypes.object,
-
+  isLoading: PropTypes.bool,
+  error: PropTypes.bool,
 };
-
-const Wrapper = styled.div`
-  background-color: ${rgba(theme.palette.muted.main, 0.4)};
-  height: 600px;
-`;
 
 const CityWrapperAbsolute = styled.div`
   position: absolute;
