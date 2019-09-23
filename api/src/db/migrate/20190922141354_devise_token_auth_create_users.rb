@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
   def change
     # drop_table :users
     create_table(:users) do |t|
       ## Required
-      t.string :provider, :null => false, :default => "email"
-      t.string :uid, :null => false, :default => ""
+      t.string :provider, default: "email", null: false
+      t.string :uid, default: "", null: false
 
       ## Database authenticatable
-      t.string :encrypted_password, :null => false, :default => ""
+      t.string :encrypted_password,  default: "", null: false
 
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
-      t.boolean  :allow_password_change, :default => false
+      t.boolean  :allow_password_change, default: false
 
       ## Rememberable
       t.datetime :remember_created_at
 
       ## Trackable
-      t.integer  :sign_in_count, :default => 0, :null => false
+      t.integer  :sign_in_count, default: 0, :null => false
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
