@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe CategoriesController, type: :controller do
-
   describe "GET /categories" do
     before do
       # 共通処理を記述
