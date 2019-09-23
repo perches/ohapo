@@ -38,8 +38,6 @@ class WeatherCard extends React.Component {
           result.list[i].weather[0].icon
         ]}.png`;
       }
-      console.log(result);
-      console.log(this24Hours);
       return this24Hours;
     }
 
@@ -54,9 +52,6 @@ class WeatherCard extends React.Component {
           result.list[i].main.temp - process.env.KELVIN;
         chartData[i].rain = result.list[i].rain ? result.list[i].rain["3h"] : 0;
       }
-      console.log(process.env.KELVIN);
-      console.log(chartData);
-      console.log(data);
       return chartData;
     }
 
@@ -126,7 +121,7 @@ class WeatherCard extends React.Component {
   }
 }
 
-Home.propTypes = {
+WeatherCard.propTypes = {
   result: PropTypes.object
 };
 
