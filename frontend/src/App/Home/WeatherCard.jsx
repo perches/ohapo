@@ -115,9 +115,14 @@ class WeatherCard extends React.Component {
                   <ResponsiveContainer>
                     <ComposedChart data={chartData}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis yAxisId="left" />
-                      <YAxis yAxisId="right" orientation="right" />
+                      <XAxis dataKey="name" tick={{ fontSize: 14 }} />
+                      <YAxis yAxisId="left" unit="℃" tick={{ fontSize: 14 }} />
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        unit="mm"
+                        tick={{ fontSize: 14 }}
+                      />
                       <Tooltip />
                       <Legend />
                       <Area
@@ -127,6 +132,7 @@ class WeatherCard extends React.Component {
                         stroke={theme.palette.info.main}
                         strokeWidth={4}
                         activeDot={{ r: 8 }}
+                        unit="mm"
                       />
                       <Line
                         yAxisId="left"
@@ -135,6 +141,7 @@ class WeatherCard extends React.Component {
                         stroke={theme.palette.secondary.dark}
                         strokeWidth={4}
                         activeDot={{ r: 8 }}
+                        unit="℃"
                       />
                     </ComposedChart>
                   </ResponsiveContainer>
