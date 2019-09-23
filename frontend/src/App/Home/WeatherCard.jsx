@@ -63,8 +63,7 @@ class WeatherCard extends React.Component {
         let jstTime = time.setHours(time.getHours() + 9); // JSTに変換
 
         chartData[i].name = `${new Date(jstTime).getHours()}時`;
-        chartData[i].temperature =
-          result.list[i].main.temp - process.env.KELVIN;
+        chartData[i].temperature = Math.round((result.list[i].main.temp - process.env.KELVIN) * 10) / 10;
         chartData[i].rain = result.list[i].rain ? result.list[i].rain["3h"] : 0;
       }
       return chartData;
