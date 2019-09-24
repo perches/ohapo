@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 import changeAccountAnchorEl from "../../actions/changeAccountAnchorEl";
 import changeHeaderButtonToClose from "../../actions/changeHeaderButtonToClose";
-import { theme } from "../../consts/theme";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../public/assets/ohapo_logo_lg.svg";
@@ -105,13 +104,11 @@ const LogoWrapper = styled.div`
 `;
 
 const HeaderText = styled.span`
-  color: ${theme.palette.muted.dark};
   font-weight: 400;
   font-size: 14px;
 `;
 
 const HeaderIcon = styled(FontAwesomeIcon)`
-  color: ${theme.palette.muted.dark};
   margin-right: 3px;
   ${props =>
     props.type === "primary" &&

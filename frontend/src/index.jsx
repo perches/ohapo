@@ -42,21 +42,19 @@ class App extends React.Component {
             <BrowserRouter>
               <Header />
               <Wrapper>
-                <Content>
-                  <Switch>
-                    {routes.map((route, index) => (
-                      <RouteWithTitle
-                        exaxt
-                        key={index}
-                        title={route.name}
-                        path={route.path}
-                        pageName={route.name}
-                        component={route.component}
-                      />
-                    ))}
-                    <Redirect from="/" to="/home" />
-                  </Switch>
-                </Content>
+                <Switch>
+                  {routes.map((route, index) => (
+                    <RouteWithTitle
+                      exaxt
+                      key={index}
+                      title={route.name}
+                      path={route.path}
+                      pageName={route.name}
+                      component={route.component}
+                    />
+                  ))}
+                  <Redirect from="/" to="/home" />
+                </Switch>
               </Wrapper>
               <Footer />
             </BrowserRouter>
@@ -78,10 +76,6 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
   background-color: ${theme.palette.muted.light};
-`;
-
-const Content = styled.div`
-  // margin: 10px;
 `;
 
 render(<App />, document.getElementById("root"));

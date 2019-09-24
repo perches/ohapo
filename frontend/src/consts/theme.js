@@ -9,15 +9,15 @@ export const theme = createMuiTheme({
       contrastText: "#000000"
     },
     secondary: {
-      light: "#ebc9bc ",
+      light: "#ebc9bc",
       main: "#eba286",
-      dark: "#eb865e ",
+      dark: "#eb865e",
       contrastText: "#000000"
     },
     muted: {
       light: "#fffafa",
       main: "#C0C0C0",
-      dark: "#2F4F4F",
+      dark: "#202020",
     },
     success: { main: '#44A047' },
     warning: { main: '#FF9F00' },
