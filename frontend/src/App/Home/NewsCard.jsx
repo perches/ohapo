@@ -40,16 +40,15 @@ class NewsCard extends React.Component {
         };
 
         let publishedAt = `
-          ${new Date(articles[i].publishedAt).getFullYear()}年
-          ${new Date(articles[i].publishedAt).getMonth() + 1}月
-          ${new Date(articles[i].publishedAt).getDate()}日
+          ${new Date(articles[i].publishedAt).getMonth() + 1}/${new Date(articles[i].publishedAt).getDate()}
+          ${new Date(articles[i].publishedAt).getHours()}:${new Date(articles[i].publishedAt).getMinutes()}
         `;
 
         articleList[i].source = articles[i].source.name;
         articleList[i].title = articles[i].title;
         articleList[i].description = articles[i].description;
         articleList[i].publishedAt = publishedAt;
-        articleList[i].image = articles[i].urlToImage;
+        articleList[i].image = articles[i].urlToImage || "";
         articleList[i].url = articles[i].url;
       }
       return articleList;

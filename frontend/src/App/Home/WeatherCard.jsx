@@ -237,7 +237,7 @@ const mapDispatchToProps = dispatch => ({
   loadWeatherForecast: (
     params = {
       // TODO: user_profileから都市名を持ってくる
-      q: "Minato",
+      q: "Tokyo",
       lang: "ja"
     }
   ) => dispatch(fetchWeatherForecast(params))
