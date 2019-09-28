@@ -67,7 +67,7 @@ $ docker volume rm ohapo_bundle
 .
 ├── LICENSE
 ├── README.md
-├── api                                             // APIディレクトリ
+├── api                                            // APIディレクトリ
 │   └── src
 │       ├── Gemfile
 │       ├── Gemfile.lock
@@ -77,105 +77,49 @@ $ docker volume rm ohapo_bundle
 │       │   ├── jobs                               // バックグラウンドジョブ
 │       │   ├── models                             // モデル定義
 │       │   └── views
-│       ├── config
-│       │   ├── application.rb
-│       │   ├── boot.rb
-│       │   ├── database.yml
-│       │   ├── environment.rb
-│       │   ├── environments
-│       │   ├── initializers
-│       │   ├── routes.rb                           // ルーティング
-│       │   └── storage.yml
+│       ├── config                                 // 各設定
 │       ├── db
 │       │   ├── migrate                             // マイグレーション定義
 │       │   ├── schema.rb
 │       │   └── seeds.rb
 │       ├── log
-│       │   ├── development.log
-│       │   └── test.log
-│       ├── public
-│       │   └── robots.txt
-│       ├── spec
-│       │   ├── models
-│       │   ├── rails_helper.rb
-│       │   ├── requests
-│       │   └── spec_helper.rb
+│       │   ├── development.log                     // ローカル環境のログ
+│       │   └── test.log                            // RSpecのログ
+│       ├── spec                                    // RSpec
 │       ├── storage
-│       ├── tmp
-│       │   ├── cache
-│       │   ├── development_secret.txt
-│       │   ├── pids
-│       │   ├── restart.txt
-│       │   └── sockets
-│       └── vendor
-├── docker-compose.yml
-├── docs
+│       └── vendor                                  // CircleCIではここにgemをインストールする
+├── docker-compose.yml                              // 全コンテナの操作
+├── docs                                            // 設計など
 │   ├── api
-│   │   └── swagger.yaml
-│   └── desgin
-│       └── system_architecture.md
+│   │   └── swagger.yaml                            // REST API仕様定義
+│   └── desgin                                      // その他設計
 ├── etc
-│   └── docker
+│   └── docker                                      // コンテナイメージなどのdocker周り仕様
 │       ├── api
-│       │   ├── Dockerfile
-│       │   └── entrypoint.sh
 │       ├── db
-│       │   ├── Dockerfile
-│       │   └── init
 │       ├── frontend
-│       │   └── Dockerfile
 │       └── nginx
-│           ├── conf.d
-│           └── nginx.conf
-└── frontend
-    ├── dist
-    │   ├── index.html
-    │   └── main.bundle.js
+└── frontend                                        // フロントエンドディレクトリ
+    ├── dist                                        // webpackのbundleが入る
     ├── package.json
     ├── src
-    │   ├── App
-    │   │   ├── Footer
-    │   │   ├── Header
-    │   │   ├── Home
-    │   │   ├── Login
-    │   │   └── User
-    │   ├── actions
-    │   │   ├── changeAccountAnchorEl.js
-    │   │   ├── changeHeaderButtonToClose.js
-    │   │   ├── fetchHealthCheck.js
-    │   │   ├── fetchNews.js
-    │   │   └── fetchWeatherForecast.js
-    │   ├── api
-    │   │   ├── getHealthCheck.js
-    │   │   ├── getNews.js
-    │   │   ├── getWeatherForecast.js
-    │   │   └── http.js
-    │   ├── configureStore.js
-    │   ├── consts
-    │   │   ├── consts.js
-    │   │   └── theme.js
-    │   ├── index.jsx
-    │   ├── public
-    │   │   ├── assets
-    │   │   └── index.html
-    │   ├── reducers
-    │   │   ├── header.js
-    │   │   ├── healthCheck.js
-    │   │   ├── index.js
-    │   │   ├── news.js
-    │   │   └── weatherForecast.js
-    │   ├── routes.js
-    │   └── sagas
-    │       ├── healthCheck.js
-    │       ├── index.js
-    │       ├── news.js
-    │       └── weatherForecast.js
-    ├── webpack.common.js
+    │   ├── App                                     // ページごとのComponent
+    │   ├── actions                                 // Resux Actions
+    │   ├── api                                     // 叩くAPIを定義
+    │   │   └── http.js                             // 共通非同期処理
+    │   ├── configureStore.js                       // Redux Store
+    │   ├── consts                                  // 定数やテーマの定義
+    │   ├── index.jsx                               // エントリポイント
+    │   ├── public                                  // アセットなど
+    │   ├── reducers                                // Redux Reducers
+    │   ├── routes.js                               // ルーティングをまとめて定義する
+    │   └── sagas                                   // Redux-saga
+    ├── webpack.common.js                           // webpack-mergeで環境ごとに設定
     ├── webpack.dev.js
     ├── webpack.prod.js
     └── yarn.lock
 ```
-
+　
 ## License
 
 MIT
