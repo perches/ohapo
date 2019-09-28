@@ -113,10 +113,13 @@ class NewsCard extends React.Component {
                           </Button>
                         </Grid>
                         <Grid item xs={5}>
-                          <Button size="small" color="primary">
-                            <SourceLink href={article.url}>
-                              ソースを見る
-                            </SourceLink>
+                          <Button
+                            size="small"
+                            color="primary"
+                            href={article.url}
+                            target="_blank"
+                          >
+                            ソースを見る
                           </Button>
                         </Grid>
                         <Grid item xs={4}></Grid>
