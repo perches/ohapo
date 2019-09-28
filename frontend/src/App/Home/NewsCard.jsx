@@ -57,7 +57,9 @@ class NewsCard extends React.Component {
         articleList[i].title = articles[i].title;
         articleList[i].description = articles[i].description;
         articleList[i].publishedAt = publishedAt;
-        articleList[i].image = articles[i].urlToImage || "";
+        articleList[i].image =
+          articles[i].urlToImage ||
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz6VLdS-4Ztu3wpJGzQVYRotD-ygzxwU6LUFEDvZzuaY8FYli9"; // TODO: ダミーのイメージ
         articleList[i].url = articles[i].url;
       }
       return articleList;
