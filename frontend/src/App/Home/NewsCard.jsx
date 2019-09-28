@@ -10,7 +10,8 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button
+  Button,
+  Divider
 } from "@material-ui/core";
 import fetchNews from "../../actions/fetchNews";
 import { theme } from "../../consts/theme";
@@ -76,12 +77,18 @@ class NewsCard extends React.Component {
                 <EachNewsGrid item xs={4} key={index}>
                   <Card>
                     <CardMedia
-                      style={{ height: 250 }}
+                      style={{ height: 200 }}
                       image={article.image}
                       title={article.title}
                     />
                     <CardContent>
                       <ArticleTitle>{article.title}</ArticleTitle>
+                      <PublishedAtWrapper>
+                        <PublishedAt>{article.publishedAt}</PublishedAt>
+                      </PublishedAtWrapper>
+                      <DividerWrapper>
+                        <Divider variant="middle" />
+                      </DividerWrapper>
                       <Typography
                         variant="body2"
                         color="textSecondary"
@@ -91,15 +98,21 @@ class NewsCard extends React.Component {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" color="primary">
-                        共有
-                      </Button>
-                      <Button size="small" color="primary">
-                        <SourceLink href={article.url}>ソースを見る</SourceLink>
-                      </Button>
-                      <PublishedAtWrapper>
-                        <PublishedAt>{article.publishedAt}</PublishedAt>
-                      </PublishedAtWrapper>
+                      <Grid container>
+                        <Grid item xs={3}>
+                          <Button size="small" color="primary">
+                            共有
+                          </Button>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <Button size="small" color="primary">
+                            <SourceLink href={article.url}>
+                              ソースを見る
+                            </SourceLink>
+                          </Button>
+                        </Grid>
+                        <Grid item xs={4}></Grid>
+                      </Grid>
                     </CardActions>
                   </Card>
                 </EachNewsGrid>
@@ -132,12 +145,16 @@ const ErrorText = styled.p`
 `;
 
 const EachNewsGrid = styled(Grid)`
-  padding: 30px;
+  padding: 50px;
 `;
 
-const ArticleTitle = styled.h4`
+const ArticleTitle = styled.span`
+  font-weight: 600;
   color: ${theme.palette.muted.dark};
-  margin-bottom: 10px;
+`;
+
+const DividerWrapper = styled.div`
+  margin: 10px;
 `;
 
 const SourceLink = styled.a`
@@ -145,12 +162,11 @@ const SourceLink = styled.a`
 `;
 
 const PublishedAtWrapper = styled.div`
-  width: 60%;
   text-align: right;
 `;
 
 const PublishedAt = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   color: ${theme.palette.muted.main};
 `;
 

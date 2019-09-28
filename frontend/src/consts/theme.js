@@ -16,7 +16,7 @@ export const theme = createMuiTheme({
     },
     muted: {
       light: "#fffafa",
-      main: "#C0C0C0",
+      main: "#808080",
       dark: "#202020",
     },
     success: { main: '#44A047' },
