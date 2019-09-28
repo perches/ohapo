@@ -32,7 +32,7 @@ class Home extends React.Component {
 }
 
 const Wrapper = styled.div`
-  padding: 20px;
+  padding: 40px 100px;
 `;
 
 const WeatherCardWrapper = styled.div`
