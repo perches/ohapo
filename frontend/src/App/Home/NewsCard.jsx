@@ -20,14 +20,20 @@ class NewsCard extends React.Component {
   componentDidMount() {
     this.props.loadNews();
   }
+
   render() {
     const { news, isLoading, error } = this.props;
     const articles = news.news && news.news.articles;
     const articleList = [];
 
-    console.log(articles);
-
     articles && buildNews();
+
+    // Hours, Minuteの0詰め
+    function toDoubleDigits(num) {
+      let str = String(num);
+      if (str.length === 1) str = "0" + str;
+      return str;
+    }
 
     function buildNews() {
       for (let i = 0, n = 6; i < n; i++) {
@@ -40,10 +46,12 @@ class NewsCard extends React.Component {
           url: ""
         };
 
-        let publishedAt = `
-          ${new Date(articles[i].publishedAt).getMonth() + 1}/${new Date(articles[i].publishedAt).getDate()}
-          ${new Date(articles[i].publishedAt).getHours()}:${new Date(articles[i].publishedAt).getMinutes()}
-        `;
+        // publishedAtを MM/DD HH:MM 形式に変換する
+        let publishedMonth = new Date(articles[i].publishedAt).getMonth() + 1;
+        let publishedDate = new Date(articles[i].publishedAt).getDate();
+        let publishedHours = toDoubleDigits(new Date(articles[i].publishedAt).getHours());
+        let publishedMinutes = toDoubleDigits(new Date(articles[i].publishedAt).getMinutes());
+        let publishedAt = `${publishedMonth}/${publishedDate} ${publishedHours}:${publishedMinutes}`;
 
         articleList[i].source = articles[i].source.name;
         articleList[i].title = articles[i].title;
@@ -145,7 +153,7 @@ const ErrorText = styled.p`
 `;
 
 const EachNewsGrid = styled(Grid)`
-  padding: 50px;
+  padding: 30px;
 `;
 
 const ArticleTitle = styled.span`
@@ -163,6 +171,7 @@ const SourceLink = styled.a`
 
 const PublishedAtWrapper = styled.div`
   text-align: right;
+  margin: 0 20px;
 `;
 
 const PublishedAt = styled.span`

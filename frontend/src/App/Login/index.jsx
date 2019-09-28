@@ -22,9 +22,6 @@ class Login extends React.Component {
           <TextPrimary>
             🌞おはポにログインしてすべての機能を使いましょう🐥
           </TextPrimary>
-          <TextSecondary>
-            ログインしなくても利用することができます
-          </TextSecondary>
           <LoginButtonWrapper>
             <Fab variant="extended" color="primary" aria-label="add">
               <LoginIcon icon={["fab", "twitter"]} brand="twitter" />
@@ -80,12 +77,6 @@ const TextPrimary = styled.p`
   font-size: 28px;
   font-weight: 400;
   margin: 10px;
-`;
-
-const TextSecondary = styled.p`
-  font-size: 18px;
-  color: ${theme.palette.muted.light};
-  font-weight: 100;
 `;
 
 const LoginButtonWrapper = styled.div`
