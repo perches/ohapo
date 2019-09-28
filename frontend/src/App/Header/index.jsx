@@ -82,7 +82,7 @@ class Header extends React.Component {
                   <ListItemIcon>
                     <HeaderIcon type="secondary" icon="sign-out-alt" />
                   </ListItemIcon>
-                  <ListItemText secondary="サインアウト" />
+                  <ListItemText secondary="ログアウト" />
                 </MenuItem>
               </Menu>
             </Grid>
