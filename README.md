@@ -46,14 +46,6 @@ $ docker-compose exec builder yarn lint
 
 ## Deployment
 
-## System Architecture
-
-![Architecture](https://i.imgur.com/U5jX0XJ.png)
-
-## Directory Structure
-
-TODO: 環境構築が全部できたら書く
-
 ## TroubleShoot
 
 各エラーメッセージが出た時の対処
@@ -63,6 +55,125 @@ TODO: 環境構築が全部できたら書く
 ```
 $ docker volume ls
 $ docker volume rm ohapo_bundle
+```
+
+## System Architecture
+
+![Architecture](https://i.imgur.com/U5jX0XJ.png)
+
+## Directory Structure
+
+```
+.
+├── LICENSE
+├── README.md
+├── api                                             // APIディレクトリ
+│   └── src
+│       ├── Gemfile
+│       ├── Gemfile.lock
+│       ├── app
+│       │   ├── channels
+│       │   ├── controllers                        // ビジネスロジック
+│       │   ├── jobs                               // バックグラウンドジョブ
+│       │   ├── models                             // モデル定義
+│       │   └── views
+│       ├── config
+│       │   ├── application.rb
+│       │   ├── boot.rb
+│       │   ├── database.yml
+│       │   ├── environment.rb
+│       │   ├── environments
+│       │   ├── initializers
+│       │   ├── routes.rb                           // ルーティング
+│       │   └── storage.yml
+│       ├── db
+│       │   ├── migrate                             // マイグレーション定義
+│       │   ├── schema.rb
+│       │   └── seeds.rb
+│       ├── log
+│       │   ├── development.log
+│       │   └── test.log
+│       ├── public
+│       │   └── robots.txt
+│       ├── spec
+│       │   ├── models
+│       │   ├── rails_helper.rb
+│       │   ├── requests
+│       │   └── spec_helper.rb
+│       ├── storage
+│       ├── tmp
+│       │   ├── cache
+│       │   ├── development_secret.txt
+│       │   ├── pids
+│       │   ├── restart.txt
+│       │   └── sockets
+│       └── vendor
+├── docker-compose.yml
+├── docs
+│   ├── api
+│   │   └── swagger.yaml
+│   └── desgin
+│       └── system_architecture.md
+├── etc
+│   └── docker
+│       ├── api
+│       │   ├── Dockerfile
+│       │   └── entrypoint.sh
+│       ├── db
+│       │   ├── Dockerfile
+│       │   └── init
+│       ├── frontend
+│       │   └── Dockerfile
+│       └── nginx
+│           ├── conf.d
+│           └── nginx.conf
+└── frontend
+    ├── dist
+    │   ├── index.html
+    │   └── main.bundle.js
+    ├── package.json
+    ├── src
+    │   ├── App
+    │   │   ├── Footer
+    │   │   ├── Header
+    │   │   ├── Home
+    │   │   ├── Login
+    │   │   └── User
+    │   ├── actions
+    │   │   ├── changeAccountAnchorEl.js
+    │   │   ├── changeHeaderButtonToClose.js
+    │   │   ├── fetchHealthCheck.js
+    │   │   ├── fetchNews.js
+    │   │   └── fetchWeatherForecast.js
+    │   ├── api
+    │   │   ├── getHealthCheck.js
+    │   │   ├── getNews.js
+    │   │   ├── getWeatherForecast.js
+    │   │   └── http.js
+    │   ├── configureStore.js
+    │   ├── consts
+    │   │   ├── consts.js
+    │   │   └── theme.js
+    │   ├── index.jsx
+    │   ├── public
+    │   │   ├── assets
+    │   │   └── index.html
+    │   ├── reducers
+    │   │   ├── header.js
+    │   │   ├── healthCheck.js
+    │   │   ├── index.js
+    │   │   ├── news.js
+    │   │   └── weatherForecast.js
+    │   ├── routes.js
+    │   └── sagas
+    │       ├── healthCheck.js
+    │       ├── index.js
+    │       ├── news.js
+    │       └── weatherForecast.js
+    ├── webpack.common.js
+    ├── webpack.dev.js
+    ├── webpack.prod.js
+    └── yarn.lock
 ```
 
 ## License
