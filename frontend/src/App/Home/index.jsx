@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 `;
 
 const WeatherCardWrapper = styled.div`
-  background-color: ${rgba(theme.palette.muted.main, 0.4)};
+  background-color: ${rgba(theme.palette.muted.main, 0.1)};
 `;
 
 export default Home;

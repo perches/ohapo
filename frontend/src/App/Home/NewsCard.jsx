@@ -36,7 +36,7 @@ class NewsCard extends React.Component {
     }
 
     function buildNews() {
-      for (let i = 0, n = 6; i < n; i++) {
+      for (let i = 0, n = articles.length; i < n; i++) {
         articleList[i] = {
           source: "",
           title: "",
