@@ -170,10 +170,6 @@ const DividerWrapper = styled.div`
   margin: 10px;
 `;
 
-const SourceLink = styled.a`
-  text-decoration: none;
-`;
-
 const PublishedAtWrapper = styled.div`
   text-align: right;
   margin: 0 20px;
