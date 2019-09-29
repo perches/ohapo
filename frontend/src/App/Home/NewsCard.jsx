@@ -132,6 +132,7 @@ NewsCard.propTypes = {
 
 const Wrapper = styled.div`
   padding: 10px;
+  width: 100%;
 `;
 
 const CenteringGrid = styled(Grid)`
@@ -150,10 +151,6 @@ const EachNewsGrid = styled(Grid)`
 const ArticleTitle = styled.span`
   font-weight: 600;
   color: ${theme.palette.muted.dark};
-`;
-
-const DividerWrapper = styled.div`
-  margin: 10px;
 `;
 
 const PublishedAtWrapper = styled.div`
