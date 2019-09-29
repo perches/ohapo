@@ -9,9 +9,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Typography,
   Button,
-  Divider
 } from "@material-ui/core";
 import fetchNews from "../../actions/fetchNews";
 import { theme } from "../../consts/theme";
@@ -40,7 +38,6 @@ class NewsCard extends React.Component {
         articleList[i] = {
           source: "",
           title: "",
-          description: "",
           publishedAt: "",
           image: "",
           url: ""
@@ -55,7 +52,6 @@ class NewsCard extends React.Component {
 
         articleList[i].source = articles[i].source.name;
         articleList[i].title = articles[i].title;
-        articleList[i].description = articles[i].description;
         articleList[i].publishedAt = publishedAt;
         articleList[i].image =
           articles[i].urlToImage ||
@@ -96,16 +92,6 @@ class NewsCard extends React.Component {
                       <PublishedAtWrapper>
                         <PublishedAt>{article.publishedAt}</PublishedAt>
                       </PublishedAtWrapper>
-                      <DividerWrapper>
-                        <Divider variant="middle" />
-                      </DividerWrapper>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {article.description}
-                      </Typography>
                     </CardContent>
                     <CardActions>
                       <Grid container>
