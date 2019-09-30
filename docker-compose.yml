@@ -13,8 +13,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - 3000:3000
-      # - 3032:3000
+      - 3032:3000
     depends_on:
       - db
   db:
