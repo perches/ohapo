@@ -89,7 +89,7 @@ class Login extends React.Component {
               <LoginIcon icon={["fab", "twitter"]} brand="twitter" />
               Twitterアカウントでログインする
             </Fab>
-            <Fab variant="extended" color="primary" aria-label="add">
+            <Fab variant="extended" color="primary" aria-label="add" onClick={this.handleSignIn("Facebook")}>
               <LoginIcon icon={["fab", "facebook"]} brand="facebook" />
               Facebookアカウントでログインする
             </Fab>
