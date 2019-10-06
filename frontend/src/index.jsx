@@ -12,6 +12,18 @@ import { theme } from "./consts/theme";
 import routes from "./routes";
 import Header from "./App/Header";
 import Footer from "./App/Footer";
+import Amplify from "aws-amplify";
+import { GetAuthConfig, AuthConfigEmpty } from "./awsConfig";
+
+try {
+  Amplify.configure({
+    Auth: GetAuthConfig()
+  });
+} catch (e) {
+  Amplify.configure({
+    Auth: AuthConfigEmpty()
+  });
+}
 
 const store = configureStore();
 

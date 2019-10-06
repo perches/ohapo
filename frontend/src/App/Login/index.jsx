@@ -11,6 +11,9 @@ import {
   fab,
   faTwitter
 } from "@fortawesome/free-brands-svg-icons";
+import { GetCognitoAuth } from "../../awsConfig";
+import { getAuthInfo } from "../../helper";
+
 library.add(fab, faTwitter);
 
 class Login extends React.Component {
