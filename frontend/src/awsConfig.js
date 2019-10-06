@@ -5,9 +5,9 @@ export const GetAuthConfig = () => ({
   // identityPoolId はCognito Identity PoolのFederatedItentityProviderにGoogleやFacebookを登録している場合に必要。
   // このサンプルではCognito User PoolのユーザーとしてGoogleやFacebookのユーザーをログインさせる(UserPoolのログインIDが付与される)
   // identityPoolId: "us-east-1:6317760e-ae25-4c71-9901-855dd1d9c435", //REQUIRED - Amazon Cognito Identity Pool ID
-  region: localStorage.getItem("region") || "", // REQUIRED - Amazon Cognito Region
-  userPoolId: localStorage.getItem("userPoolId") || "", //OPTIONAL - Amazon Cognito User Pool ID
-  userPoolWebClientId: localStorage.getItem("appClientId") || "" //OPTIONAL - Amazon Cognito Web Client ID
+  region: localStorage.getItem("region") || "ap-northeast-1", // REQUIRED - Amazon Cognito Region
+  userPoolId: localStorage.getItem("userPoolId") || "ap-northeast-1_p4udkwsmG", //OPTIONAL - Amazon Cognito User Pool ID
+  userPoolWebClientId: localStorage.getItem("appClientId") || "5v1i7enorgsiqucuqee3sr2086" //OPTIONAL - Amazon Cognito Web Client ID
 });
 
 export const AuthConfigEmpty = () => ({
@@ -17,7 +17,7 @@ export const AuthConfigEmpty = () => ({
 });
 export const GetCognitoAuth = (identifyProvider, onSuccess, onFailure) => {
   var authData = {
-    ClientId: localStorage.getItem("appClientId") || "", // Your client id here
+    ClientId: localStorage.getItem("appClientId") || "5v1i7enorgsiqucuqee3sr2086", // Your client id here
     AppWebDomain: `${localStorage.getItem(
       "ohapo-federation"
     )}.auth.${localStorage.getItem("region")}.amazoncognito.com`,
