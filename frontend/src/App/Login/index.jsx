@@ -14,6 +14,60 @@ import {
 library.add(fab, faTwitter);
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authenticated: false,
+      username: ""
+    };
+  }
+
+  handleSignIn = identityProvider => () => {
+    const auth = GetCognitoAuth(
+      identityProvider,
+      () => {
+        this.updateAuthInfo();
+      },
+      () => {
+        this.updateAuthInfo();
+      }
+    );
+    auth.getSession();
+  };
+
+  handleSignOut = () => {
+    const auth = GetCognitoAuth(
+      null,
+      () => {
+        this.updateAuthInfo();
+      },
+      () => {
+        this.updateAuthInfo();
+      }
+    );
+    auth.signOut();
+  };
+
+  async updateAuthInfo() {
+    const info = await getAuthInfo();
+
+    if (info.currentUserInfo) {
+      this.setState({
+        authenticated: true,
+        username: info.currentUserInfo.username
+          ? info.currentUserInfo.username
+          : info.currentUserInfo.name
+      });
+    } else {
+      this.setState({ authenticated: false, username: null });
+    }
+  }
+
+  componentDidMount() {
+    this.updateAuthInfo();
+  }
+
   render() {
     return (
       <>
@@ -31,6 +85,14 @@ class Login extends React.Component {
             <Fab variant="extended" color="primary" aria-label="add">
               <LoginIcon icon={["fab", "twitter"]} brand="twitter" />
               Twitterアカウントでログインする
+            </Fab>
+            <Fab variant="extended" color="primary" aria-label="add">
+              <LoginIcon icon={["fab", "facebook"]} brand="facebook" />
+              Facebookアカウントでログインする
+            </Fab>
+            <Fab variant="extended" color="primary" aria-label="add">
+              <LoginIcon icon={["fab", "google"]} brand="google" />
+              Googleアカウントでログインする
             </Fab>
           </LoginButtonWrapper>
           <LoginButtonWrapper>
