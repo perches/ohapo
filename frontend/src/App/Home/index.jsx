@@ -9,12 +9,14 @@ import {
 import { theme } from "../../consts/theme";
 import WeatherCard from "./WeatherCard";
 import NewsCard from "./NewsCard";
+import WhatDays from "./WhatDays";
 
 class Home extends React.Component {
   render() {
     return (
       <Wrapper>
         <Grid container spacing={3}>
+          <WhatDays />
           <Grid item xs={12}>
             <Card>
               <WeatherCardWrapper>
