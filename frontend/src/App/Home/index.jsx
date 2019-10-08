@@ -15,8 +15,10 @@ class Home extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Grid container spacing={3}>
-          <WhatDays />
+        <Grid container spacing={2} justify="center">
+          <Grid item sx={10}>
+            <WhatDays />
+          </Grid>
           <Grid item xs={12}>
             <Card>
               <WeatherCardWrapper>
