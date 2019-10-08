@@ -6,7 +6,10 @@ import {
   Grid,
   // CircularProgress,
   Card,
-  Divider,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
   // CardActions,
   // CardContent,
   // CardMedia,
@@ -20,10 +23,36 @@ class WhatDays extends React.Component {
     return (
       <Wrapper>
         <CardContainer>
-          <Grid container>
+          <Table border="0">
+            <TableBody>
+              <TableRow>
+                <TableCell align="center">
+                  <SideDayText>○月×日</SideDayText>
+                </TableCell>
+                <TableCell align="center">
+                  <TodayText>○月×日</TodayText>
+                </TableCell>
+                <TableCell align="center">
+                  <SideDayText>○月×日</SideDayText>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="center">
+                  <SideDayText>△△△△△△△△の日</SideDayText>
+                </TableCell>
+                <TableCell align="center">
+                  <TodayText>△△△△△△△△の日</TodayText>
+                </TableCell>
+                <TableCell align="center">
+                  <SideDayText>△△△△△△△△の日</SideDayText>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+          {/* <Grid container>
             <Grid item xs={3}>
               <SideDayText>
-                ○月×日
+
                 <br />
                 △△△△△△△△の日
               </SideDayText>
@@ -42,7 +71,7 @@ class WhatDays extends React.Component {
                 <br /> △△△△△△△△の日
               </SideDayText>
             </Grid>
-          </Grid>
+          </Grid> */}
         </CardContainer>
       </Wrapper>
     );
