@@ -3,17 +3,7 @@ import React from "react";
 import styled from "styled-components";
 // import { connect } from "react-redux";
 import {
-  Grid,
-  // CircularProgress,
   Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  // CardActions,
-  // CardContent,
-  // CardMedia,
-  // Button
 } from "@material-ui/core";
 // import fetchNews from "../../actions/fetchNews";
 import { theme } from "../../consts/theme";
@@ -23,55 +13,32 @@ class WhatDays extends React.Component {
     return (
       <Wrapper>
         <CardContainer>
-          <Table border="0">
-            <TableBody>
-              <TableRow>
-                <TableCell align="center">
+          <table>
+            <tbody>
+              <tr>
+                <TableData align="center">
                   <SideDayText>○月×日</SideDayText>
-                </TableCell>
-                <TableCell align="center">
+                </TableData>
+                <TableData align="center">
                   <TodayText>○月×日</TodayText>
-                </TableCell>
-                <TableCell align="center">
+                </TableData>
+                <TableData align="center">
                   <SideDayText>○月×日</SideDayText>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="center">
+                </TableData>
+              </tr>
+              <tr>
+                <TableData align="center">
                   <SideDayText>△△△△△△△△の日</SideDayText>
-                </TableCell>
-                <TableCell align="center">
+                </TableData>
+                <TableData align="center">
                   <TodayText>△△△△△△△△の日</TodayText>
-                </TableCell>
-                <TableCell align="center">
+                </TableData>
+                <TableData align="center">
                   <SideDayText>△△△△△△△△の日</SideDayText>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-          {/* <Grid container>
-            <Grid item xs={3}>
-              <SideDayText>
-
-                <br />
-                △△△△△△△△の日
-              </SideDayText>
-              <Divider orientation="vertical" />
-            </Grid>
-            <Grid item xs={6}>
-              <TodayText>
-                ○月×日
-                <br /> △△△△△△△△の日
-              </TodayText>
-              <Divider orientation="vertical" />
-            </Grid>
-            <Grid item åxs={3}>
-              <SideDayText>
-                ○月×日
-                <br /> △△△△△△△△の日
-              </SideDayText>
-            </Grid>
-          </Grid> */}
+                </TableData>
+              </tr>
+            </tbody>
+          </table>
         </CardContainer>
       </Wrapper>
     );
@@ -80,11 +47,16 @@ class WhatDays extends React.Component {
 
 
 const Wrapper = styled.div`
+  margin-bottom: 20px;
   text-align: center;
 `;
 
 const CardContainer = styled(Card)`
   padding: 20px;
+`;
+
+const TableData = styled.td`
+  padding: 0 30px;
 `;
 
 const SideDayText = styled.span`
