@@ -1,5 +1,4 @@
 import React from "react";
-import './style.css';
 import styled, { css } from "styled-components";
 import { theme } from "../../consts/theme";
 import {
