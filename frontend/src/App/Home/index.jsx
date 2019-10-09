@@ -8,6 +8,7 @@ import {
   CardContent,
   Card
 } from "@material-ui/core";
+import { withAuthenticator } from "aws-amplify-react";
 
 class Home extends React.Component {
   render() {
@@ -97,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(withAuthenticator(Home));
