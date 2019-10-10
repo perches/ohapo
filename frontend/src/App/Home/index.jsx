@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import fetchHealthCheck from "../../actions/fetchHealthCheck";
+import { withAuthenticator } from 'aws-amplify-react';
 import {
   Button,
   Grid,
   CardContent,
   Card
 } from "@material-ui/core";
-// import { withAuthenticator } from "aws-amplify-react";
 
 class Home extends React.Component {
   render() {
@@ -98,4 +98,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(withAuthenticator(Home));
+
+// export default withAuthenticator(Home);
+
