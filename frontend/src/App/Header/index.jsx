@@ -72,12 +72,14 @@ class Header extends React.Component {
                   horizontal: "center"
                 }}
               >
-                <MenuItem>
-                  <ListItemIcon>
-                    <HeaderIcon type="secondary" icon="address-card" />
-                  </ListItemIcon>
-                  <ListItemText secondary="プロフィール" />
-                </MenuItem>
+                <BrandNavLink exact to="/user_edit">
+                  <MenuItem>
+                    <ListItemIcon>
+                      <HeaderIcon type="secondary" icon="address-card" />
+                    </ListItemIcon>
+                    <ListItemText secondary="プロフィール" />
+                  </MenuItem>
+                </BrandNavLink>
                 <MenuItem>
                   <ListItemIcon>
                     <HeaderIcon type="secondary" icon="sign-out-alt" />
