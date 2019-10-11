@@ -61,7 +61,7 @@ export function put(path, params) {
   return getInstance("application/json").put(path, params);
 }
 
-// TODO: 不要になったら削除する
+// DEMOのAPI通信
 export const getForHealthCheck = path => {
   return axios.get(`${process.env.LOCALHOST_API_URL}${path}`);
 };
