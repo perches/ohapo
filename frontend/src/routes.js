@@ -2,7 +2,6 @@ import Home from "./App/Home";
 import Login from "./App/Login";
 import User from "./App/User";
 import UserEdit from "./App/User/Edit";
-import UserEditConfirm from "./App/User/Confirm";
 
 const routes = [
   {
@@ -23,11 +22,6 @@ const routes = [
   {
     path: "/user_edit",
     component: UserEdit,
-    name: "プロフィール編集"
-  },
-  {
-    path: "/user_confirm",
-    component: UserEditConfirm,
     name: "プロフィール編集"
   }
 ];

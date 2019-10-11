@@ -72,7 +72,7 @@ class Header extends React.Component {
                   horizontal: "center"
                 }}
               >
-                <BrandNavLink exact to="/user_edit">
+                <BrandNavLink exact to="/user">
                   <MenuItem>
                     <ListItemIcon>
                       <HeaderIcon type="secondary" icon="address-card" />
