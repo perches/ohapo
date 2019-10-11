@@ -76,7 +76,7 @@ class Header extends React.Component {
                   <ListItemIcon>
                     <HeaderIcon type="secondary" icon="address-card" />
                   </ListItemIcon>
-                  <ListItemText secondary="プロフィールを確認" />
+                  <ListItemText secondary="プロフィール" />
                 </MenuItem>
                 <MenuItem>
                   <ListItemIcon>
