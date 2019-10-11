@@ -62,6 +62,7 @@ class Header extends React.Component {
                 anchorEl={accountAnchorEl}
                 open={Boolean(accountAnchorEl)}
                 onClose={changeHeaderButtonToClose}
+                onClick={changeHeaderButtonToClose}
                 getContentAnchorEl={null}
                 anchorOrigin={{
                   vertical: "bottom",
