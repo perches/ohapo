@@ -14,7 +14,6 @@ export default class IDPCallback extends Component {
   }
 
   componentDidMount() {
-    // 成功時はhome画面に、失敗時にはlogin画面に遷移させる
     const auth = GetCognitoAuth(null, this.invokeRedirect("/a"), this.invokeRedirect("/"));
     auth.parseCognitoWebResponse(this.props.location.search);
   }
