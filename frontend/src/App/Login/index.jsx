@@ -13,10 +13,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { GetCognitoAuth } from "../../awsConfig";
 import { getAuthInfo } from "../../helper";
+import { SignIn } from 'aws-amplify-react';
 
 library.add(fab, faTwitter);
 
-class Login extends React.Component {
+class Login extends SignIn {
   constructor(props) {
     super(props);
 
@@ -25,7 +26,6 @@ class Login extends React.Component {
       username: ""
     };
   }
-
   handleSignIn = identityProvider => () => {
     const auth = GetCognitoAuth(
       identityProvider,
@@ -37,6 +37,8 @@ class Login extends React.Component {
       }
     );
     auth.getSession();
+    // 普通はroutes.jsで認証有無のルーティング制御するっぽい
+    // (this.state.authenticated) ? location.href = "./home" : location.href = "./login";
   };
 
   handleSignOut = () => {
@@ -50,6 +52,7 @@ class Login extends React.Component {
       }
     );
     auth.signOut();
+    location.href = "./login";
   };
 
   async updateAuthInfo() {
@@ -112,6 +115,11 @@ class Login extends React.Component {
               <TextWithoutLogin>ログインせずに使う</TextWithoutLogin>
             </Fab>
           </LoginButtonWrapper>
+          <Fab variant="extended" color="primary" aria-label="add" onClick={this.handleSignOut}>
+            <LoginIcon icon={["fab", "google"]} brand="google" />
+            signout
+          </Fab>
+
         </TextContainer>
       </>
     );

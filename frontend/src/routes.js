@@ -1,17 +1,12 @@
-import Home from "./App/Home";
 import Login from "./App/Login";
 import User from "./App/User";
 import UserEdit from "./App/User/Edit";
 import UserEditConfirm from "./App/User/Confirm";
 import IDPCallback from "./App/Auth/index";
+import WithAuthRoutes from "./WithAuthRoutes";
 
 
 const routes = [
-  {
-    path: "/home",
-    component: Home,
-    name: "ホーム"
-  },
   {
     path: "/login",
     component: Login,
@@ -36,6 +31,11 @@ const routes = [
     path: "/idpcallback",
     component: IDPCallback,
     name: "サインイン後処理"
+  },
+  {
+    path: "/a",
+    component: WithAuthRoutes,
+    name: "要認証ページ"
   }
 ];
 

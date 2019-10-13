@@ -24,7 +24,7 @@ export const GetCognitoAuth = (identifyProvider, onSuccess, onFailure) => {
       "phone"
     ],
     RedirectUriSignIn: "http://localhost:3032/idpcallback",
-    RedirectUriSignOut: "http://localhost:3032/",
+    RedirectUriSignOut: "http://localhost:3032/login",
     IdentityProvider: identifyProvider
   };
   var auth = new CognitoAuth(authData);
@@ -33,13 +33,13 @@ export const GetCognitoAuth = (identifyProvider, onSuccess, onFailure) => {
       if (onSuccess) {
         onSuccess(result);
       }
-      console.log(result);
     },
     onFailure: function (err) {
       console.log(err);
       if (onFailure) {
         onFailure(err);
       }
+      console.log(err);
     }
   };
   auth.useCodeGrantFlow();

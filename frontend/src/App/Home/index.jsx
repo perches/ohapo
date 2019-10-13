@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import fetchHealthCheck from "../../actions/fetchHealthCheck";
-import { withAuthenticator } from 'aws-amplify-react';
+// import { withAuthenticator } from 'aws-amplify-react';
 import {
   Button,
   Grid,
@@ -98,7 +98,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuthenticator(Home));
+)(Home);
 
 // export default withAuthenticator(Home);
 
