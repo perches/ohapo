@@ -2,20 +2,20 @@ import {
   CognitoAuth
 } from "amazon-cognito-auth-js/dist/amazon-cognito-auth";
 export const GetAuthConfig = () => ({
-  region: localStorage.getItem("region") || "ap-northeast-1", // REQUIRED - Amazon Cognito Region
-  userPoolId: localStorage.getItem("userPoolId") || "ap-northeast-1_p4udkwsmG", //OPTIONAL - Amazon Cognito User Pool ID
-  userPoolWebClientId: localStorage.getItem("appClientId") || "5v1i7enorgsiqucuqee3sr2086" //OPTIONAL - Amazon Cognito Web Client ID
+  region: localStorage.getItem("region") || process.env.REGION, // REQUIRED - Amazon Cognito Region
+  userPoolId: localStorage.getItem("userPoolId") || process.env.USER_POOL_ID, //OPTIONAL - Amazon Cognito User Pool ID
+  userPoolWebClientId: localStorage.getItem("appClientId") || process.env.USER_POOL_WEB_CLIENT_ID //OPTIONAL - Amazon Cognito Web Client ID
 });
 
 export const AuthConfigEmpty = () => ({
-  region: "ap-northeast-1",
-  userPoolId: "ap-northeast-1_p4udkwsmG",
-  userPoolWebClientId: "5v1i7enorgsiqucuqee3sr2086"
+  region: process.env.REGION,
+  userPoolId: process.env.USER_POOL_ID,
+  userPoolWebClientId: process.env.USER_POOL_WEB_CLIENT_ID
 });
 export const GetCognitoAuth = (identifyProvider, onSuccess, onFailure) => {
   var authData = {
-    ClientId: localStorage.getItem("appClientId") || "5v1i7enorgsiqucuqee3sr2086", // Your client id here
-    AppWebDomain: "ohapo-federation.auth.ap-northeast-1.amazoncognito.com",
+    ClientId: localStorage.getItem("appClientId") || process.env.USER_POOL_WEB_CLIENT_ID, // Your client id here
+    AppWebDomain: process.env.APP_WEB_DOMAIN,
     TokenScopesArray: [
       "profile",
       "email",
@@ -23,8 +23,8 @@ export const GetCognitoAuth = (identifyProvider, onSuccess, onFailure) => {
       "aws.cognito.signin.user.admin",
       "phone"
     ],
-    RedirectUriSignIn: "http://localhost:3032/idpcallback",
-    RedirectUriSignOut: "http://localhost:3032/login",
+    RedirectUriSignIn: process.env.REDIRECT_URL_SIGN_IN,
+    RedirectUriSignOut: process.env.REDIRECT_URL_SIGN_OUT,
     IdentityProvider: identifyProvider
   };
   var auth = new CognitoAuth(authData);
