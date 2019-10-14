@@ -39,3 +39,8 @@ export function put(path, params) {
 export const getForHealthCheck = path => {
   return axios.get(`${process.env.LOCALHOST_API_URL}${path}`);
 };
+
+// TODO: 不要になったら削除する
+export const getForHealthCheckWithAuth = path => {
+  return axios.get(`${process.env.LOCALHOST_API_URL}${path}`);
+};
