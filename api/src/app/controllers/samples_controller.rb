@@ -5,4 +5,10 @@ class SamplesController < ApplicationController
     json = { result: "ok" }
     render json: json
   end
+  
+
+  def healthckeckWithAuth
+    json = { result: "ok" }
+    render json: json
+  end
 end
