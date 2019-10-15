@@ -9,8 +9,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Typography,
-  Button
+  Button,
 } from "@material-ui/core";
 import fetchNews from "../../actions/fetchNews";
 import { theme } from "../../consts/theme";
@@ -19,36 +18,43 @@ class NewsCard extends React.Component {
   componentDidMount() {
     this.props.loadNews();
   }
+
   render() {
     const { news, isLoading, error } = this.props;
     const articles = news.news && news.news.articles;
     const articleList = [];
 
-    console.log(articles);
-
     articles && buildNews();
 
+    // Hours, Minuteの0詰め
+    function toDoubleDigits(num) {
+      let str = String(num);
+      if (str.length === 1) str = "0" + str;
+      return str;
+    }
+
     function buildNews() {
-      for (let i = 0, n = 6; i < n; i++) {
+      for (let i = 0, n = articles.length; i < n; i++) {
         articleList[i] = {
           source: "",
           title: "",
-          description: "",
           publishedAt: "",
           image: "",
           url: ""
         };
 
-        let publishedAt = `
-          ${new Date(articles[i].publishedAt).getMonth() + 1}/${new Date(articles[i].publishedAt).getDate()}
-          ${new Date(articles[i].publishedAt).getHours()}:${new Date(articles[i].publishedAt).getMinutes()}
-        `;
+        // publishedAtを MM/DD HH:MM 形式に変換する
+        let publishedMonth = new Date(articles[i].publishedAt).getMonth() + 1;
+        let publishedDate = new Date(articles[i].publishedAt).getDate();
+        let publishedHours = toDoubleDigits(new Date(articles[i].publishedAt).getHours());
+        let publishedMinutes = toDoubleDigits(new Date(articles[i].publishedAt).getMinutes());
+        let publishedAt = `${publishedMonth}/${publishedDate} ${publishedHours}:${publishedMinutes}`;
 
         articleList[i].source = articles[i].source.name;
         articleList[i].title = articles[i].title;
-        articleList[i].description = articles[i].description;
         articleList[i].publishedAt = publishedAt;
-        articleList[i].image = articles[i].urlToImage || "";
+        articleList[i].image =
+          articles[i].urlToImage || "https://i.imgur.com/kt6id86.png";
         articleList[i].url = articles[i].url;
       }
       return articleList;
@@ -76,30 +82,35 @@ class NewsCard extends React.Component {
                 <EachNewsGrid item xs={4} key={index}>
                   <Card>
                     <CardMedia
-                      style={{ height: 250 }}
+                      style={{ height: 200 }}
                       image={article.image}
                       title={article.title}
                     />
                     <CardContent>
                       <ArticleTitle>{article.title}</ArticleTitle>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {article.description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small" color="primary">
-                        共有
-                      </Button>
-                      <Button size="small" color="primary">
-                        <SourceLink href={article.url}>ソースを見る</SourceLink>
-                      </Button>
                       <PublishedAtWrapper>
                         <PublishedAt>{article.publishedAt}</PublishedAt>
                       </PublishedAtWrapper>
+                    </CardContent>
+                    <CardActions>
+                      <Grid container>
+                        <Grid item xs={3}>
+                          <Button size="small" color="primary">
+                            共有
+                          </Button>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <Button
+                            size="small"
+                            color="primary"
+                            href={article.url}
+                            target="_blank"
+                          >
+                            ソースを見る
+                          </Button>
+                        </Grid>
+                        <Grid item xs={4}></Grid>
+                      </Grid>
                     </CardActions>
                   </Card>
                 </EachNewsGrid>
@@ -120,6 +131,7 @@ NewsCard.propTypes = {
 
 const Wrapper = styled.div`
   padding: 10px;
+  width: 100%;
 `;
 
 const CenteringGrid = styled(Grid)`
@@ -135,22 +147,18 @@ const EachNewsGrid = styled(Grid)`
   padding: 30px;
 `;
 
-const ArticleTitle = styled.h4`
+const ArticleTitle = styled.span`
+  font-weight: 600;
   color: ${theme.palette.muted.dark};
-  margin-bottom: 10px;
-`;
-
-const SourceLink = styled.a`
-  text-decoration: none;
 `;
 
 const PublishedAtWrapper = styled.div`
-  width: 60%;
   text-align: right;
+  margin: 0 20px;
 `;
 
 const PublishedAt = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   color: ${theme.palette.muted.main};
 `;
 

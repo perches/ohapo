@@ -22,11 +22,13 @@ class Login extends React.Component {
           <TextPrimary>
             🌞おはポにログインしてすべての機能を使いましょう🐥
           </TextPrimary>
-          <TextSecondary>
-            ログインしなくても利用することができます
-          </TextSecondary>
           <LoginButtonWrapper>
-            <Fab variant="extended" color="primary" aria-label="add">
+            <Fab
+              variant="extended"
+              color="primary"
+              aria-label="add"
+              href="user/twitter"
+            >
               <LoginIcon icon={["fab", "twitter"]} brand="twitter" />
               Twitterアカウントでログインする
             </Fab>
@@ -37,6 +39,7 @@ class Login extends React.Component {
               color="default"
               aria-label="add"
               size="small"
+              href="home"
             >
               <TextWithoutLogin>ログインせずに使う</TextWithoutLogin>
             </Fab>
@@ -80,12 +83,6 @@ const TextPrimary = styled.p`
   font-size: 28px;
   font-weight: 400;
   margin: 10px;
-`;
-
-const TextSecondary = styled.p`
-  font-size: 18px;
-  color: ${theme.palette.muted.light};
-  font-weight: 100;
 `;
 
 const LoginButtonWrapper = styled.div`

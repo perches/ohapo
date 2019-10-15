@@ -44,7 +44,6 @@ class WeatherCard extends React.Component {
 
         this24Hours[i].weather = result.list[i].weather[0].description;
         this24Hours[i].timeStamp = `${new Date(jstTime).getHours()}時`;
-        // TODO: ハードコード
         this24Hours[i].iconUrl = `http://openweathermap.org/img/wn/${[
           result.list[i].weather[0].icon
         ]}.png`;
@@ -105,7 +104,7 @@ class WeatherCard extends React.Component {
             </DetailsWrapperRelative>
             <Grid container justify="center">
               {chartData && (
-                <ChartContainer style={{ width: "90%", height: 200 }}>
+                <ChartContainer style={{ width: "75%", height: 220 }}>
                   <ResponsiveContainer>
                     <ComposedChart data={chartData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -157,7 +156,7 @@ WeatherCard.propTypes = {
 };
 
 const Wrapper = styled.div`
-  height: 300px;
+  height: 340px;
 `;
 
 const CenteringGrid = styled(Grid)`
@@ -181,8 +180,8 @@ const CityWrapperRelative = styled.div`
 
 const CityText = styled.p`
   text-align: center;
-  -webkit-transform: translate(-50%, 40%);
-  transform: translate(-50%, 40%);
+  -webkit-transform: translate(-50%, 70%);
+  transform: translate(-50%, 70%);
   font-size: 100px;
   font-weight: 900;
   color: #fff;
