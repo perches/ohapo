@@ -13,7 +13,7 @@ class JsonWebToken
     OpenSSL::BN.new unpacked, 16
   end
 
-  def self.decode(jwk, header)
+  def self.fetch(jwk, header)
     modulus = openssl_bn(jwk["n"])
     exponent = openssl_bn(jwk["e"])
     sequence = OpenSSL::ASN1::Sequence.new(

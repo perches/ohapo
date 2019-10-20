@@ -30,7 +30,7 @@ class ApplicationController < ActionController::API
       return render json: { error: "user not_found" } if jwk.empty?
 
       # Cognitoから取得したjwkとフロントから受け取るユーザ情報を比較する
-      JsonWebToken.decode(jwk, header)
+      JsonWebToken.fetch(jwk, header)
 
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
