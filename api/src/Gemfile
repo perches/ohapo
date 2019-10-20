@@ -21,6 +21,10 @@ gem "geocoder"
 # JSONの返却にSerializerを使う
 gem "active_model_serializers", "~> 0.10.0"
 
+# JSON Web Tokenを扱うためにimport
+gem "jwt"
+gem "aws-sdk-cognitoidentityprovider"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # pry-byebugを用いるためコメントアウト
